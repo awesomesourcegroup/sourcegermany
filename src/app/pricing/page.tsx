@@ -40,11 +40,6 @@ const fees = [
   },
 ];
 
-const vatExplained = [
-  { label: "You buy a €1,190 item in Germany", note: "Price includes 19% German VAT" },
-  { label: "We export it — Germany refunds us 19% VAT", note: "€190 back to us on export" },
-  { label: "We pass this saving to you in the quote", note: "Your price is lower than you'd pay domestically" },
-];
 
 export default function PricingPage() {
   return (
@@ -74,32 +69,6 @@ export default function PricingPage() {
                   <span className="inline-block font-semibold text-sm px-3 py-1.5 rounded bg-zinc-100 text-zinc-800">
                     {f.range}
                   </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* VAT advantage */}
-      <section className="py-20 px-6 bg-zinc-50">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold mb-4 tracking-tight">The German VAT Advantage</h2>
-          <p className="text-zinc-500 mb-10 text-sm leading-relaxed">
-            Germany charges 19% VAT on all retail purchases. When goods are exported, Germany refunds that VAT to the exporter. This is a legitimate structural saving — not a discount — and it's why buying through us can be cheaper than buying the same item in your home country.
-          </p>
-          <div className="space-y-4">
-            {vatExplained.map((v, i) => (
-              <div key={i} className="flex gap-4 items-start">
-                <div
-                  className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-black"
-                  style={{ backgroundColor: GOLD }}
-                >
-                  {i + 1}
-                </div>
-                <div>
-                  <p className="font-medium text-zinc-900 text-sm">{v.label}</p>
-                  <p className="text-xs text-zinc-500 mt-0.5">{v.note}</p>
                 </div>
               </div>
             ))}

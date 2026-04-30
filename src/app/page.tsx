@@ -1,27 +1,32 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const GOLD = "#C9A84C";
 
 const pillars = [
   {
-    icon: "🔧",
     title: "Tools & Hardware",
     desc: "Festool, Bosch Professional, Knipex — German precision tools built to last a lifetime.",
+    img: "/images/pillar-tools.jpg",
+    imgAlt: "Modern professional cordless power drills",
   },
   {
-    icon: "🚗",
     title: "Automotive",
     desc: "OEM parts, accessories, and performance upgrades direct from German suppliers.",
+    img: "/images/pillar-auto.jpg",
+    imgAlt: "Porsche 911 sports car",
   },
   {
-    icon: "👜",
     title: "Fashion & Luxury",
     desc: "Hugo Boss, Adidas originals, MCM, and boutique German labels — authenticated, at retail.",
+    img: "/images/pillar-fashion.jpg",
+    imgAlt: "German menswear suit",
   },
   {
-    icon: "📷",
     title: "Cameras & Optics",
     desc: "Leica, Zeiss, and Rollei — specialist sourcing for collectors and professionals.",
+    img: "/images/pillar-cameras.jpg",
+    imgAlt: "Leica branded camera film boxes",
   },
 ];
 
@@ -70,8 +75,18 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero */}
-      <section className="bg-zinc-950 text-white py-28 px-6">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="relative bg-zinc-950 text-white py-28 px-6 overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/hero-industry.jpg"
+            alt="German industrial engineering machinery"
+            fill
+            sizes="100vw"
+            className="object-cover opacity-20"
+            priority
+          />
+        </div>
+        <div className="relative max-w-4xl mx-auto text-center">
           <p className="text-xs uppercase tracking-[0.25em] mb-5" style={{ color: GOLD }}>
             Germany → Worldwide
           </p>
@@ -106,7 +121,7 @@ export default function Home() {
           {[
             ["5–8 days", "to Singapore"],
             ["6–10 days", "to Australia"],
-            ["19% VAT", "refunded on export"],
+            ["4 regions", "Singapore, AU, CA, USA"],
             ["DDP", "duties always included"],
           ].map(([val, label]) => (
             <div key={val}>
@@ -129,13 +144,43 @@ export default function Home() {
             {pillars.map((p) => (
               <div
                 key={p.title}
-                className="border border-zinc-200 rounded-lg p-6 hover:border-zinc-400 transition-colors group"
+                className="border border-zinc-200 rounded-lg overflow-hidden hover:border-zinc-400 transition-colors group"
               >
-                <div className="text-3xl mb-4">{p.icon}</div>
-                <h3 className="font-semibold text-zinc-900 mb-2 text-sm uppercase tracking-wide">{p.title}</h3>
-                <p className="text-zinc-500 text-sm leading-relaxed">{p.desc}</p>
+                <div className="relative h-44 bg-zinc-100">
+                  <Image
+                    src={p.img}
+                    alt={p.imgAlt}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                <div className="p-5">
+                  <h3 className="font-semibold text-zinc-900 mb-2 text-sm uppercase tracking-wide">{p.title}</h3>
+                  <p className="text-zinc-500 text-sm leading-relaxed">{p.desc}</p>
+                </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Full-width image break */}
+      <section className="relative h-72 md:h-96 overflow-hidden">
+        <Image
+          src="/images/banner-automotive.jpg"
+          alt="Precision German automotive engineering"
+          fill
+          sizes="100vw"
+          priority
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-zinc-950/60 flex items-center justify-center">
+          <div className="text-center text-white px-6">
+            <p className="text-xs uppercase tracking-[0.25em] mb-3" style={{ color: GOLD }}>Made in Germany</p>
+            <p className="text-2xl md:text-4xl font-bold tracking-tight max-w-2xl">
+              Engineered to a standard, not a price.
+            </p>
           </div>
         </div>
       </section>
@@ -201,7 +246,6 @@ export default function Home() {
           </Link>
         </div>
       </section>
-
     </div>
   );
 }
