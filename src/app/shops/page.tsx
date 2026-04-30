@@ -12,7 +12,7 @@ const shops = [
     category: "Tools & Hardware",
     icon: "🔧",
     stores: [
-      { name: "Festool Shop", url: "https://www.festool.com/de", desc: "Official Festool online shop. Premium power tools for professionals." },
+      { name: "Festool Shop", url: "https://www.festool.com", desc: "Official Festool online shop. Premium power tools for professionals." },
       { name: "Würth Online", url: "https://www.wuerth.de", desc: "Germany's largest trade supplier. Fasteners, tools, chemicals, and more." },
       { name: "Knipex", url: "https://www.knipex.com", desc: "World-famous pliers and cutting tools. German family business since 1882." },
       { name: "Bosch Professional", url: "https://www.bosch-professional.com/de/de", desc: "Blue line — the professional-grade Bosch range not sold everywhere." },
@@ -23,9 +23,9 @@ const shops = [
     category: "Automotive",
     icon: "🚗",
     stores: [
-      { name: "Auto-Krause", url: "https://www.auto-krause.de", desc: "OEM and aftermarket parts. Strong on German marques." },
-      { name: "ETK / TecDoc", url: "https://www.etk.de", desc: "Professional parts lookup and supply used by German workshops." },
-      { name: "Liqui-Moly Shop", url: "https://shop.liqui-moly.com/de", desc: "Germany's premium motor oils, additives, and care products." },
+      { name: "ATU Auto-Teile-Unger", url: "https://www.atu.de", desc: "Germany's largest auto parts and service chain. OEM and aftermarket parts." },
+      { name: "Autodoc", url: "https://www.autodoc.de", desc: "Major German online auto parts retailer. Huge catalogue, fast shipping." },
+      { name: "Liqui-Moly Shop", url: "https://www.liqui-moly.com/de", desc: "Germany's premium motor oils, additives, and care products." },
       { name: "Louis Motorrad", url: "https://www.louis.de", desc: "Europe's largest motorcycle gear and accessories retailer." },
     ],
   },
@@ -43,19 +43,19 @@ const shops = [
     category: "Cameras & Optics",
     icon: "📷",
     stores: [
-      { name: "Leica Store", url: "https://store.leica-camera.com/de", desc: "Official Leica camera and optics store. Wetzlar, Germany." },
-      { name: "Calumet Photographic", url: "https://www.calumetphoto.de", desc: "Professional camera and studio equipment. Strong Zeiss selection." },
+      { name: "Leica Store", url: "https://leica-camera.com/de-DE", desc: "Official Leica camera and optics store. Wetzlar, Germany." },
+      { name: "Calumet Photographic", url: "https://www.calumet.de", desc: "Professional camera and studio equipment. Strong Zeiss selection." },
       { name: "Foto Koch", url: "https://www.fotokoch.de", desc: "Cologne-based specialist. Excellent used Leica and vintage inventory." },
-      { name: "Foto Porst", url: "https://www.porst.de", desc: "One of Germany's oldest camera retailers. Broad range." },
+      { name: "Ringfoto", url: "https://www.ringfoto.de", desc: "One of Germany's oldest camera retail networks. Broad range." },
     ],
   },
   {
     category: "Smart Home & Audio",
     icon: "🔊",
     stores: [
-      { name: "Sennheiser", url: "https://de.sennheiser.com", desc: "Official German store. Headphones, microphones, and pro audio." },
-      { name: "Beyerdynamic", url: "https://europe.beyerdynamic.com/de", desc: "Heilbronn-made headphones and microphones. Audiophile staple." },
-      { name: "AVM Fritz!Box", url: "https://avm.de", desc: "Germany's most popular router and smart home ecosystem." },
+      { name: "Sennheiser", url: "https://www.sennheiser.com/de-de", desc: "Official German store. Headphones, microphones, and pro audio." },
+      { name: "Beyerdynamic", url: "https://www.beyerdynamic.com", desc: "Heilbronn-made headphones and microphones. Audiophile staple." },
+      { name: "AVM Fritz!Box", url: "https://www.fritz.com", desc: "Germany's most popular router and smart home ecosystem." },
       { name: "Conrad Electronic", url: "https://www.conrad.de", desc: "Germany's Farnell/Mouser equivalent. Electronics, components, smart home." },
     ],
   },
@@ -63,7 +63,7 @@ const shops = [
     category: "Health & Beauty",
     icon: "🌿",
     stores: [
-      { name: "Weleda Shop", url: "https://shop.weleda.de", desc: "Certified natural and biodynamic cosmetics. Globally trusted." },
+      { name: "Weleda Shop", url: "https://www.weleda.de", desc: "Certified natural and biodynamic cosmetics. Globally trusted." },
       { name: "Dr. Hauschka", url: "https://www.drhauschka.de", desc: "Biodynamic skincare. Cult classic in dermatology circles." },
       { name: "DM Drogerie", url: "https://www.dm.de", desc: "Germany's pharmacy and beauty chain. Excellent own-brand products." },
       { name: "Beurer", url: "https://www.beurer.com/de", desc: "German health and wellbeing devices. Blood pressure monitors, TENS, massagers." },
@@ -94,13 +94,19 @@ export default function ShopsPage() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {cat.stores.map((s) => (
-                  <div key={s.name} className="border border-zinc-200 rounded-lg p-5 hover:border-zinc-400 transition-colors">
+                  <a
+                    key={s.name}
+                    href={s.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border border-zinc-200 rounded-lg p-5 hover:border-zinc-400 hover:shadow-sm transition-all group block"
+                  >
                     <div className="flex items-start justify-between gap-2 mb-2">
-                      <h3 className="font-semibold text-zinc-900 text-sm">{s.name}</h3>
-                      <span className="text-xs text-zinc-400 flex-shrink-0 pt-0.5">{s.url.replace("https://", "").split("/")[0]}</span>
+                      <h3 className="font-semibold text-zinc-900 text-sm group-hover:underline underline-offset-2">{s.name}</h3>
+                      <span className="text-xs text-zinc-400 flex-shrink-0 pt-0.5">↗</span>
                     </div>
                     <p className="text-xs text-zinc-500 leading-relaxed">{s.desc}</p>
-                  </div>
+                  </a>
                 ))}
               </div>
             </div>
