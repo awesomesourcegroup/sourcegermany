@@ -20,8 +20,8 @@ export async function POST(req: NextRequest) {
     }
 
     await resend.emails.send({
-      from: "SourceGermany Enquiries <enquiries@sourcegermany.com>",
-      to: ["hello@sourcegermany.com"],
+      from: "SourceGermany <contact@sourcegermany.com>",
+      to: ["contact@sourcegermany.com"],
       replyTo: email,
       subject: `New Enquiry${name ? ` from ${name}` : ""} — ${DEST_LABELS[destination] ?? destination}`,
       html: `

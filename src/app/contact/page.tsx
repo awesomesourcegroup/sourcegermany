@@ -8,9 +8,9 @@ const channels = [
   {
     icon: "✉️",
     title: "Email",
-    detail: "hello@sourcegermany.com",
+    detail: "contact@sourcegermany.com",
     note: "We respond within 12 hours (Mon–Sat).",
-    link: "mailto:hello@sourcegermany.com",
+    link: "mailto:contact@sourcegermany.com",
     cta: "Send Email",
   },
   {
@@ -178,7 +178,7 @@ export default function ContactPage() {
                 />
               </div>
               {status === "error" && (
-                <p className="text-sm text-red-500">Something went wrong. Please email us directly at hello@sourcegermany.com</p>
+                <p className="text-sm text-red-500">Something went wrong. Please email us directly at contact@sourcegermany.com</p>
               )}
               <button
                 type="submit"
