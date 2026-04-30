@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import { NextRequest, NextResponse } from "next/server";
 import { calculateEstimate, type Destination, type ShippingMode } from "@/lib/pricing";
 
