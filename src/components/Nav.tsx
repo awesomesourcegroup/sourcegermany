@@ -17,9 +17,8 @@ export default function Nav() {
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-zinc-200">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight text-lg">
-          <span className="text-black">Source</span>
-          <span style={{ color: "#C9A84C" }}>Germany</span>
+        <Link href="/" className="font-semibold tracking-tight text-lg">
+          <span className="text-black">Source</span><span style={{ color: "#C9A84C" }}>Germany</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-zinc-600">

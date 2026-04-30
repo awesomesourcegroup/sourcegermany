@@ -7,10 +7,55 @@ export const metadata = {
 
 const GOLD = "#C9A84C";
 
+const IconWrench = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+  </svg>
+);
+
+const IconCar = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <rect x="1" y="11" width="22" height="7" rx="1"/>
+    <path d="M5 11l2.5-4h9l2.5 4"/>
+    <circle cx="7" cy="18" r="1.5"/>
+    <circle cx="17" cy="18" r="1.5"/>
+  </svg>
+);
+
+const IconBag = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+    <line x1="3" y1="6" x2="21" y2="6"/>
+    <path d="M16 10a4 4 0 01-8 0"/>
+  </svg>
+);
+
+const IconCamera = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/>
+    <circle cx="12" cy="13" r="4"/>
+  </svg>
+);
+
+const IconHeadphones = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <path d="M3 18v-6a9 9 0 0118 0v6"/>
+    <path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/>
+  </svg>
+);
+
+const IconLeaf = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <path d="M11 20A7 7 0 014 13c0-6 9-9 9-9s9 3 9 9a7 7 0 01-7 7z"/>
+    <path d="M4 13l7 7"/>
+  </svg>
+);
+
 const shops = [
   {
     category: "Tools & Hardware",
-    icon: "🔧",
+    id: "tools-hardware",
+    icon: <IconWrench />,
     stores: [
       { name: "Festool Shop", url: "https://www.festool.com", desc: "Official Festool online shop. Premium power tools for professionals." },
       { name: "Würth Online", url: "https://www.wuerth.de", desc: "Germany's largest trade supplier. Fasteners, tools, chemicals, and more." },
@@ -21,7 +66,8 @@ const shops = [
   },
   {
     category: "Automotive",
-    icon: "🚗",
+    id: "automotive",
+    icon: <IconCar />,
     stores: [
       { name: "ATU Auto-Teile-Unger", url: "https://www.atu.de", desc: "Germany's largest auto parts and service chain. OEM and aftermarket parts." },
       { name: "Autodoc", url: "https://www.autodoc.de", desc: "Major German online auto parts retailer. Huge catalogue, fast shipping." },
@@ -31,7 +77,8 @@ const shops = [
   },
   {
     category: "Fashion & Luxury",
-    icon: "👜",
+    id: "fashion-luxury",
+    icon: <IconBag />,
     stores: [
       { name: "Hugo Boss", url: "https://www.hugoboss.com/de", desc: "Official German store. Suits, casualwear, and accessories." },
       { name: "MCM Worldwide", url: "https://www.mcmworldwide.com/de", desc: "Munich-born luxury leather goods brand." },
@@ -41,7 +88,8 @@ const shops = [
   },
   {
     category: "Cameras & Optics",
-    icon: "📷",
+    id: "cameras-optics",
+    icon: <IconCamera />,
     stores: [
       { name: "Leica Store", url: "https://leica-camera.com/de-DE", desc: "Official Leica camera and optics store. Wetzlar, Germany." },
       { name: "Calumet Photographic", url: "https://www.calumet.de", desc: "Professional camera and studio equipment. Strong Zeiss selection." },
@@ -51,7 +99,8 @@ const shops = [
   },
   {
     category: "Smart Home & Audio",
-    icon: "🔊",
+    id: "smart-home-audio",
+    icon: <IconHeadphones />,
     stores: [
       { name: "Sennheiser", url: "https://www.sennheiser.com/de-de", desc: "Official German store. Headphones, microphones, and pro audio." },
       { name: "Beyerdynamic", url: "https://www.beyerdynamic.com", desc: "Heilbronn-made headphones and microphones. Audiophile staple." },
@@ -61,7 +110,8 @@ const shops = [
   },
   {
     category: "Health & Beauty",
-    icon: "🌿",
+    id: "health-beauty",
+    icon: <IconLeaf />,
     stores: [
       { name: "Weleda Shop", url: "https://www.weleda.de", desc: "Certified natural and biodynamic cosmetics. Globally trusted." },
       { name: "Dr. Hauschka", url: "https://www.drhauschka.de", desc: "Biodynamic skincare. Cult classic in dermatology circles." },
@@ -87,9 +137,9 @@ export default function ShopsPage() {
       <section className="py-16 px-6 bg-white">
         <div className="max-w-5xl mx-auto space-y-14">
           {shops.map((cat) => (
-            <div key={cat.category}>
+            <div key={cat.category} id={cat.id}>
               <div className="flex items-center gap-3 mb-6">
-                <span className="text-2xl">{cat.icon}</span>
+                <span className="text-zinc-600">{cat.icon}</span>
                 <h2 className="text-xl font-bold tracking-tight">{cat.category}</h2>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

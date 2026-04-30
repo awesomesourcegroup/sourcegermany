@@ -9,7 +9,7 @@ const GOLD = "#C9A84C";
 
 const values = [
   { title: "Transparency First", desc: "No hidden fees. No vague \"surcharges\". Every cost is shown before you commit." },
-  { title: "Slow and Steady", desc: "We'd rather serve fewer customers exceptionally well than rush volume at the cost of quality." },
+  { title: "Reliable", desc: "We'd rather serve fewer customers exceptionally well than rush volume at the cost of quality." },
   { title: "Quality as Standard", desc: "We are German-based because quality is embedded in the culture here. We hold ourselves to the same standards as the products we ship." },
   { title: "Customer Advantage", desc: "We find ways to make every order as affordable as possible — VAT refunds, optimal packaging, honest quotes." },
 ];

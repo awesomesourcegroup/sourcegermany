@@ -4,9 +4,16 @@ import { useState } from "react";
 
 const GOLD = "#C9A84C";
 
+const IconMail = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+  </svg>
+);
+
 const channels = [
   {
-    icon: "✉️",
+    icon: <IconMail />,
     title: "Email",
     detail: "contact@sourcegermany.com",
     note: "We respond within 12 hours (Mon–Sat).",
@@ -115,7 +122,7 @@ export default function ContactPage() {
 
           {status === "success" ? (
             <div className="rounded-lg border border-green-200 bg-green-50 p-8 text-center">
-              <p className="text-2xl mb-3">✓</p>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 mx-auto mb-3 text-green-600"><polyline points="20 6 9 17 4 12"/></svg>
               <p className="font-semibold text-green-800 mb-1">Message sent!</p>
               <p className="text-sm text-green-700">We'll get back to you within 12 hours.</p>
               <button
@@ -158,10 +165,10 @@ export default function ContactPage() {
                   onChange={handleChange}
                   className="w-full border border-zinc-300 rounded px-3.5 py-2.5 text-sm focus:outline-none bg-white"
                 >
-                  <option value="singapore">🇸🇬 Singapore</option>
-                  <option value="australia">🇦🇺 Australia</option>
-                  <option value="canada">🇨🇦 Canada</option>
-                  <option value="usa">🇺🇸 United States</option>
+                  <option value="singapore">Singapore</option>
+                  <option value="australia">Australia</option>
+                  <option value="canada">Canada</option>
+                  <option value="usa">United States</option>
                   <option value="other">Other — I'll specify in message</option>
                 </select>
               </div>
