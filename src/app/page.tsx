@@ -1,5 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
+import ScrollReveal from "@/components/ScrollReveal";
+import HeroSlideshow from "@/components/HeroSlideshow";
 
 const GOLD = "#C9A84C";
 
@@ -118,180 +120,339 @@ const steps = [
   },
 ];
 
+function PillarCard({
+  pillar,
+  index,
+  className = "",
+}: {
+  pillar: typeof pillars[0];
+  index: number;
+  className?: string;
+}) {
+  return (
+    <Link
+      href={pillar.href}
+      className={`relative overflow-hidden block group bg-zinc-200 ${className}`}
+    >
+      <Image
+        src={pillar.img}
+        alt={pillar.imgAlt}
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        className="object-cover group-hover:scale-105 transition-transform duration-700"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/30 to-transparent" />
+      <div className="absolute inset-0 p-5 flex flex-col justify-end">
+        <span className="font-mono text-xs mb-1.5" style={{ color: GOLD }}>
+          0{index + 1}
+        </span>
+        <h3 className="text-white font-bold text-lg leading-tight">{pillar.title}</h3>
+        <p className="text-zinc-300 text-sm leading-relaxed mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 max-w-xs">
+          {pillar.desc}
+        </p>
+      </div>
+    </Link>
+  );
+}
+
 export default function Home() {
   return (
     <div className="flex flex-col">
-      {/* Hero */}
-      <section className="relative bg-zinc-950 text-white py-28 px-6 overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/hero-industry.jpg"
-            alt="German industrial engineering machinery"
-            fill
-            sizes="100vw"
-            className="object-cover opacity-20"
-            priority
-          />
-        </div>
-        <div className="relative max-w-4xl mx-auto text-center">
-          <p className="text-xs uppercase tracking-[0.25em] mb-5" style={{ color: GOLD }}>
-            Germany → Worldwide
-          </p>
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-tight mb-6">
-            Your Direct Line<br />to Germany
-          </h1>
-          <p className="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-            We buy any product from Germany and ship it to your door — customs paid,
-            premium packaging, no hidden fees. Ever.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/estimator"
-              className="px-8 py-3.5 rounded font-semibold text-black transition-colors"
-              style={{ backgroundColor: GOLD }}
+
+      {/* ── HERO ── */}
+      <section className="relative bg-zinc-950 text-white min-h-screen flex items-center overflow-hidden">
+        {/* Subtle texture */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.04]"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 0,transparent 50%)",
+            backgroundSize: "12px 12px",
+          }}
+        />
+
+        <div className="relative max-w-6xl mx-auto px-6 w-full py-16 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          {/* Left: Text */}
+          <div>
+            <p
+              className="hero-label font-mono text-xs uppercase tracking-[0.3em] mb-8"
+              style={{ color: GOLD }}
             >
-              Get a Price Estimate
-            </Link>
+              Germany → Worldwide
+            </p>
+            <h1 className="leading-none font-black mb-10">
+              <span className="hero-word-1 block text-7xl md:text-8xl lg:text-[8.5rem] tracking-tighter">
+                YOUR
+              </span>
+              <span className="hero-word-2 block text-7xl md:text-8xl lg:text-[8.5rem] tracking-tighter">
+                DIRECT
+              </span>
+              <span
+                className="hero-word-3 block text-7xl md:text-8xl lg:text-[8.5rem] tracking-tighter"
+                style={{ color: GOLD }}
+              >
+                LINE.
+              </span>
+            </h1>
+            <div
+              className="hero-sub border-l-2 pl-6 mb-10"
+              style={{ borderColor: GOLD }}
+            >
+              <p className="text-zinc-300 text-lg md:text-xl leading-relaxed max-w-md">
+                We buy any product from German retailers and ship it to your door —
+                customs paid, premium packaging, no hidden fees.
+              </p>
+            </div>
+            <div className="hero-cta flex flex-wrap gap-4">
+              <Link
+                href="/estimator"
+                className="px-8 py-4 font-bold text-black text-sm tracking-wide transition-opacity hover:opacity-85"
+                style={{ backgroundColor: GOLD }}
+              >
+                Get a Price Estimate
+              </Link>
+              <Link
+                href="/how-it-works"
+                className="px-8 py-4 font-semibold text-white text-sm border border-zinc-600 hover:border-zinc-400 transition-colors"
+              >
+                How It Works →
+              </Link>
+            </div>
+          </div>
+
+          {/* Right: Slideshow panel with gold corner accents */}
+          <div className="hero-image hidden lg:block relative">
+            <HeroSlideshow />
+            <div
+              className="absolute -top-3 -right-3 w-10 h-10 border-t-2 border-r-2 pointer-events-none"
+              style={{ borderColor: GOLD }}
+            />
+            <div
+              className="absolute -bottom-3 -left-3 w-10 h-10 border-b-2 border-l-2 pointer-events-none"
+              style={{ borderColor: GOLD }}
+            />
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-8 hidden md:flex flex-col items-center gap-3">
+          <span
+            className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-600"
+            style={{ writingMode: "vertical-rl" }}
+          >
+            Scroll
+          </span>
+          <div className="w-px h-14 bg-gradient-to-b from-zinc-600 to-transparent" />
+        </div>
+      </section>
+
+      {/* ── STATS ── */}
+      <section className="bg-white border-b border-zinc-100">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-zinc-100">
+            {[
+              ["5–8", "days to Singapore"],
+              ["6–10", "days to Australia"],
+              ["4", "regions served"],
+              ["DDP", "duties always included"],
+            ].map(([val, label], i) => (
+              <ScrollReveal key={val} delay={i * 60} className="py-10 px-6 text-center">
+                <p className="text-3xl md:text-4xl font-bold font-mono text-zinc-900">
+                  {val}
+                </p>
+                <p className="font-mono text-xs uppercase tracking-widest text-zinc-400 mt-2">
+                  {label}
+                </p>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── EXPERTISE PILLARS ── */}
+      <section className="py-24 px-6 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <ScrollReveal className="mb-12">
+            <div className="flex items-end justify-between flex-wrap gap-4">
+              <div>
+                <p className="font-mono text-xs uppercase tracking-[0.3em] text-zinc-400 mb-2">
+                  Specialisations
+                </p>
+                <h2 className="text-4xl font-bold tracking-tight">
+                  Our Expertise Pillars
+                </h2>
+              </div>
+              <Link
+                href="/shops"
+                className="text-sm font-medium text-zinc-500 hover:text-black transition-colors flex items-center gap-1.5"
+              >
+                Browse all shops
+                <span style={{ color: GOLD }}>→</span>
+              </Link>
+            </div>
+          </ScrollReveal>
+
+          {/* Bento grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            {/* Featured – 2 cols wide on desktop */}
+            <ScrollReveal className="md:col-span-2">
+              <PillarCard pillar={pillars[0]} index={0} className="h-72 md:h-80 lg:h-96" />
+            </ScrollReveal>
+
+            <ScrollReveal delay={100}>
+              <PillarCard pillar={pillars[1]} index={1} className="h-72 md:h-80 lg:h-96" />
+            </ScrollReveal>
+
+            {pillars.slice(2, 5).map((p, i) => (
+              <ScrollReveal key={p.title} delay={i * 70}>
+                <PillarCard pillar={p} index={i + 2} className="h-60 md:h-64" />
+              </ScrollReveal>
+            ))}
+
+            {/* Full-width last card */}
+            <ScrollReveal delay={80} className="md:col-span-2 lg:col-span-3">
+              <PillarCard pillar={pillars[5]} index={5} className="h-52 md:h-56" />
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ── QUOTE BREAK ── */}
+      <section className="relative bg-zinc-950 text-white py-24 md:py-32 overflow-hidden">
+        {/* Right-side image fading in */}
+        <div className="absolute right-0 top-0 bottom-0 w-full lg:w-1/2">
+          <Image
+            src="/images/banner-porsche.jpg"
+            alt="Porsche 911"
+            fill
+            sizes="50vw"
+            className="object-cover opacity-25 lg:opacity-40"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/70 to-transparent lg:via-zinc-950/50" />
+        </div>
+
+        <div className="relative max-w-6xl mx-auto px-6">
+          <ScrollReveal>
+            <p className="font-mono text-xs uppercase tracking-[0.3em] mb-6" style={{ color: GOLD }}>
+              Made in Germany
+            </p>
+            <blockquote className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight max-w-2xl">
+              Engineered to a standard,{" "}
+              <span style={{ color: GOLD }}>not a price.</span>
+            </blockquote>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── WHY US ── */}
+      <section className="py-24 px-6 bg-zinc-950 text-white">
+        <div className="max-w-6xl mx-auto">
+          <ScrollReveal className="mb-16">
+            <p className="font-mono text-xs uppercase tracking-[0.3em] mb-3" style={{ color: GOLD }}>
+              Why SourceGermany
+            </p>
+            <h2 className="text-4xl font-bold tracking-tight">Built Different.</h2>
+          </ScrollReveal>
+
+          <div className="border-t border-zinc-800">
+            {trustPoints.map((t, i) => (
+              <ScrollReveal key={t.title} delay={i * 80} className="border-b border-zinc-800">
+                <div className="py-8 grid grid-cols-12 items-start gap-4 md:gap-6 group cursor-default hover:bg-white/[0.02] transition-colors -mx-4 px-4">
+                  <div className="col-span-2 md:col-span-1">
+                    <span
+                      className="font-mono text-2xl md:text-3xl font-black"
+                      style={{ color: GOLD, opacity: 0.35 }}
+                    >
+                      0{i + 1}
+                    </span>
+                  </div>
+                  <div className="col-span-1 pt-0.5">
+                    <div
+                      className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+                      style={{ backgroundColor: GOLD, color: "black" }}
+                    >
+                      {t.icon}
+                    </div>
+                  </div>
+                  <div className="col-span-9 md:col-span-10">
+                    <h3 className="font-semibold text-white text-base md:text-lg mb-1.5 group-hover:text-[#C9A84C] transition-colors">
+                      {t.title}
+                    </h3>
+                    <p className="text-zinc-400 text-sm leading-relaxed">{t.desc}</p>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── HOW IT WORKS ── */}
+      <section className="py-24 px-6 bg-zinc-50">
+        <div className="max-w-6xl mx-auto">
+          <ScrollReveal className="text-center mb-16">
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-zinc-400 mb-3">
+              The Process
+            </p>
+            <h2 className="text-4xl font-bold tracking-tight">
+              Simple. Transparent. Reliable.
+            </h2>
+          </ScrollReveal>
+
+          <div className="relative grid grid-cols-1 md:grid-cols-3 gap-12">
+            {/* Connecting line — desktop only */}
+            <div
+              className="hidden md:block absolute h-px bg-zinc-300"
+              style={{ top: "2.625rem", left: "20%", right: "20%" }}
+            />
+            {steps.map((s, i) => (
+              <ScrollReveal key={s.n} delay={i * 130} className="flex flex-col items-center text-center">
+                <div
+                  className="relative z-10 w-[3.25rem] h-[3.25rem] rounded-full border-2 flex items-center justify-center bg-zinc-50 mb-6"
+                  style={{ borderColor: GOLD }}
+                >
+                  <span className="font-mono font-bold text-base" style={{ color: GOLD }}>
+                    {s.n}
+                  </span>
+                </div>
+                <h3 className="font-bold text-xl mb-3 text-zinc-900">{s.title}</h3>
+                <p className="text-zinc-500 text-sm leading-relaxed">{s.desc}</p>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          <ScrollReveal delay={400} className="text-center mt-12">
             <Link
               href="/how-it-works"
-              className="px-8 py-3.5 rounded font-semibold text-white border border-zinc-600 hover:border-zinc-400 transition-colors"
+              className="text-sm font-medium text-zinc-400 hover:text-black transition-colors border-b border-zinc-300 hover:border-black pb-0.5"
             >
-              How It Works
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats bar */}
-      <section className="bg-zinc-900 text-white border-y border-zinc-800">
-        <div className="max-w-5xl mx-auto px-6 py-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center text-sm">
-          {[
-            ["5–8 days", "to Singapore"],
-            ["6–10 days", "to Australia"],
-            ["4 regions", "Singapore, AU, CA, USA"],
-            ["DDP", "duties always included"],
-          ].map(([val, label]) => (
-            <div key={val}>
-              <p className="text-xl font-bold" style={{ color: GOLD }}>{val}</p>
-              <p className="text-zinc-400 mt-1">{label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Expertise Pillars */}
-      <section className="py-24 px-6 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <p className="text-xs uppercase tracking-widest text-zinc-400 mb-2 text-center">Specialisations</p>
-          <h2 className="text-3xl font-bold text-center mb-3 tracking-tight">Our Expertise Pillars</h2>
-          <p className="text-zinc-500 text-center mb-14 max-w-xl mx-auto">
-            We don't ship everything — we ship it right. Depth over breadth, every time.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {pillars.map((p) => (
-              <Link
-                key={p.title}
-                href={p.href}
-                className="border border-zinc-200 rounded-lg overflow-hidden hover:border-zinc-400 transition-colors group block"
-              >
-                <div className="relative h-44 bg-zinc-100">
-                  <Image
-                    src={p.img}
-                    alt={p.imgAlt}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-5">
-                  <h3 className="font-semibold text-zinc-900 mb-2 text-sm uppercase tracking-wide">{p.title}</h3>
-                  <p className="text-zinc-500 text-sm leading-relaxed">{p.desc}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Full-width image break */}
-      <section className="relative h-72 md:h-96 overflow-hidden">
-        <Image
-          src="/images/banner-porsche.jpg"
-          alt="Porsche 911 Turbo S"
-          fill
-          sizes="100vw"
-          priority
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-zinc-950/60 flex items-center justify-center">
-          <div className="text-center text-white px-6">
-            <p className="text-xs uppercase tracking-[0.25em] mb-3" style={{ color: GOLD }}>Made in Germany</p>
-            <p className="text-2xl md:text-4xl font-bold tracking-tight max-w-2xl">
-              Engineered to a standard, not a price.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Us */}
-      <section className="py-24 px-6 bg-zinc-50">
-        <div className="max-w-5xl mx-auto">
-          <p className="text-xs uppercase tracking-widest text-zinc-400 mb-2 text-center">Why SourceGermany</p>
-          <h2 className="text-3xl font-bold text-center mb-14 tracking-tight">Built Different</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-            {trustPoints.map((t) => (
-              <div key={t.title} className="flex gap-4">
-                <div
-                  className="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center text-black"
-                  style={{ backgroundColor: GOLD }}
-                >
-                  {t.icon}
-                </div>
-                <div>
-                  <h3 className="font-semibold text-zinc-900 mb-1">{t.title}</h3>
-                  <p className="text-zinc-500 text-sm leading-relaxed">{t.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works (mini) */}
-      <section className="py-24 px-6 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <p className="text-xs uppercase tracking-widest text-zinc-400 mb-2 text-center">The Process</p>
-          <h2 className="text-3xl font-bold text-center mb-14 tracking-tight">Simple. Transparent. Reliable.</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {steps.map((s) => (
-              <div key={s.n} className="text-center">
-                <p className="text-6xl font-bold mb-4" style={{ color: GOLD, opacity: 0.3 }}>{s.n}</p>
-                <h3 className="font-semibold text-zinc-900 mb-2 text-lg">{s.title}</h3>
-                <p className="text-zinc-500 text-sm leading-relaxed">{s.desc}</p>
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-12">
-            <Link href="/how-it-works" className="text-sm font-medium underline underline-offset-4 text-zinc-600 hover:text-black">
               Read the full process →
             </Link>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* CTA Strip */}
-      <section className="py-20 px-6" style={{ backgroundColor: GOLD }}>
-        <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-black mb-4 tracking-tight">Ready to order from Germany?</h2>
-          <p className="text-black/70 mb-8 text-lg">
-            Use our free cost estimator to see exactly what you'll pay — before you commit.
-          </p>
-          <Link
-            href="/estimator"
-            className="inline-flex items-center px-8 py-3.5 rounded font-semibold bg-black text-white hover:bg-zinc-800 transition-colors"
-          >
-            Calculate My Shipping Cost
-          </Link>
+      {/* ── CTA ── */}
+      <section className="py-24 px-6 overflow-hidden" style={{ backgroundColor: GOLD }}>
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <ScrollReveal>
+            <h2 className="text-5xl md:text-6xl font-black text-black leading-none tracking-tighter">
+              READY TO<br />
+              ORDER FROM<br />
+              GERMANY?
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={120} className="flex flex-col gap-5 md:items-end">
+            <p className="text-black/65 text-lg leading-relaxed max-w-sm md:text-right">
+              Use our free cost estimator to see exactly what you&apos;ll pay — before you commit.
+            </p>
+            <Link
+              href="/estimator"
+              className="inline-flex items-center px-8 py-4 font-bold bg-black text-white hover:bg-zinc-800 transition-colors text-sm tracking-wide"
+            >
+              Calculate My Cost →
+            </Link>
+          </ScrollReveal>
         </div>
       </section>
     </div>

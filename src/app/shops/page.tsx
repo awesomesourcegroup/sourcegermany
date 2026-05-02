@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ScrollReveal from "@/components/ScrollReveal";
 
 export const metadata = {
   title: "Top German Shops — SourceGermany",
@@ -124,56 +125,92 @@ const shops = [
 export default function ShopsPage() {
   return (
     <div>
-      <section className="py-20 px-6 bg-zinc-950 text-white">
-        <div className="max-w-3xl mx-auto">
-          <p className="text-xs uppercase tracking-widest mb-3" style={{ color: GOLD }}>Curated Directory</p>
-          <h1 className="text-4xl font-bold tracking-tight mb-4">Top German Shops</h1>
-          <p className="text-zinc-400 text-lg leading-relaxed">
-            Germany has thousands of specialist retailers that don't ship internationally — or make it difficult. We've curated the best ones by category so you know exactly where to find what you need.
+      {/* Header */}
+      <section className="py-24 px-6 bg-zinc-950 text-white">
+        <div className="max-w-5xl mx-auto">
+          <p className="font-mono text-xs uppercase tracking-[0.3em] mb-4" style={{ color: GOLD }}>
+            Curated Directory
+          </p>
+          <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-none mb-6">
+            TOP GERMAN<br />SHOPS.
+          </h1>
+          <p className="text-zinc-400 text-lg leading-relaxed max-w-2xl">
+            Germany has thousands of specialist retailers that don&apos;t ship internationally — or make
+            it difficult. We&apos;ve curated the best ones by category so you know exactly where to find
+            what you need.
           </p>
         </div>
       </section>
 
-      <section className="py-16 px-6 bg-white">
-        <div className="max-w-5xl mx-auto space-y-14">
-          {shops.map((cat) => (
-            <div key={cat.category} id={cat.id}>
-              <div className="flex items-center gap-3 mb-6">
-                <span className="text-zinc-600">{cat.icon}</span>
-                <h2 className="text-xl font-bold tracking-tight">{cat.category}</h2>
+      {/* Shop directory */}
+      <section className="py-20 px-6 bg-white">
+        <div className="max-w-5xl mx-auto space-y-20">
+          {shops.map((cat, ci) => (
+            <ScrollReveal key={cat.category} delay={ci * 40}>
+              <div id={cat.id}>
+                {/* Category header */}
+                <div className="flex items-center gap-3 mb-8 pb-4 border-b-2 border-zinc-900">
+                  <span className="text-zinc-700">{cat.icon}</span>
+                  <h2 className="text-xl font-bold tracking-tight">{cat.category}</h2>
+                  <span className="font-mono text-xs text-zinc-400 ml-auto">
+                    {cat.stores.length} shops
+                  </span>
+                </div>
+
+                {/* Shop cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {cat.stores.map((s, si) => (
+                    <ScrollReveal key={s.name} delay={si * 50}>
+                      <a
+                        href={s.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="border border-zinc-200 p-5 hover:border-zinc-900 hover:shadow-sm transition-all group block"
+                      >
+                        <div className="flex items-start justify-between gap-2 mb-2">
+                          <h3 className="font-semibold text-zinc-900 text-sm group-hover:underline underline-offset-2">
+                            {s.name}
+                          </h3>
+                          <span className="text-zinc-400 flex-shrink-0 pt-0.5 text-xs font-mono">↗</span>
+                        </div>
+                        <p className="text-xs text-zinc-500 leading-relaxed">{s.desc}</p>
+                      </a>
+                    </ScrollReveal>
+                  ))}
+                </div>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {cat.stores.map((s) => (
-                  <a
-                    key={s.name}
-                    href={s.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="border border-zinc-200 rounded-lg p-5 hover:border-zinc-400 hover:shadow-sm transition-all group block"
-                  >
-                    <div className="flex items-start justify-between gap-2 mb-2">
-                      <h3 className="font-semibold text-zinc-900 text-sm group-hover:underline underline-offset-2">{s.name}</h3>
-                      <span className="text-xs text-zinc-400 flex-shrink-0 pt-0.5">↗</span>
-                    </div>
-                    <p className="text-xs text-zinc-500 leading-relaxed">{s.desc}</p>
-                  </a>
-                ))}
-              </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </section>
 
-      <section className="py-14 px-6 bg-zinc-50 border-t border-zinc-200 text-center">
-        <p className="text-zinc-600 mb-2 font-medium">Found something you want to order?</p>
-        <p className="text-zinc-500 text-sm mb-7">Copy the product link and paste it into our estimator — or send it directly to us.</p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/estimator" className="inline-flex px-8 py-3.5 rounded font-semibold text-black" style={{ backgroundColor: GOLD }}>
-            Get a Price Estimate
-          </Link>
-          <Link href="/contact" className="inline-flex px-8 py-3.5 rounded font-semibold text-zinc-700 border border-zinc-300 hover:border-zinc-500 bg-white transition-colors">
-            Send Us the Link
-          </Link>
+      {/* CTA */}
+      <section className="py-24 px-6 overflow-hidden" style={{ backgroundColor: GOLD }}>
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <ScrollReveal>
+            <h2 className="text-5xl font-black text-black leading-none tracking-tighter">
+              FOUND<br />SOMETHING<br />YOU WANT?
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={120} className="flex flex-col gap-4 md:items-end">
+            <p className="text-black/65 text-lg max-w-sm md:text-right">
+              Copy the product link and paste it into our estimator — or send it directly to us.
+            </p>
+            <div className="flex flex-wrap gap-3 md:justify-end">
+              <Link
+                href="/estimator"
+                className="inline-flex items-center px-6 py-3.5 font-bold bg-black text-white hover:bg-zinc-800 transition-colors text-sm"
+              >
+                Get a Price Estimate
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex items-center px-6 py-3.5 font-bold bg-transparent text-black border-2 border-black hover:bg-black/10 transition-colors text-sm"
+              >
+                Send Us the Link
+              </Link>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
     </div>

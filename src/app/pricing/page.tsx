@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ScrollReveal from "@/components/ScrollReveal";
 
 export const metadata = {
   title: "Pricing & Transparency — SourceGermany",
@@ -40,80 +41,155 @@ const fees = [
   },
 ];
 
-
 export default function PricingPage() {
   return (
     <div>
-      <section className="py-20 px-6 bg-zinc-950 text-white">
-        <div className="max-w-3xl mx-auto">
-          <p className="text-xs uppercase tracking-widest mb-3" style={{ color: GOLD }}>Full Transparency</p>
-          <h1 className="text-4xl font-bold tracking-tight mb-4">Pricing & Fees</h1>
-          <p className="text-zinc-400 text-lg leading-relaxed">
-            We believe you should know exactly what you're paying and why. Here's every fee, explained plainly.
+      {/* Header */}
+      <section className="py-24 px-6 bg-zinc-950 text-white">
+        <div className="max-w-5xl mx-auto">
+          <p className="font-mono text-xs uppercase tracking-[0.3em] mb-4" style={{ color: GOLD }}>
+            Full Transparency
+          </p>
+          <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-none mb-6">
+            PRICING<br />&amp; FEES.
+          </h1>
+          <p className="text-zinc-400 text-lg leading-relaxed max-w-2xl">
+            We believe you should know exactly what you&apos;re paying and why. Here&apos;s every fee, explained plainly.
           </p>
         </div>
       </section>
 
-      {/* Fee breakdown */}
+      {/* Fee breakdown — numbered rows */}
       <section className="py-20 px-6 bg-white">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold mb-10 tracking-tight">Every Fee Explained</h2>
-          <div className="space-y-0 divide-y divide-zinc-100">
-            {fees.map((f) => (
-              <div key={f.name} className="py-7 flex flex-col sm:flex-row sm:justify-between gap-3">
-                <div className="sm:w-2/3">
-                  <h3 className="font-semibold text-zinc-900 mb-1">{f.name}</h3>
-                  <p className="text-sm text-zinc-500 leading-relaxed">{f.desc}</p>
+        <div className="max-w-5xl mx-auto">
+          <ScrollReveal className="mb-12">
+            <h2 className="text-3xl font-bold tracking-tight">Every Fee Explained</h2>
+          </ScrollReveal>
+          <div className="border-t border-zinc-200">
+            {fees.map((f, i) => (
+              <ScrollReveal key={f.name} delay={i * 60} className="border-b border-zinc-200">
+                <div className="py-8 grid grid-cols-12 gap-6 items-start">
+                  <div className="col-span-1 pt-1">
+                    <span
+                      className="font-mono text-2xl font-black leading-none"
+                      style={{ color: GOLD, opacity: 0.3 }}
+                    >
+                      0{i + 1}
+                    </span>
+                  </div>
+                  <div className="col-span-8 md:col-span-9">
+                    <h3 className="font-semibold text-zinc-900 mb-1.5">{f.name}</h3>
+                    <p className="text-sm text-zinc-500 leading-relaxed">{f.desc}</p>
+                  </div>
+                  <div className="col-span-3 md:col-span-2 text-right">
+                    <span
+                      className="inline-block font-mono font-semibold text-xs px-2.5 py-1.5 bg-zinc-100 text-zinc-800"
+                    >
+                      {f.range}
+                    </span>
+                  </div>
                 </div>
-                <div className="sm:text-right flex-shrink-0">
-                  <span className="inline-block font-semibold text-sm px-3 py-1.5 rounded bg-zinc-100 text-zinc-800">
-                    {f.range}
-                  </span>
-                </div>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* DDP vs DAP */}
-      <section className="py-20 px-6 bg-white border-t border-zinc-100">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold mb-4 tracking-tight">DDP vs DAP — Which Is Right for You?</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
-            <div className="border-2 rounded-lg p-6" style={{ borderColor: GOLD, backgroundColor: "#FBF4E3" }}>
-              <h3 className="font-bold text-zinc-900 mb-1">DDP — Recommended</h3>
-              <p className="text-xs text-zinc-500 mb-4">Delivered Duty Paid</p>
-              <ul className="space-y-2 text-sm text-zinc-700">
-                <li className="flex gap-2"><span className="text-green-600 font-bold">✓</span> All customs duties pre-paid</li>
-                <li className="flex gap-2"><span className="text-green-600 font-bold">✓</span> Zero charges at delivery</li>
-                <li className="flex gap-2"><span className="text-green-600 font-bold">✓</span> No interaction with customs</li>
-                <li className="flex gap-2"><span className="text-zinc-400">—</span> Higher upfront cost</li>
-              </ul>
-            </div>
-            <div className="border border-zinc-200 rounded-lg p-6">
-              <h3 className="font-bold text-zinc-900 mb-1">DAP</h3>
-              <p className="text-xs text-zinc-500 mb-4">Delivered At Place</p>
-              <ul className="space-y-2 text-sm text-zinc-700">
-                <li className="flex gap-2"><span className="text-green-600 font-bold">✓</span> Lower price from us</li>
-                <li className="flex gap-2"><span className="text-red-500 font-bold">✗</span> You pay customs to courier at delivery</li>
-                <li className="flex gap-2"><span className="text-red-500 font-bold">✗</span> Can be held at customs</li>
-                <li className="flex gap-2"><span className="text-red-500 font-bold">✗</span> Unpredictable total cost</li>
-              </ul>
-            </div>
+      <section className="py-20 px-6 bg-zinc-950 text-white">
+        <div className="max-w-5xl mx-auto">
+          <ScrollReveal className="mb-12">
+            <p className="font-mono text-xs uppercase tracking-[0.3em] mb-3" style={{ color: GOLD }}>
+              Shipping modes
+            </p>
+            <h2 className="text-4xl font-bold tracking-tight">DDP vs DAP</h2>
+            <p className="text-zinc-400 mt-2">Which is right for you?</p>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* DDP */}
+            <ScrollReveal>
+              <div className="p-8 border-2 h-full" style={{ borderColor: GOLD, backgroundColor: "rgba(201,168,76,0.06)" }}>
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="font-bold text-white text-lg">DDP</h3>
+                  <span
+                    className="font-mono text-xs px-2 py-1"
+                    style={{ backgroundColor: GOLD, color: "black" }}
+                  >
+                    RECOMMENDED
+                  </span>
+                </div>
+                <p className="font-mono text-xs text-zinc-400 mb-6">Delivered Duty Paid</p>
+                <ul className="space-y-3 text-sm">
+                  <li className="flex gap-3 text-zinc-300">
+                    <span className="font-bold flex-shrink-0" style={{ color: GOLD }}>✓</span>
+                    All customs duties pre-paid
+                  </li>
+                  <li className="flex gap-3 text-zinc-300">
+                    <span className="font-bold flex-shrink-0" style={{ color: GOLD }}>✓</span>
+                    Zero charges at delivery
+                  </li>
+                  <li className="flex gap-3 text-zinc-300">
+                    <span className="font-bold flex-shrink-0" style={{ color: GOLD }}>✓</span>
+                    No interaction with customs
+                  </li>
+                  <li className="flex gap-3 text-zinc-500">
+                    <span className="flex-shrink-0">—</span>
+                    Higher upfront cost
+                  </li>
+                </ul>
+              </div>
+            </ScrollReveal>
+
+            {/* DAP */}
+            <ScrollReveal delay={100}>
+              <div className="p-8 border border-zinc-800 h-full">
+                <h3 className="font-bold text-white text-lg mb-2">DAP</h3>
+                <p className="font-mono text-xs text-zinc-500 mb-6">Delivered At Place</p>
+                <ul className="space-y-3 text-sm">
+                  <li className="flex gap-3 text-zinc-300">
+                    <span className="text-zinc-400 font-bold flex-shrink-0">✓</span>
+                    Lower price from us
+                  </li>
+                  <li className="flex gap-3 text-zinc-500">
+                    <span className="text-red-500 font-bold flex-shrink-0">✗</span>
+                    You pay customs to courier at delivery
+                  </li>
+                  <li className="flex gap-3 text-zinc-500">
+                    <span className="text-red-500 font-bold flex-shrink-0">✗</span>
+                    Can be held at customs
+                  </li>
+                  <li className="flex gap-3 text-zinc-500">
+                    <span className="text-red-500 font-bold flex-shrink-0">✗</span>
+                    Unpredictable total cost
+                  </li>
+                </ul>
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
 
-      <section className="py-14 px-6 text-center border-t border-zinc-100">
-        <p className="text-zinc-500 mb-5">Want to see your specific cost?</p>
-        <Link
-          href="/estimator"
-          className="inline-flex px-8 py-3.5 rounded font-semibold text-black"
-          style={{ backgroundColor: GOLD }}
-        >
-          Open the Cost Estimator
-        </Link>
+      {/* CTA */}
+      <section className="py-24 px-6 overflow-hidden" style={{ backgroundColor: GOLD }}>
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <ScrollReveal>
+            <h2 className="text-5xl font-black text-black leading-none tracking-tighter">
+              SEE YOUR<br />SPECIFIC<br />COST.
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={120} className="flex flex-col gap-5 md:items-end">
+            <p className="text-black/65 text-lg max-w-sm md:text-right">
+              Enter your item and we&apos;ll calculate the all-in total — service, shipping, taxes, everything.
+            </p>
+            <Link
+              href="/estimator"
+              className="inline-flex items-center px-8 py-4 font-bold bg-black text-white hover:bg-zinc-800 transition-colors text-sm tracking-wide"
+            >
+              Open the Cost Estimator →
+            </Link>
+          </ScrollReveal>
+        </div>
       </section>
     </div>
   );

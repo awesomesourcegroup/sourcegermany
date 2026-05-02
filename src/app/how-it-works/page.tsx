@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ScrollReveal from "@/components/ScrollReveal";
 
 export const metadata = {
   title: "How It Works — SourceGermany",
@@ -66,75 +67,105 @@ export default function HowItWorks() {
   return (
     <div>
       {/* Header */}
-      <section className="py-20 px-6 bg-zinc-950 text-white">
-        <div className="max-w-3xl mx-auto">
-          <p className="text-xs uppercase tracking-widest mb-3" style={{ color: GOLD }}>The Process</p>
-          <h1 className="text-4xl font-bold tracking-tight mb-4">Simple. Transparent. Reliable.</h1>
-          <p className="text-zinc-400 text-lg leading-relaxed">
-            Three steps. No confusion. No hidden fees. We've designed the process so you always know exactly what's happening with your order.
+      <section className="py-24 px-6 bg-zinc-950 text-white">
+        <div className="max-w-5xl mx-auto">
+          <p className="font-mono text-xs uppercase tracking-[0.3em] mb-4" style={{ color: GOLD }}>
+            The Process
+          </p>
+          <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-none mb-6">
+            Simple.<br />Transparent.<br />Reliable.
+          </h1>
+          <p className="text-zinc-400 text-lg leading-relaxed max-w-2xl">
+            Three steps. No confusion. No hidden fees. We've designed the process so you always
+            know exactly what's happening with your order.
           </p>
         </div>
       </section>
 
       {/* Steps */}
       <section className="py-20 px-6 bg-white">
-        <div className="max-w-3xl mx-auto space-y-16">
-          {steps.map((s, i) => (
-            <div key={s.n} className="flex gap-8">
-              <div className="flex-shrink-0">
-                <div
-                  className="w-12 h-12 rounded-full flex items-center justify-center text-black font-bold text-sm"
-                  style={{ backgroundColor: GOLD }}
-                >
-                  {i + 1}
+        <div className="max-w-5xl mx-auto">
+          <div className="border-t border-zinc-200">
+            {steps.map((s, i) => (
+              <ScrollReveal key={s.n} delay={i * 80} className="border-b border-zinc-200">
+                <div className="py-14 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+                  {/* Step number + title */}
+                  <div className="md:col-span-4">
+                    <span
+                      className="font-mono font-black text-5xl leading-none block mb-4"
+                      style={{ color: GOLD, opacity: 0.3 }}
+                    >
+                      {s.n}
+                    </span>
+                    <h2 className="text-2xl font-bold tracking-tight">{s.title}</h2>
+                  </div>
+                  {/* Details */}
+                  <div className="md:col-span-8">
+                    <ul className="space-y-4">
+                      {s.detail.map((d, j) => (
+                        <li key={j} className="flex gap-4 text-zinc-500 leading-relaxed">
+                          <span
+                            className="flex-shrink-0 mt-2 w-1 h-1 rounded-full"
+                            style={{ backgroundColor: GOLD }}
+                          />
+                          {d}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-                {i < steps.length - 1 && (
-                  <div className="w-px h-full mt-4 mx-auto ml-6 bg-zinc-200" />
-                )}
-              </div>
-              <div className="pb-8">
-                <p className="text-xs font-mono text-zinc-400 mb-1">{s.n}</p>
-                <h2 className="text-2xl font-bold mb-5 tracking-tight">{s.title}</h2>
-                <ul className="space-y-3">
-                  {s.detail.map((d, j) => (
-                    <li key={j} className="flex gap-3 text-zinc-600 text-sm leading-relaxed">
-                      <span className="flex-shrink-0 mt-1 w-1.5 h-1.5 rounded-full bg-zinc-400 mt-1.5" />
-                      {d}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          ))}
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="py-20 px-6 bg-zinc-50">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold tracking-tight mb-10">Frequently Asked Questions</h2>
-          <div className="space-y-8">
-            {faqs.map((f) => (
-              <div key={f.q} className="border-b border-zinc-200 pb-8">
-                <h3 className="font-semibold text-zinc-900 mb-2">{f.q}</h3>
-                <p className="text-zinc-500 text-sm leading-relaxed">{f.a}</p>
-              </div>
+      <section className="py-20 px-6 bg-zinc-950 text-white">
+        <div className="max-w-5xl mx-auto">
+          <ScrollReveal className="mb-14">
+            <p className="font-mono text-xs uppercase tracking-[0.3em] mb-3" style={{ color: GOLD }}>
+              Common Questions
+            </p>
+            <h2 className="text-4xl font-bold tracking-tight">FAQ</h2>
+          </ScrollReveal>
+          <div className="border-t border-zinc-800">
+            {faqs.map((f, i) => (
+              <ScrollReveal key={f.q} delay={i * 60} className="border-b border-zinc-800">
+                <div className="py-8 grid grid-cols-1 md:grid-cols-12 gap-4">
+                  <div className="md:col-span-5">
+                    <p className="font-semibold text-white">{f.q}</p>
+                  </div>
+                  <div className="md:col-span-7">
+                    <p className="text-zinc-400 leading-relaxed text-sm">{f.a}</p>
+                  </div>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-16 px-6 bg-white border-t border-zinc-100 text-center">
-        <h2 className="text-2xl font-bold mb-3 tracking-tight">Ready to get started?</h2>
-        <p className="text-zinc-500 mb-7">Use the estimator to see your all-in cost before you commit.</p>
-        <Link
-          href="/estimator"
-          className="inline-flex px-8 py-3.5 rounded font-semibold text-black"
-          style={{ backgroundColor: GOLD }}
-        >
-          Get a Price Estimate
-        </Link>
+      <section className="py-24 px-6 overflow-hidden" style={{ backgroundColor: GOLD }}>
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <ScrollReveal>
+            <h2 className="text-5xl font-black text-black leading-none tracking-tighter">
+              READY TO<br />GET STARTED?
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={120} className="flex flex-col gap-5 md:items-end">
+            <p className="text-black/65 text-lg max-w-sm md:text-right">
+              Use the estimator to see your all-in cost before you commit.
+            </p>
+            <Link
+              href="/estimator"
+              className="inline-flex items-center px-8 py-4 font-bold bg-black text-white hover:bg-zinc-800 transition-colors text-sm tracking-wide"
+            >
+              Get a Price Estimate →
+            </Link>
+          </ScrollReveal>
+        </div>
       </section>
     </div>
   );

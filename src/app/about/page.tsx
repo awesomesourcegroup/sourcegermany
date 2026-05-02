@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ScrollReveal from "@/components/ScrollReveal";
 
 export const metadata = {
   title: "About Us — SourceGermany",
@@ -14,72 +15,125 @@ const values = [
   { title: "Customer Advantage", desc: "We find ways to make every order as affordable as possible — VAT refunds, optimal packaging, honest quotes." },
 ];
 
+const story = [
+  "SourceGermany was founded by someone who lived on both sides of the equation — a buyer abroad who struggled to access genuine German products, and a resident of Germany who understood how the system works from the inside.",
+  "The frustration was always the same: German quality is globally renowned, but actually buying it from outside Europe involves a maze of shipping restrictions, customs uncertainty, and predatory third-party resellers marking up prices by 30–50%.",
+  "We built SourceGermany to fix that. We are physically based in Germany, we speak the language, we have established accounts with German retailers, and we understand the export process end-to-end. What took a customer weeks of confusion, we handle in 24 hours.",
+  "Our specialty isn't just shipping — it's sourcing. We know which Leica models are in stock at Foto Koch in Cologne, which Festool sets include the German market exclusive accessories, and which Hugo Boss pieces are Germany-only.",
+];
+
 export default function AboutPage() {
   return (
     <div>
+      {/* Header */}
       <section className="py-24 px-6 bg-zinc-950 text-white">
-        <div className="max-w-3xl mx-auto">
-          <p className="text-xs uppercase tracking-widest mb-3" style={{ color: GOLD }}>Who We Are</p>
-          <h1 className="text-4xl font-bold tracking-tight mb-5">About SourceGermany</h1>
-          <p className="text-zinc-400 text-lg leading-relaxed">
-            We're a small, Germany-based proxy shopping service built on a simple belief: international buyers shouldn't be locked out of the world's best products by geography or complicated import rules.
+        <div className="max-w-5xl mx-auto">
+          <p className="font-mono text-xs uppercase tracking-[0.3em] mb-4" style={{ color: GOLD }}>
+            Who We Are
+          </p>
+          <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-none mb-6">
+            ABOUT<br />SOURCEGERMANY.
+          </h1>
+          <p className="text-zinc-400 text-lg leading-relaxed max-w-2xl">
+            We&apos;re a small, Germany-based proxy shopping service built on a simple belief:
+            international buyers shouldn&apos;t be locked out of the world&apos;s best products by
+            geography or complicated import rules.
           </p>
         </div>
       </section>
 
       {/* Story */}
       <section className="py-20 px-6 bg-white">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold mb-6 tracking-tight">Our Story</h2>
-          <div className="space-y-5 text-zinc-600 leading-relaxed">
-            <p>
-              SourceGermany was founded by someone who lived on both sides of the equation — a buyer abroad who struggled to access genuine German products, and a resident of Germany who understood how the system works from the inside.
-            </p>
-            <p>
-              The frustration was always the same: German quality is globally renowned, but actually buying it from outside Europe involves a maze of shipping restrictions, customs uncertainty, and predatory third-party resellers marking up prices by 30–50%.
-            </p>
-            <p>
-              We built SourceGermany to fix that. We are physically based in Germany, we speak the language, we have established accounts with German retailers, and we understand the export process end-to-end. What took a customer weeks of confusion, we handle in 24 hours.
-            </p>
-            <p>
-              Our specialty isn't just shipping — it's sourcing. We know which Leica models are in stock at Foto Koch in Cologne, which Festool sets include the German market exclusive accessories, and which Hugo Boss pieces are Germany-only.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Values */}
-      <section className="py-20 px-6 bg-zinc-50">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold mb-10 tracking-tight">What We Stand For</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-7">
-            {values.map((v) => (
-              <div key={v.title} className="bg-white border border-zinc-200 rounded-lg p-6">
-                <div className="w-1 h-8 rounded mb-4" style={{ backgroundColor: GOLD }} />
-                <h3 className="font-semibold text-zinc-900 mb-2">{v.title}</h3>
-                <p className="text-sm text-zinc-500 leading-relaxed">{v.desc}</p>
-              </div>
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12">
+          <ScrollReveal className="md:col-span-4">
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-zinc-400 mb-3">Our Story</p>
+            <h2 className="text-3xl font-bold tracking-tight">How it started.</h2>
+          </ScrollReveal>
+          <div className="md:col-span-8 space-y-5">
+            {story.map((p, i) => (
+              <ScrollReveal key={i} delay={i * 60}>
+                <p className="text-zinc-500 leading-relaxed">{p}</p>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Expertise note */}
-      <section className="py-16 px-6 bg-white border-t border-zinc-100">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-xl font-bold mb-4 tracking-tight">Specialist Knowledge: Cameras & Optics</h2>
-          <p className="text-zinc-500 text-sm leading-relaxed">
-            One member of our team is a dedicated Leica specialist with deep knowledge of the German camera and optics market. We can advise on models, authenticate serial numbers, and source limited-edition or discontinued pieces that require direct contact with dealers. If you're looking for a Leica M-system body, a Zeiss Otus lens, or a Rollei film camera — talk to us before you buy anywhere else.
-          </p>
+      {/* Values — dark numbered rows */}
+      <section className="py-20 px-6 bg-zinc-950 text-white">
+        <div className="max-w-5xl mx-auto">
+          <ScrollReveal className="mb-14">
+            <p className="font-mono text-xs uppercase tracking-[0.3em] mb-3" style={{ color: GOLD }}>
+              What We Stand For
+            </p>
+            <h2 className="text-4xl font-bold tracking-tight">Our Values.</h2>
+          </ScrollReveal>
+          <div className="border-t border-zinc-800">
+            {values.map((v, i) => (
+              <ScrollReveal key={v.title} delay={i * 80} className="border-b border-zinc-800">
+                <div className="py-8 grid grid-cols-12 items-start gap-4 md:gap-6 group hover:bg-white/[0.02] transition-colors -mx-4 px-4">
+                  <div className="col-span-2 md:col-span-1">
+                    <span
+                      className="font-mono text-2xl md:text-3xl font-black"
+                      style={{ color: GOLD, opacity: 0.35 }}
+                    >
+                      0{i + 1}
+                    </span>
+                  </div>
+                  <div className="col-span-10 md:col-span-11">
+                    <h3 className="font-semibold text-white text-lg mb-1.5 group-hover:text-[#C9A84C] transition-colors">
+                      {v.title}
+                    </h3>
+                    <p className="text-zinc-400 text-sm leading-relaxed">{v.desc}</p>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="py-14 px-6 text-center border-t border-zinc-100">
-        <h2 className="text-2xl font-bold mb-3 tracking-tight">Want to work with us?</h2>
-        <p className="text-zinc-500 mb-7">Reach out via our contact page — we typically respond within 12 hours.</p>
-        <Link href="/contact" className="inline-flex px-8 py-3.5 rounded font-semibold text-black" style={{ backgroundColor: GOLD }}>
-          Get in Touch
-        </Link>
+      {/* Specialist knowledge */}
+      <section className="py-20 px-6 bg-white">
+        <div className="max-w-5xl mx-auto">
+          <ScrollReveal>
+            <div className="border-l-4 pl-8" style={{ borderColor: GOLD }}>
+              <p className="font-mono text-xs uppercase tracking-[0.3em] text-zinc-400 mb-3">
+                Specialist Knowledge
+              </p>
+              <h2 className="text-2xl font-bold tracking-tight mb-4">Cameras &amp; Optics</h2>
+              <p className="text-zinc-500 leading-relaxed max-w-2xl">
+                One member of our team is a dedicated Leica specialist with deep knowledge of the
+                German camera and optics market. We can advise on models, authenticate serial
+                numbers, and source limited-edition or discontinued pieces that require direct
+                contact with dealers. If you&apos;re looking for a Leica M-system body, a Zeiss Otus
+                lens, or a Rollei film camera — talk to us before you buy anywhere else.
+              </p>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-24 px-6 overflow-hidden" style={{ backgroundColor: GOLD }}>
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <ScrollReveal>
+            <h2 className="text-5xl font-black text-black leading-none tracking-tighter">
+              WANT TO<br />WORK WITH<br />US?
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={120} className="flex flex-col gap-5 md:items-end">
+            <p className="text-black/65 text-lg max-w-sm md:text-right">
+              Reach out via our contact page — we typically respond within 12 hours.
+            </p>
+            <Link
+              href="/contact"
+              className="inline-flex items-center px-8 py-4 font-bold bg-black text-white hover:bg-zinc-800 transition-colors text-sm tracking-wide"
+            >
+              Get in Touch →
+            </Link>
+          </ScrollReveal>
+        </div>
       </section>
     </div>
   );
