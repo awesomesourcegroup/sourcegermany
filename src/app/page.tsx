@@ -36,54 +36,40 @@ const IconPin = () => (
 
 const pillars = [
   {
-    title: "Tools & Hardware",
-    desc: "Festool, Bosch Professional, Knipex — German precision tools built to last a lifetime.",
-    img: "/images/pillar-tools.jpg",
-    imgAlt: "Modern professional cordless power drills",
-    href: "/shops#tools-hardware",
-  },
-  {
-    title: "Automotive",
-    desc: "OEM parts, accessories, and performance upgrades direct from German suppliers.",
+    title: "Automotive & Motorsport",
+    desc: "ABT, KW, Eibach, BBS, FVD Brombacher — performance parts and tuning direct from the manufacturers.",
     img: "/images/pillar-auto.jpg",
     imgAlt: "Porsche 911 sports car",
     href: "/shops#automotive",
   },
   {
-    title: "Fashion & Luxury",
-    desc: "Hugo Boss, Adidas originals, MCM, and boutique German labels — authenticated, at retail.",
-    img: "/images/pillar-fashion.jpg",
-    imgAlt: "German menswear suit",
-    href: "/shops#fashion-luxury",
+    title: "Tools & Hardware",
+    desc: "Stahlwille, KNIPEX, Wera, Festool — Mittelstand precision tools built to outlast everything else.",
+    img: "/images/pillar-tools.jpg",
+    imgAlt: "Modern professional cordless power drills",
+    href: "/shops#tools-hardware",
   },
   {
-    title: "Cameras & Optics",
-    desc: "Leica, Zeiss, and Rollei — specialist sourcing for collectors and professionals.",
+    title: "Electronics, Cameras & Audio",
+    desc: "Leica, Zeiss, Burmester, T+A, Sennheiser — German optical and audio engineering at the reference level.",
     img: "/images/pillar-cameras.jpg",
     imgAlt: "Leica branded camera film boxes",
-    href: "/shops#cameras-optics",
+    href: "/shops#electronics-cameras-audio",
   },
   {
-    title: "Smart Home & Audio",
-    desc: "Sennheiser, Beyerdynamic, and AVM — German-engineered audio and smart home technology.",
-    img: "/images/pillar-smarthome.jpg",
-    imgAlt: "Premium over-ear headphones",
-    href: "/shops#smart-home-audio",
-  },
-  {
-    title: "Health & Beauty",
-    desc: "Weleda, Dr. Hauschka, and DM — certified natural skincare and health products.",
-    img: "/images/pillar-health.jpg",
-    imgAlt: "Natural beauty and skincare products",
-    href: "/shops#health-beauty",
+    title: "Fashion & Lifestyle",
+    desc: "Bogner, MCM, Lodenfrey, UF PRO, Weleda — Made-in-Germany labels across fashion, beauty, and outdoor.",
+    img: "/images/pillar-fashion.jpg",
+    imgAlt: "German menswear suit",
+    href: "/shops#fashion-lifestyle",
   },
 ];
 
 const trustPoints = [
   {
     icon: <IconShield />,
-    title: "DDP Shipping — Zero Surprises",
-    desc: "All customs duties and taxes are paid before your parcel leaves Germany. What you see is what you pay.",
+    title: "DDP or DAP — Your Choice",
+    desc: "Choose DDP (all duties pre-paid, nothing due at delivery) or DAP (lower upfront cost, you settle customs locally). Full transparency either way.",
   },
   {
     icon: <IconReturn />,
@@ -253,7 +239,7 @@ export default function Home() {
             {[
               ["5–8", "days to Singapore"],
               ["6–10", "days to Australia"],
-              ["4", "regions served"],
+              ["5", "regions served"],
               ["DDP", "duties always included"],
             ].map(([val, label], i) => (
               <ScrollReveal key={val} delay={i * 60} className="py-10 px-6 text-center">
@@ -292,26 +278,21 @@ export default function Home() {
             </div>
           </ScrollReveal>
 
-          {/* Bento grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-            {/* Featured – 2 cols wide on desktop */}
+          {/* Bento grid — 2 rows, asymmetric */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {/* Row 1: Automotive wide, Tools narrow */}
             <ScrollReveal className="md:col-span-2">
-              <PillarCard pillar={pillars[0]} index={0} className="h-72 md:h-80 lg:h-96" />
+              <PillarCard pillar={pillars[0]} index={0} className="h-72 md:h-96" />
             </ScrollReveal>
-
-            <ScrollReveal delay={100}>
-              <PillarCard pillar={pillars[1]} index={1} className="h-72 md:h-80 lg:h-96" />
+            <ScrollReveal delay={80}>
+              <PillarCard pillar={pillars[1]} index={1} className="h-72 md:h-96" />
             </ScrollReveal>
-
-            {pillars.slice(2, 5).map((p, i) => (
-              <ScrollReveal key={p.title} delay={i * 70}>
-                <PillarCard pillar={p} index={i + 2} className="h-60 md:h-64" />
-              </ScrollReveal>
-            ))}
-
-            {/* Full-width last card */}
-            <ScrollReveal delay={80} className="md:col-span-2 lg:col-span-3">
-              <PillarCard pillar={pillars[5]} index={5} className="h-52 md:h-56" />
+            {/* Row 2: Electronics narrow, Fashion wide */}
+            <ScrollReveal delay={120}>
+              <PillarCard pillar={pillars[2]} index={2} className="h-64 md:h-80" />
+            </ScrollReveal>
+            <ScrollReveal delay={160} className="md:col-span-2">
+              <PillarCard pillar={pillars[3]} index={3} className="h-64 md:h-80" />
             </ScrollReveal>
           </div>
         </div>

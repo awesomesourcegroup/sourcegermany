@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 
 const GOLD = "#C9A84C";
 
-type Destination = "singapore" | "australia" | "canada" | "usa";
+type Destination = "singapore" | "australia" | "canada" | "usa" | "japan";
 type Mode = "ddp" | "dap";
 
 interface Result {
@@ -23,6 +23,7 @@ const destinations: { key: Destination; label: string; short: string }[] = [
   { key: "australia", label: "Australia", short: "AU" },
   { key: "canada", label: "Canada", short: "CA" },
   { key: "usa", label: "United States", short: "US" },
+  { key: "japan", label: "Japan", short: "JP" },
 ];
 
 export default function EstimatorForm() {
@@ -114,8 +115,26 @@ export default function EstimatorForm() {
 
         <div>
           <label className="block text-sm font-medium text-zinc-700 mb-2">Destination</label>
-          <div className="grid grid-cols-2 gap-2">
-            {destinations.map((d) => (
+          <div className="grid grid-cols-3 gap-2">
+            {destinations.slice(0, 3).map((d) => (
+              <button
+                key={d.key}
+                type="button"
+                onClick={() => setDestination(d.key)}
+                className={`px-3 py-3 border text-sm font-medium transition-all text-left ${
+                  destination === d.key
+                    ? "border-2 text-black"
+                    : "border-zinc-200 text-zinc-600 hover:border-zinc-400"
+                }`}
+                style={destination === d.key ? { borderColor: GOLD, backgroundColor: "#FBF4E3" } : {}}
+              >
+                <span className="font-mono text-xs text-zinc-400 block mb-0.5">{d.short}</span>
+                {d.label}
+              </button>
+            ))}
+          </div>
+          <div className="grid grid-cols-2 gap-2 mt-2">
+            {destinations.slice(3).map((d) => (
               <button
                 key={d.key}
                 type="button"

@@ -48,14 +48,6 @@ const qualities = [
   },
 ];
 
-const brands = [
-  { cat: "Tools & Hardware", names: ["Festool", "Bosch Professional", "Knipex", "Wiha", "Metabo", "Würth"] },
-  { cat: "Automotive", names: ["Bilstein", "Sachs", "Brembo DE", "Mann-Filter", "ATE", "Liqui-Moly"] },
-  { cat: "Fashion & Luxury", names: ["Hugo Boss", "MCM", "Escada", "Joop!", "Bogner", "Adidas Originals"] },
-  { cat: "Cameras & Optics", names: ["Leica", "Zeiss", "Rollei", "Metz", "Kaiser Fototechnik"] },
-  { cat: "Smart Home & Tech", names: ["Sennheiser", "Beyerdynamic", "Miele", "Braun", "Loewe", "AVM Fritz!Box"] },
-  { cat: "Health & Wellbeing", names: ["Weleda", "Dr. Hauschka", "Eucerin", "Hansaplast", "Beurer", "Omron DE"] },
-];
 
 export default function WhyGermany() {
   return (
@@ -136,7 +128,7 @@ export default function WhyGermany() {
             <p className="font-mono text-xs uppercase tracking-[0.3em] mb-6" style={{ color: GOLD }}>
               The German Standard
             </p>
-            <blockquote className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight max-w-2xl">
+            <blockquote className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight max-w-2xl text-white">
               Precision is not a feature.{" "}
               <span style={{ color: GOLD }}>It&apos;s the baseline.</span>
             </blockquote>
@@ -159,42 +151,6 @@ export default function WhyGermany() {
               — EU Product Liability Directive, enforced since 1985
             </p>
           </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Brands */}
-      <section className="py-20 px-6 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <ScrollReveal className="mb-14">
-            <p className="font-mono text-xs uppercase tracking-[0.3em] text-zinc-400 mb-2">
-              What we source
-            </p>
-            <h2 className="text-4xl font-bold tracking-tight">Brands Worth Having</h2>
-            <p className="text-zinc-500 mt-3 max-w-lg">
-              A selection of the brands we regularly source. Don&apos;t see yours? Just ask.
-            </p>
-          </ScrollReveal>
-          <div className="border-t border-zinc-100">
-            {brands.map((b, i) => (
-              <ScrollReveal key={b.cat} delay={i * 60} className="border-b border-zinc-100">
-                <div className="py-6 flex flex-col sm:flex-row sm:items-center gap-4">
-                  <p className="font-mono text-xs font-semibold uppercase tracking-widest text-zinc-400 sm:w-48 flex-shrink-0">
-                    {b.cat}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {b.names.map((n) => (
-                      <span
-                        key={n}
-                        className="text-sm font-medium text-zinc-800 px-3 py-1 bg-zinc-100"
-                      >
-                        {n}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
         </div>
       </section>
 

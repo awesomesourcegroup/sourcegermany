@@ -1,6 +1,6 @@
 "server only";
 
-export type Destination = "singapore" | "australia" | "canada" | "usa";
+export type Destination = "singapore" | "australia" | "canada" | "usa" | "japan";
 export type ShippingMode = "ddp" | "dap";
 
 interface EstimateInput {
@@ -25,6 +25,7 @@ const FX: Record<Destination, { rate: number; currency: string; symbol: string }
   australia: { rate: 1.65, currency: "AUD", symbol: "A$" },
   canada:    { rate: 1.50, currency: "CAD", symbol: "C$" },
   usa:       { rate: 1.10, currency: "USD", symbol: "$"  },
+  japan:     { rate: 160,  currency: "JPY", symbol: "¥"  },
 };
 
 const DELIVERY_DAYS: Record<Destination, string> = {
@@ -32,6 +33,7 @@ const DELIVERY_DAYS: Record<Destination, string> = {
   australia: "6–10 business days",
   canada:    "7–12 business days",
   usa:       "5–9 business days",
+  japan:     "5–9 business days",
 };
 
 function dhlShippingRate(weightKg: number, destination: Destination): number {
@@ -41,12 +43,14 @@ function dhlShippingRate(weightKg: number, destination: Destination): number {
     australia: 38,
     canada:    42,
     usa:       35,
+    japan:     30,
   };
   const perKg: Record<Destination, number> = {
     singapore: 12,
     australia: 16,
     canada:    18,
     usa:       14,
+    japan:     13,
   };
   return base[destination] + w * perKg[destination];
 }
@@ -79,7 +83,12 @@ function destinationTaxes(
     return (itemPriceEur + shippingEur) * 0.13;
   }
   if (destination === "usa") {
+    // Federal de minimis $800 threshold; state sales tax varies and is not pre-collected
     return itemPriceEur < 800 ? 0 : itemPriceEur * 0.03;
+  }
+  if (destination === "japan") {
+    // Japan Consumption Tax (JCT) 10%
+    return (itemPriceEur + shippingEur) * 0.10;
   }
   return 0;
 }

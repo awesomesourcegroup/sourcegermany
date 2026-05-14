@@ -1,9 +1,10 @@
 import Link from "next/link";
+import Image from "next/image";
 import ScrollReveal from "@/components/ScrollReveal";
 
 export const metadata = {
   title: "Top German Shops — SourceGermany",
-  description: "Our curated directory of the best German online shops by category.",
+  description: "Our curated directory of the best exclusive German online shops by category.",
 };
 
 const GOLD = "#C9A84C";
@@ -38,86 +39,162 @@ const IconCamera = () => (
   </svg>
 );
 
-const IconHeadphones = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
-    <path d="M3 18v-6a9 9 0 0118 0v6"/>
-    <path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/>
+const IconVoltage = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 flex-shrink-0 mt-0.5">
+    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
   </svg>
 );
 
-const IconLeaf = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
-    <path d="M11 20A7 7 0 014 13c0-6 9-9 9-9s9 3 9 9a7 7 0 01-7 7z"/>
-    <path d="M4 13l7 7"/>
-  </svg>
-);
+type Store = { name: string; url: string; desc: string; tag?: string; logo?: string };
 
-const shops = [
+function ShopCard({ s }: { s: Store }) {
+  return (
+    <a
+      href={s.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="border border-zinc-200 hover:border-zinc-900 hover:shadow-md transition-all duration-200 group block h-full flex flex-col"
+    >
+      {/* Logo area */}
+      <div className="relative h-20 bg-white flex items-center justify-center border-b border-zinc-100 overflow-hidden px-6">
+        {s.logo ? (
+          <Image
+            src={s.logo}
+            alt={s.name}
+            fill
+            sizes="144px"
+            className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+          />
+        ) : (
+          <span
+            className="text-2xl font-black tracking-tighter select-none"
+            style={{ color: GOLD, opacity: 0.25 }}
+          >
+            {s.name.charAt(0).toUpperCase()}
+          </span>
+        )}
+      </div>
+
+      {/* Text area */}
+      <div className="p-4 flex flex-col flex-1">
+        <div className="flex items-start justify-between gap-1 mb-1">
+          <h3 className="font-semibold text-zinc-900 text-sm leading-snug">
+            {s.name}
+          </h3>
+          <span className="text-zinc-400 flex-shrink-0 text-xs font-mono opacity-0 group-hover:opacity-100 transition-opacity">↗</span>
+        </div>
+        {s.tag && (
+          <span
+            className="inline-block font-mono text-[10px] uppercase tracking-wider px-1.5 py-0.5 mb-2 self-start"
+            style={{ backgroundColor: "#FBF4E3", color: GOLD }}
+          >
+            {s.tag}
+          </span>
+        )}
+        <p className="text-xs text-zinc-500 leading-relaxed mt-auto pt-2">{s.desc}</p>
+      </div>
+    </a>
+  );
+}
+
+const L = (name: string) => `/images/shops/${name}.png`;
+
+const shops: {
+  category: string;
+  id: string;
+  icon: React.ReactNode;
+  note?: React.ReactNode;
+  stores: Store[];
+}[] = [
+  {
+    category: "Automotive & Motorsport",
+    id: "automotive",
+    icon: <IconCar />,
+    stores: [
+      { name: "ABT Sportsline",       url: "https://www.abt-sportsline.de",         desc: "Ingolstadt-based Audi/VW Group specialist. Factory-approved ECU tunes, aerokit, and suspension upgrades.",                  tag: "Tuning",      logo: L("abt") },
+      { name: "AC Schnitzer",         url: "https://www.ac-schnitzer.de",           desc: "Aachen-based BMW and MINI specialist. Aerodynamics, ECU maps, lightweight wheels, and sport exhausts.",                      tag: "Tuning",      logo: L("ac_schnitzer") },
+      { name: "KW Automotive",        url: "https://www.kwsuspensions.net/de",       desc: "Fichtenberg-made adjustable coilovers. Fitted OEM on BMW M, Porsche GT3, and Audi RS models.",                             tag: "Suspension",  logo: L("kw") },
+      { name: "Eibach",               url: "https://www.eibach.de",                 desc: "Pro-Kit and Sport-Line springs. OEM supplier to Porsche, BMW, and VW. Made in Finnentrop.",                                  tag: "Suspension",  logo: L("eibach") },
+      { name: "H&R Spezialfedern",    url: "https://www.h-r.com/de",                desc: "Lennestadt-based coilover and spring specialist since 1981. TÜV-approved for all German marques.",                           tag: "Suspension",  logo: L("hr") },
+      { name: "Rieger Tuning",        url: "https://www.rieger-tuning.biz/",          desc: "Body kits, front splitters, and sideskirts for VW, Audi, BMW, and Mercedes. European Certificate approved.",                 tag: "Aerokit",     logo: L("rieger_tuning") },
+      { name: "Friedrich Motorsport", url: "https://www.friedrich-motorsport.de",   desc: "Sport exhausts built to TÜV specification in Germany. Notable for VW Golf GTI and Porsche fitments.",                        tag: "Exhaust",     logo: L("friedrich_motorsport") },
+      { name: "BBS Germany",          url: "https://www.bbs.com/de",                desc: "Schiltach-forged alloys. Factory fitment on BMW M, Porsche GT, and Mercedes AMG competition cars.",                          tag: "Wheels",      logo: L("bbs") },
+      { name: "HMS Performance",      url: "https://hms-performance.com/",          desc: "Hamburg-based performance specialists covering BMW, Mercedes, and VW Group vehicles.",                                        tag: "Tuning",      logo: L("hms") },
+      { name: "FVD Brombacher",       url: "https://www.fvd.de",                    desc: "Stuttgart. The definitive Porsche specialist — rare factory options, NOS parts, and authorised servicing.",                   tag: "Porsche",     logo: L("fvd") },
+      { name: "Liqui-Moly",           url: "https://www.liqui-moly.com/de",         desc: "Ulm-made premium motor oils, additives, and care products. OEM-approved for BMW, Mercedes, VW, and Audi.",                   tag: "Fluids",      logo: L("liquimoly") },
+    ],
+  },
   {
     category: "Tools & Hardware",
     id: "tools-hardware",
     icon: <IconWrench />,
+    note: (
+      <div className="flex items-start gap-2 text-xs text-amber-700 bg-amber-50 border border-amber-200 px-4 py-3 mb-6">
+        <IconVoltage />
+        <span>
+          <strong>Voltage notice:</strong> Germany uses 230V / 50Hz. Check your local mains voltage and frequency before ordering power tools — a transformer or frequency converter may be required.
+        </span>
+      </div>
+    ),
     stores: [
-      { name: "Festool Shop", url: "https://www.festool.com", desc: "Official Festool online shop. Premium power tools for professionals." },
-      { name: "Würth Online", url: "https://www.wuerth.de", desc: "Germany's largest trade supplier. Fasteners, tools, chemicals, and more." },
-      { name: "Knipex", url: "https://www.knipex.com", desc: "World-famous pliers and cutting tools. German family business since 1882." },
-      { name: "Bosch Professional", url: "https://www.bosch-professional.com/de/de", desc: "Blue line — the professional-grade Bosch range not sold everywhere." },
-      { name: "Contorion", url: "https://www.contorion.de", desc: "Germany's specialist tool B2B marketplace. Huge selection." },
+      { name: "Stahlwille",         url: "https://www.stahlwille.com/de_de",    desc: "Precision torque tools and wrenches trusted in aerospace, motorsport, and automotive manufacturing.",                         logo: L("stahlwille") },
+      { name: "HAZET",              url: "https://www.hazet.de/en",             desc: "Remscheid-made hand tools since 1868. Official OEM tool kit supplier to VW Group, BMW, and Porsche.",                         logo: L("hazet") },
+      { name: "Contorion",          url: "https://www.contorion.de",            desc: "Germany's specialist tool B2B marketplace. 300,000+ SKUs across all major brands at trade prices.",                           logo: L("contorion") },
+      { name: "Walter-Schroeder",   url: "https://www.walter-schroeder.de/en/", desc: "Premium precision measuring instruments, gauges, and calibration equipment for industry and workshops.",        logo: L("walter_schroeder") },
+      { name: "Bessey",             url: "https://bessey.de/en-gb",             desc: "Ottenau-made clamping tools since 1889. The global market leader for woodworking and fabrication clamps.",                     logo: L("bessey") },
+      { name: "KNIPEX",             url: "https://www.knipex.com",              desc: "Wuppertal-made pliers since 1882. Exported to 100+ countries. The benchmark for grip tools worldwide.",          logo: L("knipex") },
+      { name: "Wera Tool Rebels",   url: "https://www.wera.de",                 desc: "Wuppertal-based screwdrivers, bits, and wrenches. Known for ergonomic Kraftform handles and Joker spanners.",  logo: L("wera") },
+      { name: "Metabo",             url: "https://www.metabo.com/de",           desc: "Nürtingen. Professional-grade brushless cordless power tools. Strong in metal fabrication and construction.",                 logo: L("metabo") },
+      { name: "Festool",            url: "https://www.festool.de",              desc: "Wendlingen. The gold standard in woodworking and construction power tools. Modular systainer ecosystem.",                     logo: L("festool") },
+      { name: "Würth",              url: "https://www.wuerth.de",               desc: "Germany's largest trade supplier. Fasteners, chemicals, electrical, and workshop consumables across 80,000+ items.", logo: L("wurth") },
     ],
   },
   {
-    category: "Automotive",
-    id: "automotive",
-    icon: <IconCar />,
+    category: "Electronics, Cameras & Audio",
+    id: "electronics-cameras-audio",
+    icon: <IconCamera />,
+    note: (
+      <div className="flex items-start gap-2 text-xs text-amber-700 bg-amber-50 border border-amber-200 px-4 py-3 mb-6">
+        <IconVoltage />
+        <span>
+          <strong>Voltage notice:</strong> Germany uses 230V / 50Hz. Check your local mains voltage and frequency before ordering electronics — a transformer or frequency converter may be required.
+        </span>
+      </div>
+    ),
     stores: [
-      { name: "ATU Auto-Teile-Unger", url: "https://www.atu.de", desc: "Germany's largest auto parts and service chain. OEM and aftermarket parts." },
-      { name: "Autodoc", url: "https://www.autodoc.de", desc: "Major German online auto parts retailer. Huge catalogue, fast shipping." },
-      { name: "Liqui-Moly Shop", url: "https://www.liqui-moly.com/de", desc: "Germany's premium motor oils, additives, and care products." },
-      { name: "Louis Motorrad", url: "https://www.louis.de", desc: "Europe's largest motorcycle gear and accessories retailer." },
+      { name: "Loewe",                  url: "https://www.loewe.tv",                        desc: "Kronach-made premium OLED and QLED televisions. Handcrafted in Bavaria since 1923.",                                                         tag: "TV & Display",  logo: L("loewe") },
+      { name: "Lindemann Audio",        url: "https://lindemann-audio.de/en/",              desc: "Munich. High-end streaming DACs and amplifiers. Built in Germany for the most discerning listeners.",                                         tag: "Hi-Fi",         logo: L("lindemann") },
+      { name: "Canton",                 url: "https://www.canton.de",                       desc: "Weilrod speaker manufacturer since 1972. From bookshelf to full home cinema, including Smart and Atmos series.",                              tag: "Speakers",      logo: L("canton") },
+      { name: "T+A Elektroakustik",     url: "https://www.ta-hifi.de/en/audiosystems/",                     desc: "Herford. Reference-class amplifiers, streamers, and loudspeakers. Built entirely in Germany.",                                                tag: "Hi-Fi",         logo: L("ta") },
+      { name: "Loxone",                 url: "https://www.loxone.com",                      desc: "Complete smart home automation. German-engineered Miniserver ecosystem — lighting, HVAC, security, and AV.",                                  tag: "Smart Home",    logo: L("loxone") },
+      { name: "Gira",                   url: "https://www.gira.de",                         desc: "Radevormwald. Architect-grade smart switches, door intercoms, and KNX building control systems.",                                             tag: "Smart Home",    logo: L("gira") },
+      { name: "Sennheiser",             url: "https://www.sennheiser.com/de-de",            desc: "Wedemark. Audiophile over-ear headphones, in-ear monitors, and professional microphones.",                                                   tag: "Audio",         logo: L("sennheiser") },
+      { name: "Nubert",                 url: "https://www.nubert.de",                       desc: "Schwäbisch Gmünd. Direct-sale studio monitors and hi-fi speakers with exceptional price-to-performance.",                                     tag: "Speakers",      logo: L("nubert") },
+      { name: "Burmester Audiosysteme", url: "https://www.burmester.de",                    desc: "Berlin. Reference-grade amplifiers and speakers. OEM audio partner for Porsche and Mercedes-Benz.",                                           tag: "Hi-Fi",         logo: L("burmester") },
+      { name: "Clearaudio Electronic",  url: "https://www.clearaudio.de",                   desc: "Erlangen. Precision turntables, tonearms, and cartridges for dedicated vinyl enthusiasts.",                                                   tag: "Turntables",    logo: L("clearaudio") },
+      { name: "Leica Camera",           url: "https://leica-camera.com/de-DE",              desc: "Wetzlar. The world's most iconic precision camera and optics brand since 1913.",                                                              tag: "Camera",        logo: L("leica") },
+      { name: "Zeiss",                  url: "https://www.zeiss.com/consumer-products",     desc: "Oberkochen. Legendary optical precision — camera lenses, binoculars, and sports optics.",                                                    tag: "Optics",        logo: L("zeiss") },
+      { name: "Steiner-Optik",          url: "https://www.steiner-optik.de",                desc: "Bayreuth. Military-specification binoculars and hunting optics. Used by armed forces in 50+ countries.",                                     tag: "Optics",        logo: L("steiner") },
+      { name: "Minox",                  url: "https://www.minox.com",                       desc: "Wetzlar. Compact cameras and precision optics. Pioneer of subminiature photography, now a premium binocular brand.",                          tag: "Camera",        logo: L("minox") },
+      { name: "Rodenstock",             url: "https://www.rodenstock.com/",               desc: "Munich. Precision optical lenses for large format and technical photography. Trusted by studio photographers.",                               tag: "Optics",        logo: L("rodenstock") },
+      { name: "Allied Vision",          url: "https://www.alliedvision.com/",             desc: "Stadtroda. Industrial and scientific cameras for machine vision, life sciences, and research applications.",                                      tag: "Camera",        logo: L("allied_vision") },
     ],
   },
   {
-    category: "Fashion & Luxury",
-    id: "fashion-luxury",
+    category: "Fashion & Lifestyle",
+    id: "fashion-lifestyle",
     icon: <IconBag />,
     stores: [
-      { name: "Hugo Boss", url: "https://www.hugoboss.com/de", desc: "Official German store. Suits, casualwear, and accessories." },
-      { name: "MCM Worldwide", url: "https://www.mcmworldwide.com/de", desc: "Munich-born luxury leather goods brand." },
-      { name: "Lodenfrey", url: "https://www.lodenfrey.com", desc: "Munich's heritage department store. Loden, traditional wear, luxury brands." },
-      { name: "Zalando", url: "https://www.zalando.de", desc: "Germany's largest fashion marketplace. 2,000+ brands, easy returns." },
-    ],
-  },
-  {
-    category: "Cameras & Optics",
-    id: "cameras-optics",
-    icon: <IconCamera />,
-    stores: [
-      { name: "Leica Store", url: "https://leica-camera.com/de-DE", desc: "Official Leica camera and optics store. Wetzlar, Germany." },
-      { name: "Calumet Photographic", url: "https://www.calumet.de", desc: "Professional camera and studio equipment. Strong Zeiss selection." },
-      { name: "Foto Koch", url: "https://www.fotokoch.de", desc: "Cologne-based specialist. Excellent used Leica and vintage inventory." },
-      { name: "Ringfoto", url: "https://www.ringfoto.de", desc: "One of Germany's oldest camera retail networks. Broad range." },
-    ],
-  },
-  {
-    category: "Smart Home & Audio",
-    id: "smart-home-audio",
-    icon: <IconHeadphones />,
-    stores: [
-      { name: "Sennheiser", url: "https://www.sennheiser.com/de-de", desc: "Official German store. Headphones, microphones, and pro audio." },
-      { name: "Beyerdynamic", url: "https://www.beyerdynamic.com", desc: "Heilbronn-made headphones and microphones. Audiophile staple." },
-      { name: "AVM Fritz!Box", url: "https://www.fritz.com", desc: "Germany's most popular router and smart home ecosystem." },
-      { name: "Conrad Electronic", url: "https://www.conrad.de", desc: "Germany's Farnell/Mouser equivalent. Electronics, components, smart home." },
-    ],
-  },
-  {
-    category: "Health & Beauty",
-    id: "health-beauty",
-    icon: <IconLeaf />,
-    stores: [
-      { name: "Weleda Shop", url: "https://www.weleda.de", desc: "Certified natural and biodynamic cosmetics. Globally trusted." },
-      { name: "Dr. Hauschka", url: "https://www.drhauschka.de", desc: "Biodynamic skincare. Cult classic in dermatology circles." },
-      { name: "DM Drogerie", url: "https://www.dm.de", desc: "Germany's pharmacy and beauty chain. Excellent own-brand products." },
-      { name: "Beurer", url: "https://www.beurer.com/de", desc: "German health and wellbeing devices. Blood pressure monitors, TENS, massagers." },
+      { name: "MCM Worldwide",url: "https://www.mcmworldwide.com/de",    desc: "Munich-born luxury leather goods. Visetos monogram bags, wallets, and accessories.",                                                 tag: "Luxury",      logo: L("mcm") },
+      { name: "Lodenfrey",    url: "https://www.lodenfrey.com",          desc: "Munich heritage department store since 1842. Loden coats, Trachten, and curated luxury brands.",                                     tag: "Heritage",    logo: L("lodenfrey") },
+      { name: "Bogner",       url: "https://www.bogner.com/de-de",       desc: "Munich luxury sportswear since 1932. Performance ski fashion and premium activewear with German craftsmanship.",                     tag: "Sportswear",  logo: L("bogner") },
+      { name: "Marc O'Polo",  url: "https://www.marc-o-polo.com/de-de",  desc: "Stephanskirchen. Natural materials and relaxed Scandinavian-German aesthetics. Sustainable contemporary fashion.",                   tag: "Fashion",     logo: L("marc_o_polo") },
+      { name: "Drykorn",      url: "https://www.drykorn.com",            desc: "Karlsruhe-based contemporary German fashion brand. Clean tailoring and elevated casualwear.",                                        tag: "Fashion",     logo: L("drykorn") },
+      { name: "UF PRO",       url: "https://ufpro.com/de",               desc: "Tactical and outdoor clothing engineered for extreme conditions. Made-in-Germany performance fabric systems.",                       tag: "Tactical",    logo: L("ufpro") },
+      { name: "Hessnatur",    url: "https://www.hessnatur.com",          desc: "Butzbach. Germany's leading certified organic and sustainable fashion label. GOTS and Fairtrade certified.",                         tag: "Sustainable", logo: L("hessnatur") },
+      { name: "Weleda",       url: "https://www.weleda.de",              desc: "Certified biodynamic cosmetics. Skin Food cult product. Manufactured in Schwäbisch Gmünd since 1921.",                              tag: "Beauty",      logo: L("weleda") },
+      { name: "Dr. Hauschka", url: "https://www.drhauschka.de",          desc: "Bad Boll. Biodynamic skincare formulated with Demeter-certified plant extracts. Used by dermatologists worldwide.",                  tag: "Beauty",      logo: L("dr_hauschka") },
+      { name: "Beurer",       url: "https://www.beurer.com/de",          desc: "Ulm. German health devices — blood pressure monitors, TENS units, infrared therapy, and wellness products.",                         tag: "Health",      logo: L("beurer") },
     ],
   },
 ];
@@ -136,8 +213,8 @@ export default function ShopsPage() {
           </h1>
           <p className="text-zinc-400 text-lg leading-relaxed max-w-2xl">
             Germany has thousands of specialist retailers that don&apos;t ship internationally — or make
-            it difficult. We&apos;ve curated the best ones by category so you know exactly where to find
-            what you need.
+            it difficult. We&apos;ve curated the most exclusive Made-in-Germany brands and specialist shops
+            so you know exactly where to find what you need.
           </p>
         </div>
       </section>
@@ -149,7 +226,7 @@ export default function ShopsPage() {
             <ScrollReveal key={cat.category} delay={ci * 40}>
               <div id={cat.id}>
                 {/* Category header */}
-                <div className="flex items-center gap-3 mb-8 pb-4 border-b-2 border-zinc-900">
+                <div className="flex items-center gap-3 mb-6 pb-4 border-b-2 border-zinc-900">
                   <span className="text-zinc-700">{cat.icon}</span>
                   <h2 className="text-xl font-bold tracking-tight">{cat.category}</h2>
                   <span className="font-mono text-xs text-zinc-400 ml-auto">
@@ -157,24 +234,13 @@ export default function ShopsPage() {
                   </span>
                 </div>
 
+                {cat.note && cat.note}
+
                 {/* Shop cards */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {cat.stores.map((s, si) => (
-                    <ScrollReveal key={s.name} delay={si * 50}>
-                      <a
-                        href={s.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="border border-zinc-200 p-5 hover:border-zinc-900 hover:shadow-sm transition-all group block"
-                      >
-                        <div className="flex items-start justify-between gap-2 mb-2">
-                          <h3 className="font-semibold text-zinc-900 text-sm group-hover:underline underline-offset-2">
-                            {s.name}
-                          </h3>
-                          <span className="text-zinc-400 flex-shrink-0 pt-0.5 text-xs font-mono">↗</span>
-                        </div>
-                        <p className="text-xs text-zinc-500 leading-relaxed">{s.desc}</p>
-                      </a>
+                    <ScrollReveal key={s.name} delay={si * 40}>
+                      <ShopCard s={s} />
                     </ScrollReveal>
                   ))}
                 </div>

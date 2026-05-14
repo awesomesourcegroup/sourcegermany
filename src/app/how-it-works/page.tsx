@@ -13,7 +13,7 @@ const steps = [
     n: "01",
     title: "Find Your Item",
     detail: [
-      "Browse any German online shop — Otto, Zalando, Saturn, MediaMarkt, specialist retailers, or even small boutiques.",
+      "Browse any German manufacturer or specialist shop — Mittelstand brands, direct factory stores, niche producers, and the kind of category-defining suppliers that don't export internationally.",
       "Copy the product link and send it to us via our contact form or WhatsApp. Not sure where to find it? Describe the product and we'll source it for you.",
       "We'll confirm availability, check the current price, and send you a full itemised quote within 24 hours.",
     ],

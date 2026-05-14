@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { calculateEstimate, type Destination, type ShippingMode } from "@/lib/pricing";
 
-const VALID_DESTINATIONS: Destination[] = ["singapore", "australia", "canada", "usa"];
+const VALID_DESTINATIONS: Destination[] = ["singapore", "australia", "canada", "usa", "japan"];
 const VALID_MODES: ShippingMode[] = ["ddp", "dap"];
 
 export async function POST(req: NextRequest) {

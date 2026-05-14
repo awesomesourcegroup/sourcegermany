@@ -21,8 +21,8 @@ const fees = [
   },
   {
     name: "Insurance",
-    range: "1% of item value",
-    desc: "All shipments are insured against loss or damage in transit. Mandatory for items over €200.",
+    range: "1–1.5% of item value",
+    desc: "All shipments are insured against loss or damage in transit. Rate depends on item category and declared value. Mandatory for items over €200.",
   },
   {
     name: "Premium Packaging",
@@ -32,7 +32,7 @@ const fees = [
   {
     name: "Destination Taxes (DDP mode only)",
     range: "Varies by country",
-    desc: "Singapore: 9% GST. Australia: 10% GST + 5% import duty. Canada: ~13% HST. USA: 0–3% (most items under $800 are duty-free).",
+    desc: "Singapore: 9% GST. Australia: 10% GST + 5% import duty. Canada: ~13% HST. USA: federal de minimis $800 (0–3%); note that US state sales tax varies by state and may apply separately. Japan: 10% JCT (Japan Consumption Tax).",
   },
   {
     name: "Payment Processing",
@@ -112,12 +112,6 @@ export default function PricingPage() {
               <div className="p-8 border-2 h-full" style={{ borderColor: GOLD, backgroundColor: "rgba(201,168,76,0.06)" }}>
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="font-bold text-white text-lg">DDP</h3>
-                  <span
-                    className="font-mono text-xs px-2 py-1"
-                    style={{ backgroundColor: GOLD, color: "black" }}
-                  >
-                    RECOMMENDED
-                  </span>
                 </div>
                 <p className="font-mono text-xs text-zinc-400 mb-6">Delivered Duty Paid</p>
                 <ul className="space-y-3 text-sm">
