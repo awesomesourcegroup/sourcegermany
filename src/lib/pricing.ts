@@ -36,6 +36,14 @@ const DELIVERY_DAYS: Record<Destination, string> = {
   japan:     "5–9 business days",
 };
 
+const BROKERAGE_FEE: Record<Destination, number> = {
+  singapore: 20,
+  australia: 20,
+  canada:    15,
+  usa:       20,
+  japan:     20,
+};
+
 function dhlShippingRate(weightKg: number, destination: Destination): number {
   const w = Math.max(weightKg, 0.5);
   const base: Record<Destination, number> = {
@@ -68,27 +76,26 @@ function vatRefund(itemPriceEur: number): number {
 }
 
 function destinationTaxes(
+  cifEur: number,
   itemPriceEur: number,
-  shippingEur: number,
   destination: Destination
 ): number {
   if (destination === "singapore") {
-    return (itemPriceEur + shippingEur) * 0.09;
+    return cifEur * 0.09;
   }
   if (destination === "australia") {
     const duty = itemPriceEur * 0.05;
-    return (itemPriceEur + shippingEur + duty) * 0.10 + duty;
+    const processing = itemPriceEur > 610 ? 59 : 0;
+    return (cifEur + duty) * 0.10 + duty + processing;
   }
   if (destination === "canada") {
-    return (itemPriceEur + shippingEur) * 0.13;
+    return cifEur * 0.13;
   }
   if (destination === "usa") {
-    // Federal de minimis $800 threshold; state sales tax varies and is not pre-collected
-    return itemPriceEur < 800 ? 0 : itemPriceEur * 0.03;
+    return itemPriceEur * 0.25;
   }
   if (destination === "japan") {
-    // Japan Consumption Tax (JCT) 10%
-    return (itemPriceEur + shippingEur) * 0.10;
+    return cifEur * 0.10;
   }
   return 0;
 }
@@ -96,16 +103,17 @@ function destinationTaxes(
 export function calculateEstimate(input: EstimateInput): EstimateResult {
   const { itemPriceEur, weightKg, destination, mode } = input;
 
-  const shipping   = dhlShippingRate(weightKg, destination);
-  const insurance  = itemPriceEur * 0.01;
-  const fee        = serviceFee(itemPriceEur);
-  const packaging  = 4.5;
-  const taxes      = destinationTaxes(itemPriceEur, shipping, destination);
-  const bankFees   = itemPriceEur * 0.015;
-  const vat        = vatRefund(itemPriceEur);
+  const shipping  = dhlShippingRate(weightKg, destination);
+  const insurance = itemPriceEur * 0.01;
+  const fee       = serviceFee(itemPriceEur);
+  const packaging = 4.5;
+  const cif       = itemPriceEur + shipping + insurance;
+  const taxes     = destinationTaxes(cif, itemPriceEur, destination);
+  const brokerage = BROKERAGE_FEE[destination];
+  const vat       = vatRefund(itemPriceEur);
 
-  const ddpTotal = itemPriceEur + shipping + insurance + fee + packaging + taxes + bankFees - vat;
-  const dapTotal = itemPriceEur + shipping + insurance + fee + packaging + bankFees - vat;
+  const ddpTotal = itemPriceEur + shipping + insurance + fee + packaging + taxes + brokerage - vat;
+  const dapTotal = itemPriceEur + shipping + insurance + fee + packaging - vat;
 
   const totalEur = mode === "ddp" ? ddpTotal : dapTotal;
   const fxInfo   = FX[destination];

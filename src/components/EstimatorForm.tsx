@@ -235,10 +235,6 @@ export default function EstimatorForm() {
                 <span className="font-medium font-mono">€{result.serviceFeeEur}</span>
               </div>
               <div className="flex justify-between text-sm border-b border-zinc-100 pb-3">
-                <span className="text-zinc-500">Shipping mode</span>
-                <span className="font-medium font-mono uppercase">{result.mode}</span>
-              </div>
-              <div className="flex justify-between text-sm border-b border-zinc-100 pb-3">
                 <span className="text-zinc-500">Estimated delivery</span>
                 <span className="font-medium">{result.deliveryDays}</span>
               </div>
