@@ -44,6 +44,8 @@ const BROKERAGE_FEE: Record<Destination, number> = {
   japan:     20,
 };
 
+const SERVICE_FEE = 10;
+
 function dhlShippingRate(weightKg: number, destination: Destination): number {
   const w = Math.max(weightKg, 0.5);
   const base: Record<Destination, number> = {
@@ -63,69 +65,55 @@ function dhlShippingRate(weightKg: number, destination: Destination): number {
   return base[destination] + w * perKg[destination];
 }
 
-function serviceFee(itemPriceEur: number): number {
-  if (itemPriceEur < 100)  return 25;
-  if (itemPriceEur < 300)  return 35;
-  if (itemPriceEur < 600)  return 50;
-  if (itemPriceEur < 1200) return 75;
-  return Math.round(itemPriceEur * 0.065);
-}
-
-function vatRefund(itemPriceEur: number): number {
-  return (itemPriceEur / 1.19) * 0.19;
-}
-
-function destinationTaxes(
-  cifEur: number,
-  itemPriceEur: number,
+function destinationDutyAndTax(
+  goodsNet: number,
+  cif: number,
   destination: Destination
-): number {
+): { duty: number; tax: number; processing: number } {
   if (destination === "singapore") {
-    return cifEur * 0.09;
+    return { duty: 0, tax: cif * 0.09, processing: 0 };
   }
   if (destination === "australia") {
-    const duty = itemPriceEur * 0.05;
-    const processing = itemPriceEur > 610 ? 59 : 0;
-    return (cifEur + duty) * 0.10 + duty + processing;
+    const duty = goodsNet * 0.05;
+    const processing = goodsNet > 610 ? 59 : 0;
+    return { duty, tax: (cif + duty) * 0.10, processing };
   }
   if (destination === "canada") {
-    return cifEur * 0.13;
+    return { duty: 0, tax: cif * 0.13, processing: 0 };
   }
   if (destination === "usa") {
-    return itemPriceEur * 0.25;
+    return { duty: goodsNet * 0.25, tax: 0, processing: 8.4 };
   }
   if (destination === "japan") {
-    return cifEur * 0.10;
+    return { duty: 0, tax: cif * 0.10, processing: 0 };
   }
-  return 0;
+  return { duty: 0, tax: 0, processing: 0 };
 }
 
 export function calculateEstimate(input: EstimateInput): EstimateResult {
   const { itemPriceEur, weightKg, destination, mode } = input;
 
   const shipping  = dhlShippingRate(weightKg, destination);
-  const insurance = itemPriceEur * 0.01;
-  const fee       = serviceFee(itemPriceEur);
-  const packaging = 4.5;
-  const cif       = itemPriceEur + shipping + insurance;
-  const taxes     = destinationTaxes(cif, itemPriceEur, destination);
+  const goodsNet  = itemPriceEur + SERVICE_FEE;
+  const insurance = itemPriceEur > 500 ? goodsNet * 0.01 : 0;
+  const cif       = goodsNet + shipping + insurance;
+  const { duty, tax, processing } = destinationDutyAndTax(goodsNet, cif, destination);
   const brokerage = BROKERAGE_FEE[destination];
-  const vat       = vatRefund(itemPriceEur);
 
-  const ddpTotal = itemPriceEur + shipping + insurance + fee + packaging + taxes + brokerage - vat;
-  const dapTotal = itemPriceEur + shipping + insurance + fee + packaging - vat;
+  const ddpTotal = goodsNet + shipping + insurance + duty + tax + processing + brokerage;
+  const dapTotal = goodsNet + shipping + insurance;
 
   const totalEur = mode === "ddp" ? ddpTotal : dapTotal;
   const fxInfo   = FX[destination];
   const localAmt = (totalEur * fxInfo.rate).toFixed(0);
 
-  const ddpNote  = "All customs duties & taxes included — no surprise fees at delivery.";
-  const dapNote  = `You will pay customs fees (~${fxInfo.symbol}${Math.round(taxes * fxInfo.rate).toLocaleString()} ${fxInfo.currency}) separately to the courier at delivery.`;
+  const ddpNote = "All customs duties & taxes included — no surprise fees at delivery.";
+  const dapNote = `You will pay customs fees (~${fxInfo.symbol}${Math.round((duty + tax + processing) * fxInfo.rate).toLocaleString()} ${fxInfo.currency}) separately to the courier at delivery.`;
 
   return {
     estimatedTotalEur: Math.round(totalEur),
     estimatedTotalLocal: `${fxInfo.symbol}${Number(localAmt).toLocaleString()} ${fxInfo.currency}`,
-    serviceFeeEur: fee,
+    serviceFeeEur: SERVICE_FEE,
     deliveryDays: DELIVERY_DAYS[destination],
     mode,
     currency: fxInfo.currency,
