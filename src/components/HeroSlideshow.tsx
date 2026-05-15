@@ -7,9 +7,9 @@ const GOLD = "#C9A84C";
 
 const slides = [
   { src: "/images/hero-leica.jpg",       alt: "Leica Q camera",              label: "Cameras & Optics",    opacity: 0.78 },
-  { src: "/images/pillar-smarthome.jpg", alt: "Premium over-ear headphones", label: "Smart Home & Audio",  opacity: 0.65 },
+  { src: "/images/pillar-smarthome.jpg", alt: "Sennheiser HD 820 audiophile headphones", label: "Smart Home & Audio",  opacity: 0.65 },
   { src: "/images/pillar-fashion.jpg",   alt: "German menswear",             label: "Fashion & Luxury",    opacity: 0.65 },
-  { src: "/images/pillar-tools.jpg",     alt: "Professional power tools",    label: "Tools & Hardware",    opacity: 0.65 },
+  { src: "/images/why-germany-tools.jpg", alt: "German precision gearbox engineering", label: "Tools & Hardware",    opacity: 0.75 },
   { src: "/images/pillar-auto.jpg",      alt: "German automotive",           label: "Automotive",          opacity: 0.65 },
 ];
 

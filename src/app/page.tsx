@@ -46,7 +46,7 @@ const pillars = [
     title: "Tools & Hardware",
     desc: "Stahlwille, KNIPEX, Wera, Festool — Mittelstand precision tools built to outlast everything else.",
     img: "/images/pillar-tools.jpg",
-    imgAlt: "Modern professional cordless power drills",
+    imgAlt: "Festool track saw in workshop",
     href: "/shops#tools-hardware",
   },
   {
