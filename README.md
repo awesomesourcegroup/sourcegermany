@@ -1,6 +1,6 @@
 # SourceGermany
 
-German proxy shopping service — buy any product from Germany, shipped worldwide with duties paid.
+German proxy buying service. Main offer: second-hand items from eBay.de and Kleinanzeigen (we deal with the seller in German, collect, inspect, ship). New items from any German shop too. Ships to any country with DHL Express or DHL Paket International.
 
 ## Stack
 
@@ -11,7 +11,7 @@ German proxy shopping service — buy any product from Germany, shipped worldwid
 | UI | React 19.2.4 | Server Components by default; `"use client"` only where needed |
 | Styling | Tailwind CSS v4 | No `tailwind.config.js` — configuration lives in `src/app/globals.css` via `@theme` |
 | Email | Resend | Via `RESEND_API_KEY`; used only in `/api/contact` |
-| Fonts | Space Grotesk + DM Mono | Loaded via `next/font/google` in `layout.tsx` |
+| Fonts | Bricolage Grotesque (headings) + Inter (body) | Loaded via `next/font/google` in `layout.tsx` |
 | Deployment | Vercel | Standard Next.js output mode |
 
 Installed but largely unused: `shadcn`, `@base-ui/react`, `lucide-react`. The `src/components/ui/` primitives exist but most custom UI is hand-built.
@@ -21,94 +21,28 @@ Installed but largely unused: `shadcn`, `@base-ui/react`, `lucide-react`. The `s
 ```
 src/
   app/
-    layout.tsx              # Root layout — Nav + Footer, font injection, global metadata
-    page.tsx                # Home page
-    about/page.tsx
-    contact/page.tsx        # "use client" — enquiry form with Resend submit
-    estimator/page.tsx      # "use client" — EstimatorForm
+    layout.tsx              # Root layout: Nav + Footer, fonts, metadata
+    page.tsx                # Home: second-hand hero, problems we solve, steps, shipping, shops teaser
+    second-hand/page.tsx    # eBay.de + Kleinanzeigen service detail, inspection, FAQ
     how-it-works/page.tsx
-    pricing/page.tsx
-    shops/page.tsx          # Category sections have id= anchors for /shops#category-id links
+    pricing/page.tsx        # "Shipping & fees": fee list + DHL Express vs DHL Paket
+    shops/page.tsx          # Marketplaces + shop directory, category sections have id= anchors
     why-germany/page.tsx
-    api/
-      contact/route.ts      # POST — sends enquiry email via Resend
-      estimate/route.ts     # POST — calls lib/pricing, returns EstimateResult
+    about/page.tsx
+    contact/page.tsx        # "use client": quote request form (free-text country, shipping preference)
+    api/contact/route.ts    # POST: sends enquiry email via Resend (HTML-escaped)
   components/
-    Nav.tsx                 # Sticky header; "use client" for mobile menu state
+    Nav.tsx                 # "use client": floating pill header, also exports <Logo>
     Footer.tsx
-    EstimatorForm.tsx       # "use client" — wraps /api/estimate
-    ui/                     # shadcn primitives (button, card, badge, input, select, separator)
-  lib/
-    pricing.ts              # "server only" — pure pricing logic (no external deps)
-    utils.ts
-public/
-  images/                   # All Unsplash photos (free commercial licence)
-    banner-porsche.jpg      # Porsche 911 Turbo S — "Engineered to a standard" banner
-    hero-industry.jpg       # Home page hero background
-    pillar-auto.jpg
-    pillar-cameras.jpg
-    pillar-fashion.jpg
-    pillar-health.jpg
-    pillar-smarthome.jpg
-    pillar-tools.jpg
-    why-germany-hero.jpg
-    why-germany-tools.jpg
+    Blocks.tsx              # Shared: Eyebrow, PageHeader, buttons, CtaBand, ShippingCards (DHL options live here)
+    ScrollReveal.tsx
 ```
 
-## Pages & routes
+The old cost estimator (`/estimator`, `/api/estimate`, `lib/pricing.ts`) was removed. `/estimator` permanently redirects to `/contact` (see `next.config.ts`). Quotes are now given personally.
 
-| Route | Purpose |
-|---|---|
-| `/` | Marketing home — hero, stats bar, 6 expertise pillars, Porsche banner, trust points, how-it-works teaser, CTA |
-| `/how-it-works` | Three-step process detail |
-| `/why-germany` | Why source from Germany (quality, value, exclusivity) |
-| `/shops` | Curated shop directory — 6 categories, each with `id` anchor for deep-linking |
-| `/pricing` | Fee table and DDP vs DAP explanation |
-| `/estimator` | Interactive shipping cost calculator |
-| `/about` | Brand values and team blurb |
-| `/contact` | Channel cards + enquiry form |
+### API
 
-### API routes
-
-**`POST /api/contact`**
-
-Body: `{ name?, email, destination, message }`
-
-Sends an HTML email to `contact@sourcegermany.com` via Resend. `email` and `message` are required. Returns `{ success: true }` or `{ error }`.
-
-**`POST /api/estimate`**
-
-Body: `{ itemPriceEur: number, weightKg: number, destination: "singapore"|"australia"|"canada"|"usa", mode: "ddp"|"dap" }`
-
-Runs `calculateEstimate()` from `src/lib/pricing.ts`. Returns:
-
-```ts
-{
-  estimatedTotalEur: number,
-  estimatedTotalLocal: string,   // e.g. "S$1,234 SGD"
-  serviceFeeEur: number,
-  deliveryDays: string,
-  mode: "ddp" | "dap",
-  currency: string,
-  note: string,
-}
-```
-
-## Pricing logic (`src/lib/pricing.ts`)
-
-Marked `"server only"` — never imported client-side.
-
-```
-total = itemPrice + dhlShipping + insurance(1%) + serviceFee + packaging(€4.50) + destinationTaxes - vatRefund
-```
-
-- **DHL shipping**: base rate per destination + per-kg rate (minimum 0.5 kg billed)
-- **Service fee**: tiered (€25 under €100, up to 6.5% over €1,200)
-- **VAT refund**: `(price / 1.19) * 0.19` — German VAT recovered on export
-- **Destination taxes**: GST/duty estimates per country (SG 9%, AU 10%+duty, CA 13%, US 0% under $800)
-- **DDP mode**: taxes included in quote; **DAP mode**: taxes excluded, note added to output
-
-FX rates are hardcoded constants — update when rates drift significantly.
+**`POST /api/contact`** body: `{ name?, email, destination, shipping?, message }`. `email` and `message` required.
 
 ## Environment variables
 
@@ -133,9 +67,9 @@ npm run lint     # eslint
 
 ## Design conventions
 
-- **Brand colour**: `#C9A84C` (gold). Defined as `const GOLD` at the top of each file that uses it — not a global token.
-- **Colour palette**: zinc scale. `zinc-950` for dark sections, `zinc-50` for light-grey sections, `white` for default.
-- **Typography**: Space Grotesk for all UI; DM Mono available but currently unused.
-- **Icons**: hand-written inline SVG components defined in the same file as their usage. `lucide-react` is installed but not used. No emojis anywhere in the UI.
-- **Images**: all `<Image>` usage includes `fill` + `sizes` or explicit `width`/`height`. No `unoptimized`.
-- **No global state**: every page is a Server Component unless it needs `useState`/`useEffect`.
+- **Tokens** live in `src/app/globals.css` (`:root` + `@theme inline`): `paper` (cream background), `ink` (text), `brand` (deep green), `brand-soft`, `coral` (primary CTA), `coral-soft`, `sun` (yellow highlight). Use them as Tailwind classes (`bg-paper`, `text-brand`, `bg-coral`...). No per-file colour constants.
+- **Shapes**: rounded-3xl cards, rounded-full buttons and pills, large rounded dark panels (`rounded-[2rem] bg-ink`).
+- **Typography**: `font-display` (Bricolage Grotesque) for headings, Inter for body. `.scribble` gives a highlighter mark behind a word.
+- **Icons**: hand-written inline SVG in the same file. No emojis.
+- **Images**: `next/image` with `fill` + `sizes` or explicit size.
+- **Copy**: no em dashes or semicolons as prose connectors.

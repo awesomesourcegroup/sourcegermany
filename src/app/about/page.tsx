@@ -1,98 +1,75 @@
-import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
+import { CtaBand, Eyebrow, PageHeader } from "@/components/Blocks";
 
 export const metadata = {
-  title: "About Us — SourceGermany",
-  description: "The story behind SourceGermany — who we are and why we built this service.",
+  title: "About us | SourceGermany",
+  description: "Who we are and why we help people abroad buy from German sellers and shops.",
 };
 
-const GOLD = "#C9A84C";
-
-const IconVerified = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-    <polyline points="9 12 11 14 15 10"/>
-  </svg>
-);
-
 const values = [
-  { title: "Transparency First", desc: "No hidden fees. No vague \"surcharges\". Every cost is shown before you commit." },
-  { title: "Reliable", desc: "We'd rather serve fewer customers exceptionally well than rush volume at the cost of quality." },
-  { title: "Quality as Standard", desc: "We are German-based because quality is embedded in the culture here. We hold ourselves to the same standards as the products we ship." },
-  { title: "Customer Advantage", desc: "We find ways to make every order as affordable as possible — VAT refunds, optimal packaging, honest quotes." },
+  { title: "Honest quotes", desc: "Every cost is shown before you pay. No vague surcharges added later." },
+  { title: "Real checks", desc: "We look at every second-hand item with our own eyes and show you what we see." },
+  { title: "Personal service", desc: "You talk to the people who actually buy and pack your item, not a call centre." },
+  { title: "Your budget first", desc: "We negotiate with sellers, combine parcels and suggest the cheaper shipping option when it makes sense." },
 ];
 
 const story = [
-  "SourceGermany was founded by two people who lived on both sides of the equation — a buyer abroad who struggled to access genuine German products, and a resident of Germany who understood how the system works from the inside.",
-  "The frustration was always the same: German quality is globally renowned, but actually buying it from outside Europe involves a maze of shipping restrictions, customs uncertainty, and predatory third-party resellers marking up prices by 30–50%.",
-  "We built SourceGermany to fix that. We are physically based in Germany, we speak the language, we have established accounts with German retailers, and we understand the export process end-to-end. What took a customer weeks of confusion, we handle in 24 hours.",
-  "Our specialty isn't just shipping — it's sourcing. We know which Leica models are in stock at Foto Koch in Cologne, which Festool sets include the German market exclusive accessories, and which Hugo Boss pieces are Germany-only.",
+  "SourceGermany was started by two people who saw the problem from both sides: a buyer abroad who kept finding great deals in Germany they couldn't get, and a resident of Germany who knew how the system works from the inside.",
+  "The frustration was always the same. The best prices are on eBay.de and Kleinanzeigen, but sellers want local pickup, reply only in German and won't ship abroad. Resellers who do ship often add 30 to 50 percent on top.",
+  "So we became the German buyer for people abroad. We are physically in Germany, we speak the language, we can pick things up, and we know how to get a parcel out of the country safely.",
+  "Today most of our requests are for second-hand items: cameras, car parts, Hi-Fi, tools, collectibles. We still buy new from German shops too, for anything you can't get where you live.",
 ];
 
 const trustBadges = [
-  { label: "Registered Business — Germany", detail: "Legally registered in the Federal Republic of Germany" },
-  { label: "VAT Registered", detail: "Umsatzsteuer-ID: DE [number on request]" },
-  { label: "DHL Registered Shipper", detail: "Commercial DHL Express account — tracked, insured shipments" },
-  { label: "German-Based Buyers", detail: "We physically purchase from German retailers — no dropshipping" },
+  { label: "Registered business in Germany", detail: "Legally registered in the Federal Republic of Germany" },
+  { label: "VAT registered", detail: "Umsatzsteuer-ID available on request" },
+  { label: "DHL shipping", detail: "DHL Express and DHL Paket International, tracked" },
+  { label: "We buy in person", detail: "We buy, collect and check items ourselves, no dropshipping" },
 ];
 
 export default function AboutPage() {
   return (
     <div>
-      {/* Header */}
-      <section className="py-24 px-6 bg-zinc-950 text-white">
-        <div className="max-w-5xl mx-auto">
-          <p className="font-mono text-xs uppercase tracking-[0.3em] mb-4" style={{ color: GOLD }}>
-            Who We Are
-          </p>
-          <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-none mb-6">
-            ABOUT<br />SOURCEGERMANY.
-          </h1>
-          <p className="text-zinc-400 text-lg leading-relaxed max-w-2xl">
-            We&apos;re a small, Germany-based concierge sourcing service built on a simple belief:
-            international buyers shouldn&apos;t be locked out of the world&apos;s best products by
-            geography or complicated import rules.
-          </p>
-        </div>
-      </section>
+      <PageHeader
+        eyebrow="About us"
+        title={<>Your buyer <span className="text-brand">in Germany.</span></>}
+        intro="A small, Germany-based team that helps people anywhere buy from German sellers, whether that's a used lens on Kleinanzeigen or something new from a specialist shop."
+      />
 
-      {/* Story */}
-      <section className="py-20 px-6 bg-white">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12">
+      <section className="px-4 sm:px-6 pb-24">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10">
           <ScrollReveal className="md:col-span-4">
-            <p className="font-mono text-xs uppercase tracking-[0.3em] text-zinc-400 mb-3">Our Story</p>
-            <h2 className="text-3xl font-bold tracking-tight">How it started.</h2>
+            <Eyebrow>Our story</Eyebrow>
+            <h2 className="mt-4 text-3xl font-extrabold tracking-tight">How it started.</h2>
           </ScrollReveal>
-          <div className="md:col-span-8 space-y-5">
+          <div className="md:col-span-8 space-y-5 text-lg">
             {story.map((p, i) => (
               <ScrollReveal key={i} delay={i * 60}>
-                <p className="text-zinc-500 leading-relaxed">{p}</p>
+                <p className="text-ink/70 leading-relaxed">{p}</p>
               </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Trust Signals */}
-      <section className="py-20 px-6 bg-zinc-50">
+      <section className="px-4 sm:px-6 pb-24">
         <div className="max-w-5xl mx-auto">
-          <ScrollReveal className="mb-10">
-            <p className="font-mono text-xs uppercase tracking-[0.3em] text-zinc-400 mb-3">Verified Business</p>
-            <h2 className="text-2xl font-bold tracking-tight">Why You Can Trust Us.</h2>
+          <ScrollReveal>
+            <Eyebrow>Why you can trust us</Eyebrow>
           </ScrollReveal>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
             {trustBadges.map((b, i) => (
               <ScrollReveal key={b.label} delay={i * 60}>
-                <div className="flex items-start gap-4 border border-zinc-200 p-5">
-                  <div
-                    className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-                    style={{ backgroundColor: GOLD, color: "black" }}
-                  >
-                    <IconVerified />
-                  </div>
+                <div className="h-full flex items-start gap-4 rounded-3xl bg-white border border-ink/5 p-6">
+                  <span className="w-9 h-9 rounded-full bg-brand-soft text-brand grid place-items-center flex-shrink-0">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                      <polyline points="9 12 11 14 15 10" />
+                    </svg>
+                  </span>
                   <div>
-                    <p className="font-semibold text-zinc-900 text-sm mb-0.5">{b.label}</p>
-                    <p className="text-xs text-zinc-500">{b.detail}</p>
+                    <p className="font-semibold">{b.label}</p>
+                    <p className="text-sm text-ink/60 mt-0.5">{b.detail}</p>
                   </div>
                 </div>
               </ScrollReveal>
@@ -101,33 +78,19 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Values — dark numbered rows */}
-      <section className="py-20 px-6 bg-zinc-950 text-white">
-        <div className="max-w-5xl mx-auto">
-          <ScrollReveal className="mb-14">
-            <p className="font-mono text-xs uppercase tracking-[0.3em] mb-3" style={{ color: GOLD }}>
-              What We Stand For
-            </p>
-            <h2 className="text-4xl font-bold tracking-tight">Our Values.</h2>
+      <section className="px-3 sm:px-4">
+        <div className="max-w-6xl mx-auto rounded-[2rem] bg-ink text-white px-6 sm:px-12 py-16 md:py-20">
+          <ScrollReveal className="mb-10">
+            <Eyebrow tone="light">What we stand for</Eyebrow>
+            <h2 className="mt-4 text-4xl md:text-5xl font-extrabold tracking-tight">Our values.</h2>
           </ScrollReveal>
-          <div className="border-t border-zinc-800">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {values.map((v, i) => (
-              <ScrollReveal key={v.title} delay={i * 80} className="border-b border-zinc-800">
-                <div className="py-8 grid grid-cols-12 items-start gap-4 md:gap-6 group hover:bg-white/[0.02] transition-colors -mx-4 px-4">
-                  <div className="col-span-2 md:col-span-1">
-                    <span
-                      className="font-mono text-2xl md:text-3xl font-black"
-                      style={{ color: GOLD, opacity: 0.35 }}
-                    >
-                      0{i + 1}
-                    </span>
-                  </div>
-                  <div className="col-span-10 md:col-span-11">
-                    <h3 className="font-semibold text-white text-lg mb-1.5 group-hover:text-[#C9A84C] transition-colors">
-                      {v.title}
-                    </h3>
-                    <p className="text-zinc-400 text-sm leading-relaxed">{v.desc}</p>
-                  </div>
+              <ScrollReveal key={v.title} delay={i * 70}>
+                <div className="h-full rounded-3xl bg-white/5 border border-white/10 p-7">
+                  <span className="font-display font-extrabold text-sun text-lg">0{i + 1}</span>
+                  <h3 className="mt-2 text-xl font-bold">{v.title}</h3>
+                  <p className="mt-2 text-white/65 leading-relaxed">{v.desc}</p>
                 </div>
               </ScrollReveal>
             ))}
@@ -135,24 +98,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-24 px-6 overflow-hidden" style={{ backgroundColor: GOLD }}>
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <ScrollReveal>
-            <h2 className="text-5xl font-black text-black leading-none tracking-tighter">
-              WANT TO<br />WORK WITH<br />US?
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={120} className="flex flex-col gap-5 md:items-end">
-            <Link
-              href="/contact"
-              className="inline-flex items-center px-8 py-4 font-bold bg-black text-white hover:bg-zinc-800 transition-colors text-sm tracking-wide"
-            >
-              Get in Touch →
-            </Link>
-          </ScrollReveal>
-        </div>
-      </section>
+      <CtaBand title="Want to work with us?" text="Send us a link or just a question. We reply personally." primary={{ href: "/contact", label: "Get in touch" }} />
     </div>
   );
 }

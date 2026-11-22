@@ -1,441 +1,299 @@
 import Link from "next/link";
 import Image from "next/image";
 import ScrollReveal from "@/components/ScrollReveal";
-import HeroSlideshow from "@/components/HeroSlideshow";
+import { CtaBand, Eyebrow, PrimaryButton, SecondaryButton, ShippingCards } from "@/components/Blocks";
 
-const GOLD = "#C9A84C";
-
-const IconShield = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-    <polyline points="9 12 11 14 15 10"/>
+const IconChat = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+  </svg>
+);
+const IconCar = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <path d="M5 17h14M3 17v-5l2-5h14l2 5v5" />
+    <circle cx="7.5" cy="17.5" r="1.5" />
+    <circle cx="16.5" cy="17.5" r="1.5" />
+  </svg>
+);
+const IconCard = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <rect x="2" y="5" width="20" height="14" rx="2" />
+    <line x1="2" y1="10" x2="22" y2="10" />
+  </svg>
+);
+const IconEye = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+    <circle cx="12" cy="12" r="3" />
   </svg>
 );
 
-const IconReturn = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-    <polyline points="1 4 1 10 7 10"/>
-    <path d="M3.51 15a9 9 0 102.13-9.36L1 10"/>
-  </svg>
-);
-
-const IconPackage = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-    <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 002 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
-    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-    <line x1="12" y1="22.08" x2="12" y2="12"/>
-  </svg>
-);
-
-const IconPin = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
-    <circle cx="12" cy="10" r="3"/>
-  </svg>
-);
-
-const pillars = [
+const problems = [
   {
-    title: "Automotive & Motorsport",
-    desc: "ABT, KW, Eibach, BBS, FVD Brombacher — performance parts and tuning direct from the manufacturers.",
-    img: "/images/pillar-auto.jpg",
-    imgAlt: "Porsche 911 sports car",
-    href: "/shops#automotive",
+    icon: <IconChat />,
+    problem: "The seller only speaks German",
+    fix: "We message and call sellers in German, ask the questions you care about and negotiate the price for you.",
   },
   {
-    title: "Tools & Hardware",
-    desc: "Stahlwille, KNIPEX, Wera, Festool — Mittelstand precision tools built to outlast everything else.",
-    img: "/images/pillar-tools.jpg",
-    imgAlt: "Festool track saw in workshop",
-    href: "/shops#tools-hardware",
+    icon: <IconCar />,
+    problem: "“Nur Abholung”, pickup only",
+    fix: "Lots of the best deals are collection only. We pick the item up in person or arrange a German domestic shipment to us.",
   },
   {
-    title: "Electronics, Cameras & Audio",
-    desc: "Leica, Zeiss, Burmester, T+A, Sennheiser — German optical and audio engineering at the reference level.",
-    img: "/images/pillar-cameras.jpg",
-    imgAlt: "Leica branded camera film boxes",
-    href: "/shops#electronics-cameras-audio",
+    icon: <IconCard />,
+    problem: "No shipping abroad, no foreign payment",
+    fix: "We buy as a local German buyer with a German address and German payment, so every listing is open to you.",
   },
   {
-    title: "Fashion & Lifestyle",
-    desc: "Bogner, MCM, Lodenfrey, UF PRO, Weleda — Made-in-Germany labels across fashion, beauty, and outdoor.",
-    img: "/images/pillar-fashion.jpg",
-    imgAlt: "German menswear suit",
-    href: "/shops#fashion-lifestyle",
+    icon: <IconEye />,
+    problem: "Is it really as described?",
+    fix: "Everything comes to us first. We check it, send you photos and a short video, and only ship once you are happy.",
   },
 ];
 
-const trustPoints = [
-  {
-    icon: <IconShield />,
-    title: "DDP or DAP — Your Choice",
-    desc: "Choose DDP (all duties pre-paid, nothing due at delivery) or DAP (lower upfront cost, you settle customs locally). Full transparency either way.",
-  },
-  {
-    icon: <IconReturn />,
-    title: "Returns Accepted",
-    desc: "Changed your mind? We handle the German return process on your behalf — something our competitors don't offer.",
-  },
-  {
-    icon: <IconPackage />,
-    title: "Luxury-Grade Packaging",
-    desc: "Every order ships in a double-walled DHL Packset with air-column protection. Your €1,000 purchase deserves it.",
-  },
-  {
-    icon: <IconPin />,
-    title: "German-Based Buyer",
-    desc: "We are physically in Germany. We speak the language, navigate the shops, and verify authenticity before shipping.",
-  },
+const popular = [
+  "Cameras & lenses",
+  "Car parts & wheels",
+  "Hi-Fi & vinyl",
+  "Power tools",
+  "Watches",
+  "Designer bags",
+  "Lego & collectibles",
+  "Bikes & parts",
+  "Retro consoles",
+  "Musical instruments",
+  "Vintage furniture",
+  "Outdoor gear",
 ];
 
 const steps = [
-  {
-    n: "01",
-    title: "You Find It",
-    desc: "Send us a link to any German online shop or describe what you want. We'll confirm availability and give you a full price quote.",
-  },
-  {
-    n: "02",
-    title: "We Buy It",
-    desc: "We purchase the item using our German account, inspect it, pack it securely, and handle all export documentation.",
-  },
-  {
-    n: "03",
-    title: "You Receive It",
-    desc: "Your parcel arrives duties-paid at your door. Track it every step of the way. No unexpected bills.",
-  },
+  { n: "1", title: "Send us the listing", desc: "Paste a link from eBay.de, Kleinanzeigen or any German shop. Several links are fine too." },
+  { n: "2", title: "We talk to the seller", desc: "We confirm it's available, ask your questions and send you a full quote before anything is bought." },
+  { n: "3", title: "We buy, collect & check", desc: "Item arrives with us in Germany. You get photos and a video of the real thing." },
+  { n: "4", title: "You choose the shipping", desc: "Fast DHL Express or cheaper DHL Paket International, to any country DHL delivers to." },
 ];
 
-function PillarCard({
-  pillar,
-  index,
-  className = "",
-}: {
-  pillar: typeof pillars[0];
-  index: number;
-  className?: string;
-}) {
+const pillars = [
+  { title: "Automotive", img: "/images/pillar-auto.jpg", alt: "Porsche 911 sports car", href: "/shops#automotive" },
+  { title: "Tools & hardware", img: "/images/pillar-tools.jpg", alt: "Track saw in a workshop", href: "/shops#tools-hardware" },
+  { title: "Cameras & audio", img: "/images/pillar-cameras.jpg", alt: "Camera film boxes", href: "/shops#electronics-cameras-audio" },
+  { title: "Fashion & beauty", img: "/images/pillar-fashion.jpg", alt: "German menswear suit", href: "/shops#fashion-lifestyle" },
+];
+
+function ListingCard() {
   return (
-    <Link
-      href={pillar.href}
-      className={`relative overflow-hidden block group bg-zinc-200 ${className}`}
-    >
-      <Image
-        src={pillar.img}
-        alt={pillar.imgAlt}
-        fill
-        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        className="object-cover group-hover:scale-105 transition-transform duration-700"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/30 to-transparent" />
-      <div className="absolute inset-0 p-5 flex flex-col justify-end">
-        <span className="font-mono text-xs mb-1.5" style={{ color: GOLD }}>
-          0{index + 1}
-        </span>
-        <h3 className="text-white font-bold text-lg leading-tight">{pillar.title}</h3>
-        <p className="text-zinc-300 text-sm leading-relaxed mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 max-w-xs">
-          {pillar.desc}
-        </p>
+    <div className="float-card relative w-full max-w-sm mx-auto">
+      <div className="rounded-3xl bg-white shadow-[0_24px_60px_rgba(23,25,28,0.14)] overflow-hidden border border-ink/5">
+        <div className="relative h-52 bg-paper-deep">
+          <Image src="/images/hero-leica.jpg" alt="Used rangefinder camera in a listing photo" fill sizes="380px" className="object-cover" priority />
+          <span className="absolute bottom-3 left-3 rounded-full bg-white/95 px-3 py-1 text-xs font-semibold">Gebraucht · sehr gut</span>
+        </div>
+        <div className="p-5">
+          <p className="text-xs text-ink/50">80331 München · vor 2 Std.</p>
+          <p className="mt-1 font-display font-bold text-lg leading-snug">Messsucherkamera, Top-Zustand, mit Objektiv</p>
+          <div className="mt-3 flex items-center justify-between">
+            <p className="font-display font-extrabold text-2xl text-brand">1.850 € VB</p>
+            <span className="rounded-full bg-paper px-3 py-1 text-xs font-medium text-ink/70">Nur Abholung</span>
+          </div>
+        </div>
       </div>
-    </Link>
+      {/* Sticker */}
+      <div className="absolute -right-4 -bottom-6 sm:-right-8 rotate-6 rounded-2xl bg-coral text-white px-4 py-3 shadow-lg">
+        <p className="text-[11px] font-semibold uppercase tracking-wide opacity-80">SourceGermany</p>
+        <p className="font-display font-extrabold leading-tight">We pick it up<br />and ship it to you</p>
+      </div>
+      <div className="absolute -left-4 -top-4 sm:-left-8 -rotate-6 rounded-2xl bg-sun text-ink px-3 py-2 shadow-md">
+        <p className="font-display font-bold text-sm">Seller replied in German ✓</p>
+      </div>
+    </div>
   );
 }
 
 export default function Home() {
   return (
     <div className="flex flex-col">
-
-      {/* ── HERO ── */}
-      <section className="relative bg-zinc-950 text-white min-h-screen flex items-center overflow-hidden">
-        {/* Subtle texture */}
-        <div
-          className="absolute inset-0 pointer-events-none opacity-[0.04]"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 0,transparent 50%)",
-            backgroundSize: "12px 12px",
-          }}
-        />
-
-        <div className="relative max-w-6xl mx-auto px-6 w-full py-16 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Left: Text */}
+      {/* HERO */}
+      <section className="px-4 sm:px-6 pt-10 pb-20 md:pt-16 md:pb-28">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-12 items-center">
           <div>
-            <p
-              className="hero-label font-mono text-xs uppercase tracking-[0.3em] mb-8"
-              style={{ color: GOLD }}
+            <div className="hero-in">
+              <Eyebrow tone="coral">Second-hand from Germany, shipped worldwide</Eyebrow>
+            </div>
+            <h1
+              className="hero-in mt-6 text-[2.6rem] sm:text-6xl lg:text-[4.2rem] font-extrabold tracking-tight leading-[1.02]"
+              style={{ animationDelay: "0.08s" }}
             >
-              Germany → Worldwide
-            </p>
-            <h1 className="leading-none font-black mb-10">
-              <span className="hero-word-1 block text-7xl md:text-8xl lg:text-[8.5rem] tracking-tighter">
-                YOUR
-              </span>
-              <span className="hero-word-2 block text-7xl md:text-8xl lg:text-[8.5rem] tracking-tighter">
-                DIRECT
-              </span>
-              <span
-                className="hero-word-3 block text-7xl md:text-8xl lg:text-[8.5rem] tracking-tighter"
-                style={{ color: GOLD }}
-              >
-                LINE.
-              </span>
+              Found it on <span className="scribble">eBay.de</span> or <span className="scribble">Kleinanzeigen</span>?
+              <span className="block text-brand mt-2">We&apos;ll get it to you.</span>
             </h1>
-            <div
-              className="hero-sub border-l-2 pl-6 mb-10"
-              style={{ borderColor: GOLD }}
+            <p
+              className="hero-in mt-7 text-lg md:text-xl text-ink/65 leading-relaxed max-w-xl"
+              style={{ animationDelay: "0.16s" }}
             >
-              <p className="text-zinc-300 text-lg md:text-xl leading-relaxed max-w-md">
-                We buy any product from German retailers and ship it to your door —
-                customs paid, premium packaging, no hidden fees.
-              </p>
-            </div>
-            <div className="hero-cta flex flex-wrap gap-4">
-              <Link
-                href="/estimator"
-                className="px-8 py-4 font-bold text-black text-sm tracking-wide transition-opacity hover:opacity-85"
-                style={{ backgroundColor: GOLD }}
-              >
-                Get a Price Estimate
-              </Link>
-              <Link
-                href="/how-it-works"
-                className="px-8 py-4 font-semibold text-white text-sm border border-zinc-600 hover:border-zinc-400 transition-colors"
-              >
-                How It Works →
-              </Link>
-            </div>
-          </div>
-
-          {/* Right: Slideshow panel with gold corner accents */}
-          <div className="hero-image hidden lg:block relative">
-            <HeroSlideshow />
-            <div
-              className="absolute -top-3 -right-3 w-10 h-10 border-t-2 border-r-2 pointer-events-none"
-              style={{ borderColor: GOLD }}
-            />
-            <div
-              className="absolute -bottom-3 -left-3 w-10 h-10 border-b-2 border-l-2 pointer-events-none"
-              style={{ borderColor: GOLD }}
-            />
-          </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-8 hidden md:flex flex-col items-center gap-3">
-          <span
-            className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-600"
-            style={{ writingMode: "vertical-rl" }}
-          >
-            Scroll
-          </span>
-          <div className="w-px h-14 bg-gradient-to-b from-zinc-600 to-transparent" />
-        </div>
-      </section>
-
-      {/* ── STATS ── */}
-      <section className="bg-white border-b border-zinc-100">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-zinc-100">
-            {[
-              ["5–8", "days to Singapore"],
-              ["6–10", "days to Australia"],
-              ["5", "regions served"],
-              ["DDP", "duties always included"],
-            ].map(([val, label], i) => (
-              <ScrollReveal key={val} delay={i * 60} className="py-10 px-6 text-center">
-                <p className="text-3xl md:text-4xl font-bold font-mono text-zinc-900">
-                  {val}
-                </p>
-                <p className="font-mono text-xs uppercase tracking-widest text-zinc-400 mt-2">
-                  {label}
-                </p>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── EXPERTISE PILLARS ── */}
-      <section className="py-24 px-6 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <ScrollReveal className="mb-12">
-            <div className="flex items-end justify-between flex-wrap gap-4">
-              <div>
-                <p className="font-mono text-xs uppercase tracking-[0.3em] text-zinc-400 mb-2">
-                  Specialisations
-                </p>
-                <h2 className="text-4xl font-bold tracking-tight">
-                  Our Expertise Pillars
-                </h2>
-              </div>
-              <Link
-                href="/shops"
-                className="text-sm font-medium text-zinc-500 hover:text-black transition-colors flex items-center gap-1.5"
-              >
-                Browse all shops
-                <span style={{ color: GOLD }}>→</span>
-              </Link>
-            </div>
-          </ScrollReveal>
-
-          {/* Bento grid — 2 rows, asymmetric */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            {/* Row 1: Automotive wide, Tools narrow */}
-            <ScrollReveal className="md:col-span-2">
-              <PillarCard pillar={pillars[0]} index={0} className="h-72 md:h-96" />
-            </ScrollReveal>
-            <ScrollReveal delay={80}>
-              <PillarCard pillar={pillars[1]} index={1} className="h-72 md:h-96" />
-            </ScrollReveal>
-            {/* Row 2: Electronics narrow, Fashion wide */}
-            <ScrollReveal delay={120}>
-              <PillarCard pillar={pillars[2]} index={2} className="h-64 md:h-80" />
-            </ScrollReveal>
-            <ScrollReveal delay={160} className="md:col-span-2">
-              <PillarCard pillar={pillars[3]} index={3} className="h-64 md:h-80" />
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ── QUOTE BREAK ── */}
-      <section className="relative bg-zinc-950 text-white py-24 md:py-32 overflow-hidden">
-        {/* Right-side image fading in */}
-        <div className="absolute right-0 top-0 bottom-0 w-full lg:w-1/2">
-          <Image
-            src="/images/banner-porsche.jpg"
-            alt="Porsche 911"
-            fill
-            sizes="50vw"
-            className="object-cover opacity-25 lg:opacity-40"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/70 to-transparent lg:via-zinc-950/50" />
-        </div>
-
-        <div className="relative max-w-6xl mx-auto px-6">
-          <ScrollReveal>
-            <p className="font-mono text-xs uppercase tracking-[0.3em] mb-6" style={{ color: GOLD }}>
-              Made in Germany
+              German sellers often don&apos;t ship abroad, only reply in German or want local pickup. We
+              handle the seller, collect the item, check it and send it to your door, in any country.
             </p>
-            <blockquote className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight max-w-2xl">
-              Engineered to a standard,{" "}
-              <span style={{ color: GOLD }}>not a price.</span>
-            </blockquote>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* ── WHY US ── */}
-      <section className="py-24 px-6 bg-zinc-950 text-white">
-        <div className="max-w-6xl mx-auto">
-          <ScrollReveal className="mb-16">
-            <p className="font-mono text-xs uppercase tracking-[0.3em] mb-3" style={{ color: GOLD }}>
-              Why SourceGermany
+            <div className="hero-in mt-9 flex flex-wrap gap-3" style={{ animationDelay: "0.24s" }}>
+              <PrimaryButton href="/contact">Send us a listing <span aria-hidden>→</span></PrimaryButton>
+              <SecondaryButton href="/second-hand">How second-hand buying works</SecondaryButton>
+            </div>
+            <p className="hero-in mt-6 text-sm text-ink/50" style={{ animationDelay: "0.32s" }}>
+              New items from any German online shop too.
             </p>
-            <h2 className="text-4xl font-bold tracking-tight">Built Different.</h2>
-          </ScrollReveal>
+          </div>
 
-          <div className="border-t border-zinc-800">
-            {trustPoints.map((t, i) => (
-              <ScrollReveal key={t.title} delay={i * 80} className="border-b border-zinc-800">
-                <div className="py-8 grid grid-cols-12 items-start gap-4 md:gap-6 group cursor-default hover:bg-white/[0.02] transition-colors -mx-4 px-4">
-                  <div className="col-span-2 md:col-span-1">
-                    <span
-                      className="font-mono text-2xl md:text-3xl font-black"
-                      style={{ color: GOLD, opacity: 0.35 }}
-                    >
-                      0{i + 1}
-                    </span>
-                  </div>
-                  <div className="col-span-1 pt-0.5">
-                    <div
-                      className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
-                      style={{ backgroundColor: GOLD, color: "black" }}
-                    >
-                      {t.icon}
-                    </div>
-                  </div>
-                  <div className="col-span-9 md:col-span-10">
-                    <h3 className="font-semibold text-white text-base md:text-lg mb-1.5 group-hover:text-[#C9A84C] transition-colors">
-                      {t.title}
-                    </h3>
-                    <p className="text-zinc-400 text-sm leading-relaxed">{t.desc}</p>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
+          <div className="hero-in px-6 sm:px-10" style={{ animationDelay: "0.2s" }}>
+            <ListingCard />
           </div>
         </div>
       </section>
 
-      {/* ── HOW IT WORKS ── */}
-      <section className="py-24 px-6 bg-zinc-50">
+      {/* MARQUEE */}
+      <section className="bg-ink text-white py-5 overflow-hidden" aria-label="What we buy">
+        <div className="marquee-track flex w-max gap-10 whitespace-nowrap font-display font-bold text-lg">
+          {[...popular, ...popular].map((p, i) => (
+            <span key={i} className="flex items-center gap-10">
+              {p}
+              <span className="w-2 h-2 rounded-full bg-coral" />
+            </span>
+          ))}
+        </div>
+      </section>
+
+      {/* PROBLEMS WE SOLVE */}
+      <section className="px-4 sm:px-6 py-24">
         <div className="max-w-6xl mx-auto">
-          <ScrollReveal className="text-center mb-16">
-            <p className="font-mono text-xs uppercase tracking-[0.3em] text-zinc-400 mb-3">
-              The Process
-            </p>
-            <h2 className="text-4xl font-bold tracking-tight">
-              Simple. Transparent. Reliable.
+          <ScrollReveal className="max-w-2xl">
+            <Eyebrow>Why people ask us</Eyebrow>
+            <h2 className="mt-4 text-4xl md:text-5xl font-extrabold tracking-tight leading-[1.05]">
+              The best deals in Germany are on second-hand marketplaces. Getting them abroad is the hard part.
             </h2>
           </ScrollReveal>
 
-          <div className="relative grid grid-cols-1 md:grid-cols-3 gap-12">
-            {/* Connecting line — desktop only */}
-            <div
-              className="hidden md:block absolute h-px bg-zinc-300"
-              style={{ top: "2.625rem", left: "20%", right: "20%" }}
-            />
-            {steps.map((s, i) => (
-              <ScrollReveal key={s.n} delay={i * 130} className="flex flex-col items-center text-center">
-                <div
-                  className="relative z-10 w-[3.25rem] h-[3.25rem] rounded-full border-2 flex items-center justify-center bg-zinc-50 mb-6"
-                  style={{ borderColor: GOLD }}
-                >
-                  <span className="font-mono font-bold text-base" style={{ color: GOLD }}>
-                    {s.n}
-                  </span>
+          <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {problems.map((p, i) => (
+              <ScrollReveal key={p.problem} delay={i * 80}>
+                <div className="h-full rounded-3xl bg-white border border-ink/5 p-7 md:p-8">
+                  <div className="flex items-center gap-3">
+                    <span className="w-10 h-10 rounded-xl bg-coral-soft text-coral grid place-items-center">{p.icon}</span>
+                    <p className="font-display font-bold text-lg line-through decoration-coral decoration-2 text-ink/60">
+                      {p.problem}
+                    </p>
+                  </div>
+                  <p className="mt-4 text-ink/75 leading-relaxed">{p.fix}</p>
                 </div>
-                <h3 className="font-bold text-xl mb-3 text-zinc-900">{s.title}</h3>
-                <p className="text-zinc-500 text-sm leading-relaxed">{s.desc}</p>
               </ScrollReveal>
             ))}
           </div>
+        </div>
+      </section>
 
-          <ScrollReveal delay={400} className="text-center mt-12">
-            <Link
-              href="/how-it-works"
-              className="text-sm font-medium text-zinc-400 hover:text-black transition-colors border-b border-zinc-300 hover:border-black pb-0.5"
-            >
+      {/* FACTS STRIP */}
+      <section className="px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3">
+          {[
+            ["Any country", "DHL delivers to"],
+            ["2 options", "DHL Express or DHL Paket"],
+            ["Photos first", "before anything ships"],
+            ["In German", "we deal with every seller"],
+          ].map(([big, small], i) => (
+            <ScrollReveal key={big} delay={i * 60}>
+              <div className="rounded-3xl bg-brand-soft p-6 h-full">
+                <p className="font-display font-extrabold text-2xl md:text-3xl text-brand">{big}</p>
+                <p className="mt-1 text-sm text-ink/60">{small}</p>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+      </section>
+
+      {/* HOW IT WORKS */}
+      <section className="px-4 sm:px-6 py-24">
+        <div className="max-w-6xl mx-auto">
+          <ScrollReveal className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <Eyebrow>How it works</Eyebrow>
+              <h2 className="mt-4 text-4xl md:text-5xl font-extrabold tracking-tight">Four steps, no stress.</h2>
+            </div>
+            <Link href="/how-it-works" className="text-sm font-semibold text-brand hover:text-coral transition-colors">
               Read the full process →
             </Link>
           </ScrollReveal>
+
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {steps.map((s, i) => (
+              <ScrollReveal key={s.n} delay={i * 90}>
+                <div className="h-full rounded-3xl bg-white border border-ink/5 p-6">
+                  <span className="w-10 h-10 rounded-full bg-ink text-white grid place-items-center font-display font-bold">
+                    {s.n}
+                  </span>
+                  <h3 className="mt-5 text-xl font-bold tracking-tight">{s.title}</h3>
+                  <p className="mt-2 text-sm text-ink/65 leading-relaxed">{s.desc}</p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ── CTA ── */}
-      <section className="py-24 px-6 overflow-hidden" style={{ backgroundColor: GOLD }}>
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <ScrollReveal>
-            <h2 className="text-5xl md:text-6xl font-black text-black leading-none tracking-tighter">
-              READY TO<br />
-              ORDER FROM<br />
-              GERMANY?
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={120} className="flex flex-col gap-5 md:items-end">
-            <p className="text-black/65 text-lg leading-relaxed max-w-sm md:text-right">
-              Use our free cost estimator to see exactly what you&apos;ll pay — before you commit.
+      {/* SHIPPING */}
+      <section className="px-3 sm:px-4">
+        <div className="max-w-6xl mx-auto rounded-[2rem] bg-ink text-white px-6 sm:px-12 py-16 md:py-20">
+          <ScrollReveal className="max-w-2xl mb-10">
+            <Eyebrow tone="light">Shipping</Eyebrow>
+            <h2 className="mt-4 text-4xl md:text-5xl font-extrabold tracking-tight">Fast or cheap. You pick.</h2>
+            <p className="mt-4 text-white/65 text-lg leading-relaxed">
+              Every order ships tracked with DHL. Choose the speed that fits the item and your budget.
             </p>
-            <Link
-              href="/estimator"
-              className="inline-flex items-center px-8 py-4 font-bold bg-black text-white hover:bg-zinc-800 transition-colors text-sm tracking-wide"
-            >
-              Calculate My Cost →
-            </Link>
           </ScrollReveal>
+          <ShippingCards dark />
         </div>
       </section>
+
+      {/* NEW ITEMS TOO */}
+      <section className="px-4 sm:px-6 py-24">
+        <div className="max-w-6xl mx-auto">
+          <ScrollReveal className="flex flex-wrap items-end justify-between gap-6">
+            <div className="max-w-xl">
+              <Eyebrow>Buying new?</Eyebrow>
+              <h2 className="mt-4 text-4xl md:text-5xl font-extrabold tracking-tight">Any German shop works too.</h2>
+              <p className="mt-4 text-ink/65 text-lg leading-relaxed">
+                Specialist stores and Made-in-Germany brands that don&apos;t ship to you. Send the link, we do the rest.
+              </p>
+            </div>
+            <Link href="/shops" className="text-sm font-semibold text-brand hover:text-coral transition-colors">
+              Browse our shop list →
+            </Link>
+          </ScrollReveal>
+
+          <div className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-3">
+            {pillars.map((p, i) => (
+              <ScrollReveal key={p.title} delay={i * 70}>
+                <Link href={p.href} className="group block relative h-56 md:h-72 rounded-3xl overflow-hidden bg-paper-deep">
+                  <Image
+                    src={p.img}
+                    alt={p.alt}
+                    fill
+                    sizes="(max-width: 1024px) 50vw, 25vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/10 to-transparent" />
+                  <p className="absolute left-4 right-4 bottom-4 text-white font-display font-bold text-lg flex items-center justify-between">
+                    {p.title}
+                    <span className="w-8 h-8 rounded-full bg-white/20 grid place-items-center text-sm group-hover:bg-coral transition-colors">→</span>
+                  </p>
+                </Link>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <CtaBand
+        title={<>Got a link? <span className="text-sun">Send it over.</span></>}
+        text="Paste the eBay.de or Kleinanzeigen listing and tell us where it's going. We'll reply with a full quote, usually within 12 hours."
+        secondary={{ href: "/pricing", label: "See fees & shipping" }}
+      />
     </div>
   );
 }
