@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  /* Brand tokens: use as bg-paper, text-ink, bg-brand, text-coral, font-display, etc. */
+  /* Brand tokens: use as bg-paper, text-ink, bg-brand, bg-brand-soft */
   --color-paper: var(--paper);
   --color-paper-deep: var(--paper-deep);
   --color-ink: var(--ink);
@@ -14,10 +14,10 @@
   --color-coral: var(--coral);
   --color-coral-soft: var(--coral-soft);
   --color-sun: var(--sun);
-  --font-display: var(--font-bricolage);
+  --font-display: var(--font-inter);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-inter);
-  --font-heading: var(--font-bricolage);
+  --font-heading: var(--font-inter);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -44,11 +44,11 @@
 }
 
 :root {
-  --paper: #f6f2ea;
-  --paper-deep: #ece5d8;
+  --paper: #fbfaf7;
+  --paper-deep: #f1efea;
   --ink: #17191c;
   --brand: #1f4d3a;
-  --brand-soft: #dde8e0;
+  --brand-soft: #e7efe9;
   --coral: #e5583f;
   --coral-soft: #fbe3dc;
   --sun: #f4c04e;
@@ -71,7 +71,7 @@
   --border: rgba(23, 25, 28, 0.1);
   --input: rgba(23, 25, 28, 0.18);
   --ring: var(--brand);
-  --radius: 1rem;
+  --radius: 0.5rem;
 }
 
 @layer base {
@@ -86,64 +86,5 @@
   }
   h1, h2, h3 {
     @apply font-display;
-  }
-}
-
-/* Highlighter-style mark for key words in headlines */
-.scribble {
-  background-image: linear-gradient(transparent 62%, var(--sun) 62%, var(--sun) 88%, transparent 88%);
-  padding: 0 0.08em;
-}
-
-/* Infinite marquee strip */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-.marquee-track {
-  animation: marquee 38s linear infinite;
-}
-
-/* Hero entrance */
-@keyframes heroReveal {
-  from { opacity: 0; transform: translateY(32px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.hero-in {
-  opacity: 0;
-  animation: heroReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* Floating listing card in hero */
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50% { transform: translateY(-10px) rotate(-2deg); }
-}
-.float-card {
-  animation: float 6s ease-in-out infinite;
-}
-
-/* Scroll-triggered reveal (managed by ScrollReveal.tsx) */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition:
-    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-in, .reveal {
-    opacity: 1;
-    transform: none;
-    animation: none;
-    transition: none;
-  }
-  .marquee-track, .float-card {
-    animation: none;
   }
 }
