@@ -1,13 +1,11 @@
-import Link from "next/link";
 import Image from "next/image";
 import ScrollReveal from "@/components/ScrollReveal";
+import { CtaBand, PageHeader } from "@/components/Blocks";
 
 export const metadata = {
-  title: "Top German Shops — SourceGermany",
-  description: "Our curated directory of the best exclusive German online shops by category.",
+  title: "German shops & marketplaces | SourceGermany",
+  description: "Second-hand marketplaces and specialist German shops we buy from for you, by category.",
 };
-
-const GOLD = "#C9A84C";
 
 const IconWrench = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
@@ -39,6 +37,14 @@ const IconCamera = () => (
   </svg>
 );
 
+const IconRecycle = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <polyline points="1 4 1 10 7 10" />
+    <polyline points="23 20 23 14 17 14" />
+    <path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15" />
+  </svg>
+);
+
 const IconVoltage = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 flex-shrink-0 mt-0.5">
     <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
@@ -53,10 +59,9 @@ function ShopCard({ s }: { s: Store }) {
       href={s.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="border border-zinc-200 hover:border-zinc-900 hover:shadow-md transition-all duration-200 group block h-full flex flex-col"
+      className="group h-full flex flex-col rounded-3xl bg-white border border-ink/5 hover:border-ink/20 hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(23,25,28,0.08)] transition-all duration-200 overflow-hidden"
     >
-      {/* Logo area */}
-      <div className="relative h-20 bg-white flex items-center justify-center border-b border-zinc-100 overflow-hidden px-6">
+      <div className="relative h-20 flex items-center justify-center border-b border-ink/5 px-6">
         {s.logo ? (
           <Image
             src={s.logo}
@@ -66,32 +71,20 @@ function ShopCard({ s }: { s: Store }) {
             className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
           />
         ) : (
-          <span
-            className="text-2xl font-black tracking-tighter select-none"
-            style={{ color: GOLD, opacity: 0.25 }}
-          >
-            {s.name.charAt(0).toUpperCase()}
-          </span>
+          <span className="font-display text-2xl font-extrabold tracking-tight text-brand">{s.name}</span>
         )}
       </div>
-
-      {/* Text area */}
-      <div className="p-4 flex flex-col flex-1">
-        <div className="flex items-start justify-between gap-1 mb-1">
-          <h3 className="font-semibold text-zinc-900 text-sm leading-snug">
-            {s.name}
-          </h3>
-          <span className="text-zinc-400 flex-shrink-0 text-xs font-mono opacity-0 group-hover:opacity-100 transition-opacity">↗</span>
+      <div className="p-5 flex flex-col flex-1">
+        <div className="flex items-start justify-between gap-2">
+          <h3 className="font-semibold leading-snug">{s.name}</h3>
+          <span className="text-ink/30 group-hover:text-coral transition-colors text-sm">↗</span>
         </div>
         {s.tag && (
-          <span
-            className="inline-block font-mono text-[10px] uppercase tracking-wider px-1.5 py-0.5 mb-2 self-start"
-            style={{ backgroundColor: "#FBF4E3", color: GOLD }}
-          >
+          <span className="mt-2 self-start rounded-full bg-brand-soft text-brand text-[11px] font-semibold px-2.5 py-0.5">
             {s.tag}
           </span>
         )}
-        <p className="text-xs text-zinc-500 leading-relaxed mt-auto pt-2">{s.desc}</p>
+        <p className="text-sm text-ink/60 leading-relaxed mt-auto pt-3">{s.desc}</p>
       </div>
     </a>
   );
@@ -106,6 +99,21 @@ const shops: {
   note?: React.ReactNode;
   stores: Store[];
 }[] = [
+  {
+    category: "Second-hand marketplaces",
+    id: "second-hand",
+    icon: <IconRecycle />,
+    note: (
+      <p className="text-sm text-ink/70 bg-coral-soft rounded-2xl px-5 py-4 mb-6">
+        <strong className="text-coral">Our most requested service.</strong> Send us any listing and we deal with the seller in
+        German, collect the item, check it and ship it to you.
+      </p>
+    ),
+    stores: [
+      { name: "Kleinanzeigen", url: "https://www.kleinanzeigen.de", desc: "Germany's largest classifieds site. Private sellers, often pickup only. We collect for you.", tag: "Classifieds" },
+      { name: "eBay.de",       url: "https://www.ebay.de",          desc: "Auctions and fixed-price listings. We buy or bid from our German account with eBay buyer protection.", tag: "Auctions" },
+    ],
+  },
   {
     category: "Automotive & Motorsport",
     id: "automotive",
@@ -129,7 +137,7 @@ const shops: {
     id: "tools-hardware",
     icon: <IconWrench />,
     note: (
-      <div className="flex items-start gap-2 text-xs text-amber-700 bg-amber-50 border border-amber-200 px-4 py-3 mb-6">
+      <div className="flex items-start gap-2 text-sm text-ink/80 bg-sun/25 rounded-2xl px-5 py-4 mb-6">
         <IconVoltage />
         <span>
           <strong>Voltage notice:</strong> Germany uses 230V / 50Hz. Check your local mains voltage and frequency before ordering power tools — a transformer or frequency converter may be required.
@@ -154,7 +162,7 @@ const shops: {
     id: "electronics-cameras-audio",
     icon: <IconCamera />,
     note: (
-      <div className="flex items-start gap-2 text-xs text-amber-700 bg-amber-50 border border-amber-200 px-4 py-3 mb-6">
+      <div className="flex items-start gap-2 text-sm text-ink/80 bg-sun/25 rounded-2xl px-5 py-4 mb-6">
         <IconVoltage />
         <span>
           <strong>Voltage notice:</strong> Germany uses 230V / 50Hz. Check your local mains voltage and frequency before ordering electronics — a transformer or frequency converter may be required.
@@ -202,83 +210,48 @@ const shops: {
 export default function ShopsPage() {
   return (
     <div>
-      {/* Header */}
-      <section className="py-24 px-6 bg-zinc-950 text-white">
-        <div className="max-w-5xl mx-auto">
-          <p className="font-mono text-xs uppercase tracking-[0.3em] mb-4" style={{ color: GOLD }}>
-            Curated Directory
-          </p>
-          <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-none mb-6">
-            TOP GERMAN<br />SHOPS.
-          </h1>
-          <p className="text-zinc-400 text-lg leading-relaxed max-w-2xl">
-            Germany has thousands of specialist retailers that don&apos;t ship internationally — or make
-            it difficult. We&apos;ve curated the most exclusive Made-in-Germany brands and specialist shops
-            so you know exactly where to find what you need.
-          </p>
+      <PageHeader
+        eyebrow="Where we buy"
+        title={<>Marketplaces <span className="text-brand">and shops.</span></>}
+        intro="Second-hand from eBay.de and Kleinanzeigen is what most people ask us for. We also buy new from any German online shop. Here are some favourites to get you started."
+      >
+        <div className="flex flex-wrap gap-2">
+          {shops.map((c) => (
+            <a key={c.id} href={`#${c.id}`} className="rounded-full bg-white border border-ink/10 px-4 py-2 text-sm font-medium hover:border-ink/40 transition-colors">
+              {c.category}
+            </a>
+          ))}
         </div>
-      </section>
+      </PageHeader>
 
-      {/* Shop directory */}
-      <section className="py-20 px-6 bg-white">
-        <div className="max-w-5xl mx-auto space-y-20">
-          {shops.map((cat, ci) => (
-            <ScrollReveal key={cat.category} delay={ci * 40}>
-              <div id={cat.id}>
-                {/* Category header */}
-                <div className="flex items-center gap-3 mb-6 pb-4 border-b-2 border-zinc-900">
-                  <span className="text-zinc-700">{cat.icon}</span>
-                  <h2 className="text-xl font-bold tracking-tight">{cat.category}</h2>
-                  <span className="font-mono text-xs text-zinc-400 ml-auto">
-                    {cat.stores.length} shops
-                  </span>
-                </div>
-
-                {cat.note && cat.note}
-
-                {/* Shop cards */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                  {cat.stores.map((s, si) => (
-                    <ScrollReveal key={s.name} delay={si * 40}>
-                      <ShopCard s={s} />
-                    </ScrollReveal>
-                  ))}
-                </div>
+      <section className="px-4 sm:px-6 pb-12">
+        <div className="max-w-6xl mx-auto space-y-20">
+          {shops.map((cat) => (
+            <div key={cat.category} id={cat.id} className="scroll-mt-24">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="w-10 h-10 rounded-xl bg-ink text-white grid place-items-center">{cat.icon}</span>
+                <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight">{cat.category}</h2>
+                <span className="ml-auto text-sm text-ink/45">{cat.stores.length} {cat.stores.length === 1 ? "site" : "sites"}</span>
               </div>
-            </ScrollReveal>
+
+              {cat.note && cat.note}
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {cat.stores.map((s, si) => (
+                  <ScrollReveal key={s.name} delay={(si % 3) * 50} className="h-full">
+                    <ShopCard s={s} />
+                  </ScrollReveal>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-24 px-6 overflow-hidden" style={{ backgroundColor: GOLD }}>
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <ScrollReveal>
-            <h2 className="text-5xl font-black text-black leading-none tracking-tighter">
-              FOUND<br />SOMETHING<br />YOU WANT?
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={120} className="flex flex-col gap-4 md:items-end">
-            <p className="text-black/65 text-lg max-w-sm md:text-right">
-              Copy the product link and paste it into our estimator — or send it directly to us.
-            </p>
-            <div className="flex flex-wrap gap-3 md:justify-end">
-              <Link
-                href="/estimator"
-                className="inline-flex items-center px-6 py-3.5 font-bold bg-black text-white hover:bg-zinc-800 transition-colors text-sm"
-              >
-                Get a Price Estimate
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center px-6 py-3.5 font-bold bg-transparent text-black border-2 border-black hover:bg-black/10 transition-colors text-sm"
-              >
-                Send Us the Link
-              </Link>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
+      <CtaBand
+        title="Found something you want?"
+        text="Copy the link, new or used, and send it to us. We'll reply with a full quote."
+      />
     </div>
   );
 }

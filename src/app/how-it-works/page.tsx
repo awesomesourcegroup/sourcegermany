@@ -1,172 +1,140 @@
-import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
+import { CtaBand, Eyebrow, PageHeader, ShippingCards } from "@/components/Blocks";
 
 export const metadata = {
-  title: "How It Works — SourceGermany",
-  description: "A simple three-step process to get any German product shipped to your door.",
+  title: "How it works | SourceGermany",
+  description: "From a link on eBay.de, Kleinanzeigen or any German shop to a parcel at your door, step by step.",
 };
-
-const GOLD = "#C9A84C";
 
 const steps = [
   {
-    n: "01",
-    title: "Find Your Item",
+    n: "1",
+    title: "Send us the link",
     detail: [
-      "Browse any German manufacturer or specialist shop — Mittelstand brands, direct factory stores, niche producers, and the kind of category-defining suppliers that don't export internationally.",
-      "Copy the product link and send it to us via our contact form or WhatsApp. Not sure where to find it? Describe the product and we'll source it for you.",
-      "We'll confirm availability, check the current price, and send you a full itemised quote within 24 hours.",
+      "Paste a listing from eBay.de, Kleinanzeigen or any German online shop into our contact form. Several links at once is fine.",
+      "Tell us where it should go and anything you want us to ask or check, like size, condition or included accessories.",
+      "Can't find it? Describe what you want and we'll search German marketplaces for you.",
     ],
   },
   {
-    n: "02",
-    title: "We Purchase & Prepare",
+    n: "2",
+    title: "We contact the seller and quote",
     detail: [
-      "Once you approve the quote and submit payment, we purchase the item using our German account.",
-      "We inspect the item on arrival — verifying condition, authenticity, and completeness before anything leaves Germany.",
-      "We repack your item in a professional DHL Packset with air-column protection. Luxury-grade, every time.",
-      "We handle all German export documentation, customs paperwork, and DHL shipping label.",
+      "We message the seller in German, confirm the item is still there and ask your questions.",
+      "If the price is negotiable, we try to get it down.",
+      "You get one clear quote: item price, our fee, any pickup costs, and the price for both shipping options.",
     ],
   },
   {
-    n: "03",
-    title: "You Receive It",
+    n: "3",
+    title: "We buy, collect and check",
     detail: [
-      "We ship via DHL Express. You'll receive a tracking number and can monitor your parcel every step of the way.",
-      "For DDP orders — the most popular option — all customs duties and taxes are pre-paid. Your parcel clears customs without any courier charges at delivery.",
-      "For DAP orders, you will pay your country's customs authority directly when the parcel arrives.",
-      "Typical delivery: 5–8 business days to Singapore, 6–10 to Australia.",
+      "Once you approve and pay, we buy the item as a German buyer.",
+      "For pickup-only listings we collect in person or arrange shipping to us within Germany.",
+      "We inspect the item and send you photos and a short video. Nothing ships until you're happy.",
+    ],
+  },
+  {
+    n: "4",
+    title: "We pack and ship to you",
+    detail: [
+      "We repack it properly with padding and a sturdy box, and handle the export paperwork.",
+      "It ships with DHL Express or DHL Paket International, your choice, with a tracking number.",
+      "Buying several things? We hold them and send everything in one parcel to save on shipping.",
     ],
   },
 ];
 
 const faqs = [
   {
-    q: "What happens if the item is out of stock?",
-    a: "We notify you immediately and either source it from an alternative German retailer at the same or better price, or issue a full refund.",
+    q: "Which countries do you ship to?",
+    a: "Anywhere DHL delivers. If you're unsure about your country, just ask in the contact form.",
+  },
+  {
+    q: "What if the item is sold before we buy it?",
+    a: "We tell you straight away. We can look for a similar listing, or you simply don't pay anything.",
   },
   {
     q: "Can I return an item?",
-    a: "Yes — unlike most competitors, we accept returns. We handle the German return process on your behalf for a flat handling fee. Refunds are processed after the retailer confirms receipt.",
+    a: "For new items from German shops, yes. We handle the return with the shop for a small handling fee. Private second-hand sales usually have no returns, which is why we inspect everything before it ships.",
   },
   {
-    q: "What payment methods do you accept?",
-    a: "We accept international bank transfers and credit/debit cards via Stripe. All payments are in Euros at the locked quote rate.",
+    q: "How do I pay?",
+    a: "By international bank transfer or card. All prices are in euros and fixed in your quote.",
   },
   {
-    q: "Do you buy from any German shop?",
-    a: "Almost. We can buy from any shop that ships to a German address and accepts standard payment methods. Some limited-edition or store-only items may require additional time.",
-  },
-  {
-    q: "What's the maximum order value you handle?",
-    a: "We regularly process orders up to €5,000 per item. For larger orders (e.g., Leica cameras, professional tools), please contact us directly for a tailored quote.",
+    q: "Who pays import duties?",
+    a: "With DHL Express we can prepay duties for most countries, so nothing is due at your door. With DHL Paket International you pay any duties to your local customs or post office when it arrives.",
   },
 ];
 
 export default function HowItWorks() {
   return (
     <div>
-      {/* Header */}
-      <section className="py-24 px-6 bg-zinc-950 text-white">
-        <div className="max-w-5xl mx-auto">
-          <p className="font-mono text-xs uppercase tracking-[0.3em] mb-4" style={{ color: GOLD }}>
-            The Process
-          </p>
-          <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-none mb-6">
-            Simple.<br />Transparent.<br />Reliable.
-          </h1>
-          <p className="text-zinc-400 text-lg leading-relaxed max-w-2xl">
-            Three steps. No confusion. No hidden fees. We've designed the process so you always
-            know exactly what's happening with your order.
-          </p>
-        </div>
-      </section>
+      <PageHeader
+        eyebrow="How it works"
+        title={<>From a link to <span className="text-brand">your door.</span></>}
+        intro="Whether it's a used lens on Kleinanzeigen or a new tool from a German shop, the process is the same. You always know what's happening and what it costs."
+      />
 
-      {/* Steps */}
-      <section className="py-20 px-6 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <div className="border-t border-zinc-200">
-            {steps.map((s, i) => (
-              <ScrollReveal key={s.n} delay={i * 80} className="border-b border-zinc-200">
-                <div className="py-14 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
-                  {/* Step number + title */}
-                  <div className="md:col-span-4">
-                    <span
-                      className="font-mono font-black text-5xl leading-none block mb-4"
-                      style={{ color: GOLD, opacity: 0.3 }}
-                    >
-                      {s.n}
-                    </span>
-                    <h2 className="text-2xl font-bold tracking-tight">{s.title}</h2>
-                  </div>
-                  {/* Details */}
-                  <div className="md:col-span-8">
-                    <ul className="space-y-4">
-                      {s.detail.map((d, j) => (
-                        <li key={j} className="flex gap-4 text-zinc-500 leading-relaxed">
-                          <span
-                            className="flex-shrink-0 mt-2 w-1 h-1 rounded-full"
-                            style={{ backgroundColor: GOLD }}
-                          />
-                          {d}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+      <section className="px-4 sm:px-6 pb-24">
+        <div className="max-w-5xl mx-auto space-y-4">
+          {steps.map((s, i) => (
+            <ScrollReveal key={s.n} delay={i * 60}>
+              <div className="rounded-3xl bg-white border border-ink/5 p-7 md:p-10 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10">
+                <div className="md:col-span-4 flex md:flex-col items-center md:items-start gap-4">
+                  <span className="w-12 h-12 rounded-full bg-coral text-white grid place-items-center font-display font-extrabold text-xl flex-shrink-0">
+                    {s.n}
+                  </span>
+                  <h2 className="text-2xl font-bold tracking-tight">{s.title}</h2>
                 </div>
-              </ScrollReveal>
-            ))}
-          </div>
+                <ul className="md:col-span-8 space-y-3">
+                  {s.detail.map((d) => (
+                    <li key={d} className="flex gap-3 text-ink/70 leading-relaxed">
+                      <span className="mt-2.5 w-1.5 h-1.5 rounded-full bg-brand flex-shrink-0" />
+                      {d}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </ScrollReveal>
+          ))}
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="py-20 px-6 bg-zinc-950 text-white">
+      <section className="px-4 sm:px-6 pb-24">
         <div className="max-w-5xl mx-auto">
-          <ScrollReveal className="mb-14">
-            <p className="font-mono text-xs uppercase tracking-[0.3em] mb-3" style={{ color: GOLD }}>
-              Common Questions
-            </p>
-            <h2 className="text-4xl font-bold tracking-tight">FAQ</h2>
+          <ScrollReveal className="mb-10">
+            <Eyebrow>Shipping options</Eyebrow>
+            <h2 className="mt-4 text-4xl font-extrabold tracking-tight">Two ways to ship.</h2>
           </ScrollReveal>
-          <div className="border-t border-zinc-800">
-            {faqs.map((f, i) => (
-              <ScrollReveal key={f.q} delay={i * 60} className="border-b border-zinc-800">
-                <div className="py-8 grid grid-cols-1 md:grid-cols-12 gap-4">
-                  <div className="md:col-span-5">
-                    <p className="font-semibold text-white">{f.q}</p>
-                  </div>
-                  <div className="md:col-span-7">
-                    <p className="text-zinc-400 leading-relaxed text-sm">{f.a}</p>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
+          <ShippingCards />
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-24 px-6 overflow-hidden" style={{ backgroundColor: GOLD }}>
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <section className="px-4 sm:px-6 pb-8">
+        <div className="max-w-5xl mx-auto">
           <ScrollReveal>
-            <h2 className="text-5xl font-black text-black leading-none tracking-tighter">
-              READY TO<br />GET STARTED?
-            </h2>
+            <Eyebrow>FAQ</Eyebrow>
+            <h2 className="mt-4 text-4xl font-extrabold tracking-tight">Common questions.</h2>
           </ScrollReveal>
-          <ScrollReveal delay={120} className="flex flex-col gap-5 md:items-end">
-            <p className="text-black/65 text-lg max-w-sm md:text-right">
-              Use the estimator to see your all-in cost before you commit.
-            </p>
-            <Link
-              href="/estimator"
-              className="inline-flex items-center px-8 py-4 font-bold bg-black text-white hover:bg-zinc-800 transition-colors text-sm tracking-wide"
-            >
-              Get a Price Estimate →
-            </Link>
-          </ScrollReveal>
+          <div className="mt-10 space-y-3">
+            {faqs.map((f, i) => (
+              <ScrollReveal key={f.q} delay={i * 50}>
+                <details className="group rounded-3xl bg-white border border-ink/5 px-6 py-5 open:pb-6">
+                  <summary className="cursor-pointer list-none flex items-center justify-between gap-4 font-display font-bold text-lg">
+                    {f.q}
+                    <span className="w-8 h-8 rounded-full bg-paper grid place-items-center text-ink/60 group-open:rotate-45 transition-transform flex-shrink-0">+</span>
+                  </summary>
+                  <p className="mt-3 text-ink/70 leading-relaxed">{f.a}</p>
+                </details>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
+
+      <CtaBand title="Ready when you are." text="Send us a link and we'll come back with availability and a full quote." />
     </div>
   );
 }

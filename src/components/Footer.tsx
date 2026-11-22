@@ -1,6 +1,5 @@
 import Link from "next/link";
-
-const GOLD = "#C9A84C";
+import { Logo } from "@/components/Nav";
 
 const IconInstagram = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"
@@ -20,62 +19,60 @@ const IconTikTok = () => (
 const IconYouTube = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
     <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
-    <polygon fill="white" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" />
+    <polygon fill="#17191c" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" />
   </svg>
 );
 
+const linkCls = "text-white/60 hover:text-white transition-colors";
+
 export default function Footer() {
   return (
-    <footer className="bg-zinc-950 text-zinc-400 text-sm">
-      <div className="max-w-6xl mx-auto px-6 py-14 grid grid-cols-1 sm:grid-cols-3 gap-10">
-        <div>
-          <p className="font-semibold text-white text-base mb-3">
-            <span className="text-white">Source</span>
-            <span style={{ color: GOLD }}>Germany</span>
-          </p>
-          <p className="leading-relaxed text-zinc-500">
-            Your direct line to premium German products — shipped worldwide with no hidden fees.
-          </p>
-        </div>
+    <footer className="px-3 sm:px-4 pb-3">
+      <div className="max-w-6xl mx-auto rounded-[2rem] bg-ink text-white">
+        <div className="px-6 sm:px-10 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 text-sm">
+          <div className="lg:col-span-2 max-w-sm">
+            <Logo />
+            <p className="mt-4 text-white/60 leading-relaxed">
+              Your buyer in Germany. We get you the things German sellers won&apos;t send abroad, from a
+              used camera on Kleinanzeigen to a new tool from a specialist shop, and ship them to any country.
+            </p>
+            <div className="flex items-center gap-4 mt-6">
+              <a href="https://www.instagram.com/awesomesorcegroup?igsh=eDNjOHp4MzV5ZWVp&utm_source=qr" aria-label="Instagram" target="_blank" rel="noopener noreferrer" className={linkCls}>
+                <IconInstagram />
+              </a>
+              <a href="https://www.tiktok.com/@awesome.source7?_r=1&_t=ZG-96QqACAMrcf" aria-label="TikTok" target="_blank" rel="noopener noreferrer" className={linkCls}>
+                <IconTikTok />
+              </a>
+              <a href="http://www.youtube.com/@AwesomeSourceGroup" aria-label="YouTube" target="_blank" rel="noopener noreferrer" className={linkCls}>
+                <IconYouTube />
+              </a>
+            </div>
+          </div>
 
-        <div>
-          <p className="font-semibold text-white mb-3 uppercase tracking-widest text-xs">Service</p>
-          <ul className="space-y-2">
-            <li><Link href="/how-it-works" className="hover:text-white transition-colors">How It Works</Link></li>
-            <li><Link href="/estimator" className="hover:text-white transition-colors">Cost Estimator</Link></li>
-            <li><Link href="/pricing" className="hover:text-white transition-colors">Pricing & Fees</Link></li>
-            <li><Link href="/shops" className="hover:text-white transition-colors">Top German Shops</Link></li>
-          </ul>
-        </div>
+          <div>
+            <p className="font-semibold mb-4 text-white">Service</p>
+            <ul className="space-y-2.5">
+              <li><Link href="/second-hand" className={linkCls}>Second-hand from eBay.de and Kleinanzeigen</Link></li>
+              <li><Link href="/how-it-works" className={linkCls}>How it works</Link></li>
+              <li><Link href="/pricing" className={linkCls}>Shipping & fees</Link></li>
+              <li><Link href="/shops" className={linkCls}>German shops</Link></li>
+            </ul>
+          </div>
 
-        <div>
-          <p className="font-semibold text-white mb-3 uppercase tracking-widest text-xs">Company</p>
-          <ul className="space-y-2">
-            <li><Link href="/why-germany" className="hover:text-white transition-colors">Why Germany</Link></li>
-            <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
-            <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
-          </ul>
-          <div className="flex items-center gap-4 mt-5">
-            <a href="https://www.instagram.com/awesomesorcegroup?igsh=eDNjOHp4MzV5ZWVp&utm_source=qr" aria-label="Instagram" target="_blank" rel="noopener noreferrer"
-              className="text-zinc-500 hover:text-white transition-colors">
-              <IconInstagram />
-            </a>
-            <a href="https://www.tiktok.com/@awesome.source7?_r=1&_t=ZG-96QqACAMrcf" aria-label="TikTok" target="_blank" rel="noopener noreferrer"
-              className="text-zinc-500 hover:text-white transition-colors">
-              <IconTikTok />
-            </a>
-            <a href="http://www.youtube.com/@AwesomeSourceGroup" aria-label="YouTube" target="_blank" rel="noopener noreferrer"
-              className="text-zinc-500 hover:text-white transition-colors">
-              <IconYouTube />
-            </a>
+          <div>
+            <p className="font-semibold mb-4 text-white">Company</p>
+            <ul className="space-y-2.5">
+              <li><Link href="/why-germany" className={linkCls}>Why Germany</Link></li>
+              <li><Link href="/about" className={linkCls}>About us</Link></li>
+              <li><Link href="/contact" className={linkCls}>Contact</Link></li>
+            </ul>
           </div>
         </div>
 
-      </div>
-
-      <div className="border-t border-zinc-800 max-w-6xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-zinc-600 text-xs">
-        <p>© {new Date().getFullYear()} SourceGermany. All rights reserved.</p>
-        <p>Based in Germany · Shipping Worldwide</p>
+        <div className="border-t border-white/10 px-6 sm:px-10 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-white/40 text-xs">
+          <p>© {new Date().getFullYear()} SourceGermany. All rights reserved.</p>
+          <p>Not affiliated with eBay, Kleinanzeigen or DHL. Based in Germany, shipping worldwide.</p>
+        </div>
       </div>
     </footer>
   );

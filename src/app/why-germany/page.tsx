@@ -1,180 +1,88 @@
-import Link from "next/link";
 import Image from "next/image";
 import ScrollReveal from "@/components/ScrollReveal";
+import { CtaBand, PageHeader } from "@/components/Blocks";
 
 export const metadata = {
-  title: "Why German Products — SourceGermany",
-  description: "German engineering, craftsmanship, and quality standards — why the world trusts Made in Germany.",
+  title: "Why buy from Germany | SourceGermany",
+  description: "Why German products, new and used, are worth getting: quality, care and a huge second-hand market.",
 };
-
-const GOLD = "#C9A84C";
 
 const qualities = [
   {
-    num: "01",
-    title: "Precision Engineering",
-    desc: "German manufacturing standards are among the tightest in the world. DIN norms and ISO certifications are baseline requirements, not exceptions. A Festool sander or a Knipex plier is engineered to last decades, not years.",
+    title: "A huge second-hand market",
+    desc: "Millions of private listings on eBay.de and Kleinanzeigen at any time. Cameras, car parts, tools and Hi-Fi often sell for far less than the same thing new in your country.",
+    pull: "The good stuff gets resold, not thrown away.",
+  },
+  {
+    title: "Built to last",
+    desc: "German products are made to tight standards. A KNIPEX plier or a Festool sander is designed to last decades, which is exactly why it is still worth buying used.",
     pull: "Built to a standard, not a deadline.",
   },
   {
-    num: "02",
-    title: "Material Standards",
-    desc: "Germany's strict material sourcing regulations mean products are built from high-grade steel, real leather, and durable composites. What others call \"premium\", Germany calls standard.",
-    pull: "If it carries a German label, the material earned it.",
+    title: "Well looked after",
+    desc: "Many German sellers keep the original box, receipts and manuals, and describe defects honestly. That makes used items easier to trust.",
+    pull: "Original box included, more often than not.",
   },
   {
-    num: "03",
-    title: "Consumer Protection",
-    desc: "German consumer law is some of the strongest globally. Two-year statutory warranty on every product. Strict product liability. If something is sold in Germany, it meets the EU's highest safety standards.",
+    title: "Strong consumer protection",
+    desc: "New items sold in Germany come with a two-year statutory warranty and meet strict EU safety rules.",
     pull: "A two-year warranty isn't a perk. It's the law.",
   },
   {
-    num: "04",
     title: "The Mittelstand",
-    desc: "Germany's economic backbone is its Mittelstand — thousands of family-owned, specialist manufacturers who have spent generations perfecting one product category. You won't find these brands on Amazon Global.",
+    desc: "Thousands of family-owned specialist makers that have spent generations perfecting one product. Many of them don't sell outside Europe.",
     pull: "Generations spent mastering one thing.",
   },
   {
-    num: "05",
-    title: "Design Heritage",
-    desc: "From Braun to Leica to Porsche Design, Germany gave the world functional minimalism. Design that serves the object's purpose — not just marketing.",
-    pull: "Form follows function. Always has.",
-  },
-  {
-    num: "06",
-    title: "Export Prices",
-    desc: "Buying direct from Germany at German retail prices means you often pay less than you would buying the same brand in Singapore, Australia, or Canada.",
-    pull: "Source it where it's made.",
+    title: "German prices",
+    desc: "Buying at German prices, new or used, often costs less than the same brand at home, even after shipping.",
+    pull: "Buy it where it's made.",
   },
 ];
-
 
 export default function WhyGermany() {
   return (
     <div>
-      {/* Hero */}
-      <section className="relative py-24 md:py-32 px-6 bg-zinc-950 text-white overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/why-germany-hero.jpg"
-            alt="German industrial precision engineering"
-            fill
-            sizes="100vw"
-            className="object-cover opacity-20"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/80 to-transparent" />
-        </div>
-        <div className="relative max-w-5xl mx-auto">
-          <p className="font-mono text-xs uppercase tracking-[0.3em] mb-6" style={{ color: GOLD }}>
-            Made in Germany
-          </p>
-          <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none mb-6 max-w-2xl">
-            WHY GERMAN<br />PRODUCTS.
-          </h1>
-          <p className="text-zinc-400 text-lg leading-relaxed max-w-2xl">
-            "Made in Germany" is the most trusted product label in the world — not because of
-            marketing, but because of a century of manufacturing culture built around precision,
-            accountability, and longevity.
-          </p>
+      <PageHeader
+        eyebrow="Why Germany"
+        title={<>Why buy <span className="text-brand">from Germany?</span></>}
+        intro="Germany makes things that last, and Germans tend to resell them instead of throwing them away. That makes it one of the best places in the world to buy, new or second-hand."
+      />
+
+      <section className="px-4 sm:px-6 pb-24">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {qualities.map((q, i) => (
+            <ScrollReveal key={q.title} delay={i * 60}>
+              <div className={`h-full rounded-3xl p-7 border ${i === 0 ? "bg-coral text-white border-coral" : "bg-white border-ink/5"}`}>
+                <span className={`font-display font-extrabold text-lg ${i === 0 ? "text-white/70" : "text-coral"}`}>0{i + 1}</span>
+                <h2 className="mt-2 text-2xl font-bold tracking-tight">{q.title}</h2>
+                <p className={`mt-3 leading-relaxed ${i === 0 ? "text-white/85" : "text-ink/65"}`}>{q.desc}</p>
+                <p className={`mt-5 font-display font-semibold italic ${i === 0 ? "text-white" : "text-brand"}`}>
+                  &ldquo;{q.pull}&rdquo;
+                </p>
+              </div>
+            </ScrollReveal>
+          ))}
         </div>
       </section>
 
-      {/* Editorial qualities */}
-      <section className="bg-white">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="border-t border-zinc-100">
-            {qualities.map((q, i) => (
-              <ScrollReveal key={q.num} delay={i * 60} className="border-b border-zinc-100">
-                <div className="py-14 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
-                  {/* Left: number + title + pull */}
-                  <div className="md:col-span-5">
-                    <span
-                      className="font-mono font-black text-5xl leading-none block mb-4 select-none"
-                      style={{ color: GOLD, opacity: 0.25 }}
-                    >
-                      {q.num}
-                    </span>
-                    <h2 className="text-2xl font-bold tracking-tight mb-4">{q.title}</h2>
-                    <p className="text-base font-semibold text-zinc-500 leading-snug italic">
-                      &ldquo;{q.pull}&rdquo;
-                    </p>
-                  </div>
-                  {/* Right: description */}
-                  <div className="md:col-span-7 md:pt-2">
-                    <p className="text-zinc-500 leading-relaxed">{q.desc}</p>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Full-width image strip */}
-      <section className="relative py-24 md:py-32 overflow-hidden bg-zinc-950">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/why-germany-tools.jpg"
-            alt="Precision German manufacturing"
-            fill
-            sizes="100vw"
-            className="object-cover opacity-30"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/60 to-transparent" />
-        </div>
-        <div className="relative max-w-5xl mx-auto px-6">
-          <ScrollReveal>
-            <p className="font-mono text-xs uppercase tracking-[0.3em] mb-6" style={{ color: GOLD }}>
-              The German Standard
-            </p>
-            <blockquote className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight max-w-2xl text-white">
-              Precision is not a feature.{" "}
-              <span style={{ color: GOLD }}>It&apos;s the baseline.</span>
+      <section className="px-3 sm:px-4">
+        <div className="relative max-w-6xl mx-auto rounded-[2rem] overflow-hidden bg-ink py-24 md:py-32 px-6 sm:px-12">
+          <Image src="/images/why-germany-tools.jpg" alt="Precision German engineering" fill sizes="100vw" className="object-cover opacity-35" />
+          <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/70 to-transparent" />
+          <ScrollReveal className="relative">
+            <blockquote className="text-4xl md:text-5xl lg:text-6xl font-display font-extrabold tracking-tight leading-[1.05] max-w-2xl text-white">
+              Made to last. <span className="text-sun">Worth buying twice.</span>
             </blockquote>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* Pull quote */}
-      <section className="py-20 px-6 bg-zinc-900 text-white">
-        <div className="max-w-5xl mx-auto">
-          <ScrollReveal>
-            <p className="font-mono text-xs uppercase tracking-[0.3em] mb-8 text-zinc-500">
-              On record
-            </p>
-            <blockquote className="text-3xl md:text-4xl font-bold leading-snug tracking-tight">
-              &ldquo;German quality is not a marketing claim.
-              <span style={{ color: GOLD }}> It&apos;s a legal obligation.&rdquo;</span>
-            </blockquote>
-            <p className="mt-6 text-zinc-500 text-sm font-mono">
-              — EU Product Liability Directive, enforced since 1985
-            </p>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-24 px-6 overflow-hidden" style={{ backgroundColor: GOLD }}>
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <ScrollReveal>
-            <h2 className="text-5xl font-black text-black leading-none tracking-tighter">
-              FIND YOUR<br />GERMAN<br />PRODUCT.
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={120} className="flex flex-col gap-5 md:items-end">
-            <p className="text-black/65 text-lg max-w-sm md:text-right">
-              Get a full cost estimate in under a minute — no commitment required.
-            </p>
-            <Link
-              href="/estimator"
-              className="inline-flex items-center px-8 py-4 font-bold bg-black text-white hover:bg-zinc-800 transition-colors text-sm tracking-wide"
-            >
-              Get a Price Estimate →
-            </Link>
-          </ScrollReveal>
-        </div>
-      </section>
+      <CtaBand
+        title="Find your German deal."
+        text="Browse eBay.de or Kleinanzeigen, send us the link, and we'll handle the rest."
+        secondary={{ href: "/second-hand", label: "How second-hand works" }}
+      />
     </div>
   );
 }
