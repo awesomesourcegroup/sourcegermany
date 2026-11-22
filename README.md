@@ -11,7 +11,7 @@ German proxy buying service. Main offer: second-hand items from eBay.de and Klei
 | UI | React 19.2.4 | Server Components by default; `"use client"` only where needed |
 | Styling | Tailwind CSS v4 | No `tailwind.config.js` — configuration lives in `src/app/globals.css` via `@theme` |
 | Email | Resend | Via `RESEND_API_KEY`; used only in `/api/contact` |
-| Fonts | Inter | Loaded via `next/font/google` in `layout.tsx` |
+| Fonts | Bricolage Grotesque (headings) + Inter (body) | Loaded via `next/font/google` in `layout.tsx` |
 | Deployment | Vercel | Standard Next.js output mode |
 
 Installed but largely unused: `shadcn`, `@base-ui/react`, `lucide-react`. The `src/components/ui/` primitives exist but most custom UI is hand-built.
@@ -34,8 +34,8 @@ src/
   components/
     Nav.tsx                 # "use client": floating pill header, also exports <Logo>
     Footer.tsx
-    Blocks.tsx              # Shared: PageHeader, SectionHeading, buttons, CtaBand, Faq, ShippingTable (DHL options live here)
-    ScrollReveal.tsx        # Plain wrapper, no animation
+    Blocks.tsx              # Shared: Eyebrow, PageHeader, buttons, CtaBand, ShippingCards (DHL options live here)
+    ScrollReveal.tsx
 ```
 
 The old cost estimator (`/estimator`, `/api/estimate`, `lib/pricing.ts`) was removed. `/estimator` permanently redirects to `/contact` (see `next.config.ts`). Quotes are now given personally.
@@ -67,10 +67,9 @@ npm run lint     # eslint
 
 ## Design conventions
 
-Deliberately plain: no gradients, glows, floating badges, pill labels, marquees or scroll animations.
-
-- **Tokens** in `src/app/globals.css`: `paper` (off-white background), `paper-deep` (alternate section background), `ink` (text, primary buttons), `brand` (deep green, the only accent) and `brand-soft`. Use as Tailwind classes. No hardcoded hex values in components.
-- **Layout**: sections separated by thin `border-ink/10` lines, lists and tables with dividers instead of cards. Small radii (`rounded-md` buttons, `rounded-lg` images).
-- **Typography**: Inter only, `font-semibold` headings with tight tracking.
-- **Icons**: hand-written inline SVG. No emojis.
-- **Copy**: plain, factual sentences. No slogans, no em dashes or semicolons as prose connectors.
+- **Tokens** live in `src/app/globals.css` (`:root` + `@theme inline`): `paper` (cream background), `ink` (text), `brand` (deep green), `brand-soft`, `coral` (primary CTA), `coral-soft`, `sun` (yellow highlight). Use them as Tailwind classes (`bg-paper`, `text-brand`, `bg-coral`...). No per-file colour constants.
+- **Shapes**: rounded-3xl cards, rounded-full buttons and pills, large rounded dark panels (`rounded-[2rem] bg-ink`).
+- **Typography**: `font-display` (Bricolage Grotesque) for headings, Inter for body. `.scribble` gives a highlighter mark behind a word.
+- **Icons**: hand-written inline SVG in the same file. No emojis.
+- **Images**: `next/image` with `fill` + `sizes` or explicit size.
+- **Copy**: no em dashes or semicolons as prose connectors.

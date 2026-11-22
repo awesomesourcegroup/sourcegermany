@@ -6,7 +6,7 @@ import { PageHeader } from "@/components/Blocks";
 const EMPTY = { name: "", email: "", destination: "", shipping: "not sure", message: "" };
 
 const inputCls =
-  "w-full rounded-md border border-ink/20 bg-white px-3.5 py-2.5 text-base focus:outline-none focus:border-ink transition-colors placeholder:text-ink/35";
+  "w-full rounded-2xl border border-ink/15 bg-paper px-4 py-3 text-base focus:outline-none focus:border-brand focus:bg-white transition-colors placeholder:text-ink/35";
 
 export default function ContactPage() {
   const [form, setForm] = useState(EMPTY);
@@ -35,24 +35,24 @@ export default function ContactPage() {
     <div>
       <PageHeader
         eyebrow="Get a quote"
-        title="Get a quote"
-        intro="Paste a listing from eBay.de, Kleinanzeigen or any German shop. We usually reply within 12 hours with availability and a full quote."
+        title={<>Send us <span className="text-brand">the link.</span></>}
+        intro="Paste a listing from eBay.de, Kleinanzeigen or any German shop. We reply personally, usually within 12 hours, with availability and a full quote."
       />
 
-      <section className="px-5 sm:px-6 py-16 md:py-20">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <section className="px-4 sm:px-6 pb-24">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6">
           {/* Side info */}
-          <aside className="lg:col-span-4 lg:order-2 space-y-8 text-sm">
-            <div>
-              <p className="font-medium">Email</p>
-              <a href="mailto:contact@sourcegermany.com" className="mt-1 block text-brand break-all hover:underline">
+          <aside className="md:col-span-4 space-y-4">
+            <div className="rounded-3xl bg-brand text-white p-7">
+              <p className="font-display font-bold text-xl">Prefer email?</p>
+              <a href="mailto:contact@sourcegermany.com" className="mt-2 block text-sun font-medium break-all hover:underline">
                 contact@sourcegermany.com
               </a>
-              <p className="mt-1 text-ink/55">Monday to Saturday</p>
+              <p className="mt-3 text-sm text-white/70">We answer Monday to Saturday.</p>
             </div>
-            <div>
-              <p className="font-medium">For a faster quote</p>
-              <ul className="mt-2 space-y-1.5 text-ink/65 leading-relaxed">
+            <div className="rounded-3xl bg-white border border-ink/5 p-7">
+              <p className="font-display font-bold text-lg">Tips for a fast quote</p>
+              <ul className="mt-3 space-y-2 text-sm text-ink/70 leading-relaxed">
                 <li>Paste the full link to each listing</li>
                 <li>Tell us your country and postcode</li>
                 <li>Mention anything we should ask the seller</li>
@@ -62,19 +62,19 @@ export default function ContactPage() {
           </aside>
 
           {/* Form */}
-          <div className="lg:col-span-8 lg:order-1">
+          <div className="md:col-span-8 rounded-3xl bg-white border border-ink/5 p-7 md:p-10">
             {status === "success" ? (
               <div className="text-center py-10">
-                <span className="mx-auto w-12 h-12 rounded-full bg-brand-soft text-brand grid place-items-center">
+                <span className="mx-auto w-14 h-14 rounded-full bg-brand-soft text-brand grid place-items-center">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
                 </span>
-                <p className="mt-5 font-semibold text-xl">Thanks, we received your request</p>
+                <p className="mt-5 font-display font-bold text-2xl">Got it, thanks!</p>
                 <p className="mt-2 text-ink/65">We&apos;ll get back to you within 12 hours.</p>
                 <button
                   onClick={() => { setStatus("idle"); setForm(EMPTY); }}
-                  className="mt-6 text-sm font-medium text-brand hover:underline"
+                  className="mt-6 text-sm font-semibold text-brand hover:text-coral"
                 >
                   Send another request
                 </button>
@@ -83,25 +83,25 @@ export default function ContactPage() {
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium mb-1.5">Your name</label>
+                    <label htmlFor="name" className="block text-sm font-semibold mb-1.5">Your name</label>
                     <input id="name" type="text" name="name" value={form.name} onChange={handleChange} placeholder="Your name" className={inputCls} />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium mb-1.5">
-                      Email <span className="text-ink/40">*</span>
+                    <label htmlFor="email" className="block text-sm font-semibold mb-1.5">
+                      Email <span className="text-coral">*</span>
                     </label>
                     <input id="email" type="email" name="email" value={form.email} onChange={handleChange} placeholder="you@email.com" required className={inputCls} />
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label htmlFor="destination" className="block text-sm font-medium mb-1.5">
-                      Ship to (country) <span className="text-ink/40">*</span>
+                    <label htmlFor="destination" className="block text-sm font-semibold mb-1.5">
+                      Ship to (country) <span className="text-coral">*</span>
                     </label>
                     <input id="destination" type="text" name="destination" value={form.destination} onChange={handleChange} placeholder="e.g. Japan, Brazil, Kenya" required className={inputCls} />
                   </div>
                   <div>
-                    <label htmlFor="shipping" className="block text-sm font-medium mb-1.5">Shipping preference</label>
+                    <label htmlFor="shipping" className="block text-sm font-semibold mb-1.5">Shipping preference</label>
                     <select id="shipping" name="shipping" value={form.shipping} onChange={handleChange} className={inputCls}>
                       <option value="not sure">Not sure, show me both</option>
                       <option value="DHL Express">DHL Express (fast)</option>
@@ -110,8 +110,8 @@ export default function ContactPage() {
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium mb-1.5">
-                    Link(s) and details <span className="text-ink/40">*</span>
+                  <label htmlFor="message" className="block text-sm font-semibold mb-1.5">
+                    Link(s) and details <span className="text-coral">*</span>
                   </label>
                   <textarea
                     id="message"
@@ -125,16 +125,16 @@ export default function ContactPage() {
                   />
                 </div>
                 {status === "error" && (
-                  <p className="text-sm text-red-700">
+                  <p className="text-sm text-coral">
                     Something went wrong. Please email us directly at contact@sourcegermany.com
                   </p>
                 )}
                 <button
                   type="submit"
                   disabled={status === "sending"}
-                  className="px-6 py-3 rounded-md bg-ink text-white font-medium hover:bg-brand transition-colors disabled:opacity-60"
+                  className="w-full py-4 rounded-full bg-coral text-white font-semibold hover:bg-ink transition-colors disabled:opacity-60"
                 >
-                  {status === "sending" ? "Sending…" : "Send request"}
+                  {status === "sending" ? "Sending…" : "Send request →"}
                 </button>
               </form>
             )}

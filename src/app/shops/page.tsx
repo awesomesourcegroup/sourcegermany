@@ -59,7 +59,7 @@ function ShopCard({ s }: { s: Store }) {
       href={s.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group h-full flex flex-col rounded-lg bg-white border border-ink/10 hover:border-ink/30 transition-colors overflow-hidden"
+      className="group h-full flex flex-col rounded-3xl bg-white border border-ink/5 hover:border-ink/20 hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(23,25,28,0.08)] transition-all duration-200 overflow-hidden"
     >
       <div className="relative h-20 flex items-center justify-center border-b border-ink/5 px-6">
         {s.logo ? (
@@ -71,16 +71,16 @@ function ShopCard({ s }: { s: Store }) {
             className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
           />
         ) : (
-          <span className="text-xl font-semibold tracking-tight">{s.name}</span>
+          <span className="font-display text-2xl font-extrabold tracking-tight text-brand">{s.name}</span>
         )}
       </div>
       <div className="p-5 flex flex-col flex-1">
         <div className="flex items-start justify-between gap-2">
-          <h3 className="font-medium leading-snug">{s.name}</h3>
-          <span className="text-ink/30 group-hover:text-ink transition-colors text-sm">↗</span>
+          <h3 className="font-semibold leading-snug">{s.name}</h3>
+          <span className="text-ink/30 group-hover:text-coral transition-colors text-sm">↗</span>
         </div>
         {s.tag && (
-          <span className="mt-1 self-start text-xs text-ink/50">
+          <span className="mt-2 self-start rounded-full bg-brand-soft text-brand text-[11px] font-semibold px-2.5 py-0.5">
             {s.tag}
           </span>
         )}
@@ -104,9 +104,9 @@ const shops: {
     id: "second-hand",
     icon: <IconRecycle />,
     note: (
-      <p className="text-sm text-ink/70 border-l-2 border-brand pl-4 py-1 mb-6">
-        Most of our orders come from these two sites. Send us any listing and we deal with the seller,
-        collect the item, check it and ship it to you.
+      <p className="text-sm text-ink/70 bg-coral-soft rounded-2xl px-5 py-4 mb-6">
+        <strong className="text-coral">Our most requested service.</strong> Send us any listing and we deal with the seller in
+        German, collect the item, check it and ship it to you.
       </p>
     ),
     stores: [
@@ -137,7 +137,7 @@ const shops: {
     id: "tools-hardware",
     icon: <IconWrench />,
     note: (
-      <div className="flex items-start gap-2 text-sm text-ink/70 border-l-2 border-ink/20 pl-4 py-1 mb-6">
+      <div className="flex items-start gap-2 text-sm text-ink/80 bg-sun/25 rounded-2xl px-5 py-4 mb-6">
         <IconVoltage />
         <span>
           <strong>Voltage notice:</strong> Germany uses 230V / 50Hz. Check your local mains voltage and frequency before ordering power tools — a transformer or frequency converter may be required.
@@ -162,7 +162,7 @@ const shops: {
     id: "electronics-cameras-audio",
     icon: <IconCamera />,
     note: (
-      <div className="flex items-start gap-2 text-sm text-ink/70 border-l-2 border-ink/20 pl-4 py-1 mb-6">
+      <div className="flex items-start gap-2 text-sm text-ink/80 bg-sun/25 rounded-2xl px-5 py-4 mb-6">
         <IconVoltage />
         <span>
           <strong>Voltage notice:</strong> Germany uses 230V / 50Hz. Check your local mains voltage and frequency before ordering electronics — a transformer or frequency converter may be required.
@@ -212,25 +212,25 @@ export default function ShopsPage() {
     <div>
       <PageHeader
         eyebrow="Where we buy"
-        title="Marketplaces and shops"
-        intro="Most people ask us for second-hand items from eBay.de and Kleinanzeigen. We also buy new from any German online shop. Below are some we know well."
+        title={<>Marketplaces <span className="text-brand">and shops.</span></>}
+        intro="Second-hand from eBay.de and Kleinanzeigen is what most people ask us for. We also buy new from any German online shop. Here are some favourites to get you started."
       >
-        <div className="flex flex-wrap gap-x-6 gap-y-2">
+        <div className="flex flex-wrap gap-2">
           {shops.map((c) => (
-            <a key={c.id} href={`#${c.id}`} className="text-sm text-ink/60 hover:text-ink underline underline-offset-4 decoration-ink/20">
+            <a key={c.id} href={`#${c.id}`} className="rounded-full bg-white border border-ink/10 px-4 py-2 text-sm font-medium hover:border-ink/40 transition-colors">
               {c.category}
             </a>
           ))}
         </div>
       </PageHeader>
 
-      <section className="px-5 sm:px-6 py-16 md:py-20">
+      <section className="px-4 sm:px-6 pb-12">
         <div className="max-w-6xl mx-auto space-y-20">
           {shops.map((cat) => (
             <div key={cat.category} id={cat.id} className="scroll-mt-24">
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b border-ink/10">
-                <span className="text-ink/50">{cat.icon}</span>
-                <h2 className="text-2xl font-semibold tracking-tight">{cat.category}</h2>
+              <div className="flex items-center gap-3 mb-6">
+                <span className="w-10 h-10 rounded-xl bg-ink text-white grid place-items-center">{cat.icon}</span>
+                <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight">{cat.category}</h2>
                 <span className="ml-auto text-sm text-ink/45">{cat.stores.length} {cat.stores.length === 1 ? "site" : "sites"}</span>
               </div>
 
@@ -249,8 +249,8 @@ export default function ShopsPage() {
       </section>
 
       <CtaBand
-        title="Found something?"
-        text="Send us the link, new or used, and we'll reply with a full quote."
+        title="Found something you want?"
+        text="Copy the link, new or used, and send it to us. We'll reply with a full quote."
       />
     </div>
   );
