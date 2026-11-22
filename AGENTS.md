@@ -7,7 +7,7 @@ This project runs **Next.js 16.2.4** with **React 19**. Both have breaking chang
 ## Project-specific conventions
 
 ### Colour
-Brand colours are Tailwind tokens defined in `src/app/globals.css`: `paper`, `paper-deep`, `ink`, `brand`, `brand-soft`. Keep the design plain (see README, Design conventions). Use the classes (`bg-brand`, `text-coral`). Do not hardcode hex values in components. Shared building blocks (PageHeader, SectionHeading, CtaBand, Faq, ShippingTable, buttons) are in `src/components/Blocks.tsx`.
+Brand colours are Tailwind tokens defined in `src/app/globals.css`: `paper`, `paper-deep`, `ink`, `brand`, `brand-soft`. Keep the design plain (see README, Design conventions). Use the classes (`bg-brand`, `text-ink`). Do not hardcode hex values in components. Shared building blocks (PageHeader, SectionHeading, CtaBand, Faq, ShippingTable, buttons) are in `src/components/Blocks.tsx`.
 
 ### Icons
 **No emojis in UI.** All icons are small inline SVG components defined at the top of the file where they're used, e.g.:
