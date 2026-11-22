@@ -27,14 +27,14 @@ const linkCls = "text-white/60 hover:text-white transition-colors";
 
 export default function Footer() {
   return (
-    <footer className="bg-ink text-white px-5 sm:px-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 text-sm">
+    <footer className="px-3 sm:px-4 pb-3">
+      <div className="max-w-6xl mx-auto rounded-[2rem] bg-ink text-white">
+        <div className="px-6 sm:px-10 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 text-sm">
           <div className="lg:col-span-2 max-w-sm">
-            <Logo dark />
+            <Logo />
             <p className="mt-4 text-white/60 leading-relaxed">
-              We buy from German sellers and shops on your behalf, mostly second-hand items from eBay.de and
-              Kleinanzeigen, and ship them to you.
+              Your buyer in Germany. We get you the things German sellers won&apos;t send abroad, from a
+              used camera on Kleinanzeigen to a new tool from a specialist shop, and ship them to any country.
             </p>
             <div className="flex items-center gap-4 mt-6">
               <a href="https://www.instagram.com/awesomesorcegroup?igsh=eDNjOHp4MzV5ZWVp&utm_source=qr" aria-label="Instagram" target="_blank" rel="noopener noreferrer" className={linkCls}>
@@ -50,7 +50,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="font-medium mb-4 text-white">Service</p>
+            <p className="font-semibold mb-4 text-white">Service</p>
             <ul className="space-y-2.5">
               <li><Link href="/second-hand" className={linkCls}>Second-hand from eBay.de and Kleinanzeigen</Link></li>
               <li><Link href="/how-it-works" className={linkCls}>How it works</Link></li>
@@ -60,7 +60,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="font-medium mb-4 text-white">Company</p>
+            <p className="font-semibold mb-4 text-white">Company</p>
             <ul className="space-y-2.5">
               <li><Link href="/why-germany" className={linkCls}>Why Germany</Link></li>
               <li><Link href="/about" className={linkCls}>About us</Link></li>
@@ -69,7 +69,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white/10 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-white/40 text-xs">
+        <div className="border-t border-white/10 px-6 sm:px-10 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-white/40 text-xs">
           <p>© {new Date().getFullYear()} SourceGermany. All rights reserved.</p>
           <p>Not affiliated with eBay, Kleinanzeigen or DHL. Based in Germany, shipping worldwide.</p>
         </div>
