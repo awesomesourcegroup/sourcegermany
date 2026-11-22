@@ -7,7 +7,7 @@ This project runs **Next.js 16.2.4** with **React 19**. Both have breaking chang
 ## Project-specific conventions
 
 ### Colour
-Brand colours are Tailwind tokens defined in `src/app/globals.css`: `paper`, `ink`, `brand`, `brand-soft`, `coral`, `coral-soft`, `sun`. Use the classes (`bg-brand`, `text-coral`). Do not hardcode hex values in components. Shared building blocks (PageHeader, CtaBand, ShippingCards, buttons) are in `src/components/Blocks.tsx`.
+Brand colours are Tailwind tokens defined in `src/app/globals.css`: `paper`, `paper-deep`, `ink`, `brand`, `brand-soft`. Keep the design plain (see README, Design conventions). Use the classes (`bg-brand`, `text-ink`). Do not hardcode hex values in components. Shared building blocks (PageHeader, SectionHeading, CtaBand, Faq, ShippingTable, buttons) are in `src/components/Blocks.tsx`.
 
 ### Icons
 **No emojis in UI.** All icons are small inline SVG components defined at the top of the file where they're used, e.g.:
@@ -24,7 +24,7 @@ const IconWrench = () => (
 `lucide-react` is installed but **not used** — write SVGs by hand. Keep icon components in the same file as their consumers.
 
 ### Server vs client components
-Default to Server Components. Add `"use client"` only when the component needs `useState`, `useEffect`, or browser event handlers. Currently client components: `Nav.tsx`, `ScrollReveal.tsx`, `contact/page.tsx`.
+Default to Server Components. Add `"use client"` only when the component needs `useState`, `useEffect`, or browser event handlers. Currently client components: `Nav.tsx`, `contact/page.tsx`.
 
 ### Tailwind v4
 Configuration is in `src/app/globals.css` via `@theme { ... }`. There is no `tailwind.config.js`. Class names follow Tailwind v4 conventions — verify against `node_modules/tailwindcss/` if uncertain.

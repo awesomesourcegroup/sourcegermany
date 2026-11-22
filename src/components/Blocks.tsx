@@ -2,19 +2,10 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import ScrollReveal from "@/components/ScrollReveal";
 
-/** Small pill label shown above section headings. */
-export function Eyebrow({ children, tone = "brand" }: { children: ReactNode; tone?: "brand" | "coral" | "light" }) {
-  const cls =
-    tone === "coral"
-      ? "bg-coral-soft text-coral"
-      : tone === "light"
-        ? "bg-white/10 text-white"
-        : "bg-brand-soft text-brand";
+/** Small plain label shown above section headings. */
+export function Eyebrow({ children, tone = "dark" }: { children: ReactNode; tone?: "dark" | "light" }) {
   return (
-    <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold ${cls}`}>
-      <span className="w-1.5 h-1.5 rounded-full bg-current" />
-      {children}
-    </span>
+    <p className={`text-sm font-medium ${tone === "light" ? "text-white/60" : "text-brand"}`}>{children}</p>
   );
 }
 
@@ -31,28 +22,12 @@ export function PageHeader({
   children?: ReactNode;
 }) {
   return (
-    <section className="px-4 sm:px-6 pt-14 pb-16 md:pt-20 md:pb-20">
-      <div className="max-w-5xl mx-auto">
-        <div className="hero-in">
-          <Eyebrow>{eyebrow}</Eyebrow>
-        </div>
-        <h1
-          className="hero-in mt-5 text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.05] max-w-3xl"
-          style={{ animationDelay: "0.08s" }}
-        >
-          {title}
-        </h1>
-        <p
-          className="hero-in mt-6 text-lg text-ink/65 leading-relaxed max-w-2xl"
-          style={{ animationDelay: "0.16s" }}
-        >
-          {intro}
-        </p>
-        {children && (
-          <div className="hero-in mt-8" style={{ animationDelay: "0.24s" }}>
-            {children}
-          </div>
-        )}
+    <section className="px-5 sm:px-6 pt-16 pb-14 md:pt-24 md:pb-20 border-b border-ink/10">
+      <div className="max-w-6xl mx-auto">
+        <Eyebrow>{eyebrow}</Eyebrow>
+        <h1 className="mt-3 text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.1] max-w-3xl">{title}</h1>
+        <p className="mt-5 text-lg text-ink/65 leading-relaxed max-w-2xl">{intro}</p>
+        {children && <div className="mt-8">{children}</div>}
       </div>
     </section>
   );
@@ -62,7 +37,7 @@ export function PrimaryButton({ href, children }: { href: string; children: Reac
   return (
     <Link
       href={href}
-      className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-coral text-white font-semibold text-sm hover:bg-ink transition-colors"
+      className="inline-flex items-center px-5 py-3 rounded-md bg-ink text-white font-medium text-sm hover:bg-brand transition-colors"
     >
       {children}
     </Link>
@@ -73,18 +48,29 @@ export function SecondaryButton({ href, children }: { href: string; children: Re
   return (
     <Link
       href={href}
-      className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white text-ink font-semibold text-sm border border-ink/10 hover:border-ink/40 transition-colors"
+      className="inline-flex items-center px-5 py-3 rounded-md text-ink font-medium text-sm border border-ink/20 hover:border-ink/50 transition-colors"
     >
       {children}
     </Link>
   );
 }
 
-/** Closing call-to-action band used at the bottom of pages. */
+/** Section heading block. */
+export function SectionHeading({ eyebrow, title, intro }: { eyebrow?: string; title: ReactNode; intro?: ReactNode }) {
+  return (
+    <div className="max-w-2xl">
+      {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+      <h2 className="mt-2 text-3xl md:text-4xl font-semibold tracking-tight leading-tight">{title}</h2>
+      {intro && <p className="mt-4 text-ink/65 text-lg leading-relaxed">{intro}</p>}
+    </div>
+  );
+}
+
+/** Closing call-to-action at the bottom of pages. */
 export function CtaBand({
   title,
   text,
-  primary = { href: "/contact", label: "Send us the link" },
+  primary = { href: "/contact", label: "Get a quote" },
   secondary,
 }: {
   title: ReactNode;
@@ -93,108 +79,100 @@ export function CtaBand({
   secondary?: { href: string; label: string };
 }) {
   return (
-    <section className="px-3 sm:px-4 py-16">
-      <ScrollReveal className="max-w-6xl mx-auto">
-        <div className="relative overflow-hidden rounded-[2rem] bg-brand text-white px-6 sm:px-12 py-14 md:py-20">
-          <div className="absolute -right-16 -top-16 w-64 h-64 rounded-full bg-sun/25" />
-          <div className="absolute right-24 -bottom-20 w-48 h-48 rounded-full bg-coral/30" />
-          <div className="relative grid grid-cols-1 md:grid-cols-5 gap-8 items-end">
-            <div className="md:col-span-3">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-[1.05]">{title}</h2>
-              <p className="mt-4 text-white/75 text-lg leading-relaxed max-w-lg">{text}</p>
-            </div>
-            <div className="md:col-span-2 flex flex-wrap gap-3 md:justify-end">
-              <Link
-                href={primary.href}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white text-ink font-semibold text-sm hover:bg-sun transition-colors"
-              >
-                {primary.label} <span aria-hidden>→</span>
-              </Link>
-              {secondary && (
-                <Link
-                  href={secondary.href}
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-white/30 text-white font-semibold text-sm hover:bg-white/10 transition-colors"
-                >
-                  {secondary.label}
-                </Link>
-              )}
-            </div>
-          </div>
+    <section className="px-5 sm:px-6 py-20 md:py-24 border-t border-ink/10">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+        <div className="max-w-xl">
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight leading-tight">{title}</h2>
+          <p className="mt-4 text-ink/65 text-lg leading-relaxed">{text}</p>
         </div>
-      </ScrollReveal>
+        <div className="flex flex-wrap gap-3">
+          <PrimaryButton href={primary.href}>{primary.label}</PrimaryButton>
+          {secondary && <SecondaryButton href={secondary.href}>{secondary.label}</SecondaryButton>}
+        </div>
+      </div>
     </section>
   );
 }
 
-/** The two DHL shipping options, shown on home, how-it-works and pricing. */
+/** Question and answer list with dividers. */
+export function Faq({ items }: { items: { q: string; a: string }[] }) {
+  return (
+    <div className="border-t border-ink/10">
+      {items.map((f) => (
+        <details key={f.q} className="group border-b border-ink/10 py-5">
+          <summary className="cursor-pointer list-none flex items-start justify-between gap-6 font-medium text-lg">
+            {f.q}
+            <span className="text-ink/40 text-xl leading-none group-open:rotate-45 transition-transform">+</span>
+          </summary>
+          <p className="mt-3 text-ink/65 leading-relaxed max-w-3xl">{f.a}</p>
+        </details>
+      ))}
+    </div>
+  );
+}
+
+/** The two DHL shipping options. Edit them here, they are shown on several pages. */
 export const shippingOptions = [
   {
     name: "DHL Express",
-    tag: "Fastest",
     speed: "Usually 2 to 6 business days",
-    points: [
-      "Door-to-door express with live tracking",
-      "Duties can be prepaid (DDP) for most countries, so nothing is due at your door",
-      "Best for valuable, urgent or fragile items",
-    ],
+    duties: "Can be prepaid for most countries, nothing to pay on delivery",
+    best: "Valuable, urgent or fragile items",
   },
   {
     name: "DHL Paket International",
-    tag: "Cheapest",
-    speed: "Usually 1 to 4 weeks, depending on country",
-    points: [
-      "Tracked standard parcel at a much lower price",
-      "Import duties, if any, are paid by you on arrival",
-      "Best for bigger, heavier or less urgent orders",
-    ],
+    speed: "Usually 1 to 4 weeks, depending on the country",
+    duties: "Paid by you on arrival, if your country charges any",
+    best: "Larger, heavier or less urgent orders, at a much lower price",
   },
 ];
 
-export function ShippingCards({ dark = false }: { dark?: boolean }) {
+export function ShippingTable() {
+  const rows: { label: string; key: "speed" | "duties" | "best" }[] = [
+    { label: "Delivery time", key: "speed" },
+    { label: "Import duties", key: "duties" },
+    { label: "Good for", key: "best" },
+  ];
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {shippingOptions.map((o, i) => {
-        const highlight = i === 0;
-        return (
-          <ScrollReveal key={o.name} delay={i * 100}>
-            <div
-              className={`h-full rounded-3xl p-7 md:p-8 border ${
-                dark
-                  ? highlight
-                    ? "bg-white text-ink border-white"
-                    : "bg-white/5 text-white border-white/15"
-                  : highlight
-                    ? "bg-white border-ink/10 shadow-[0_8px_30px_rgba(23,25,28,0.06)]"
-                    : "bg-paper-deep/60 border-ink/10"
-              }`}
-            >
-              <div className="flex items-center justify-between gap-3">
-                <h3 className="text-2xl font-bold tracking-tight">{o.name}</h3>
-                <span
-                  className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                    highlight ? "bg-coral text-white" : "bg-sun text-ink"
-                  }`}
-                >
-                  {o.tag}
-                </span>
-              </div>
-              <p className={`mt-2 text-sm font-medium ${dark && !highlight ? "text-white/70" : "text-ink/60"}`}>
-                {o.speed}
-              </p>
-              <ul className="mt-6 space-y-3 text-sm">
-                {o.points.map((p) => (
-                  <li key={p} className="flex gap-3">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={`w-4 h-4 mt-0.5 flex-shrink-0 ${highlight ? "text-coral" : dark ? "text-sun" : "text-brand"}`}>
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    <span className={dark && !highlight ? "text-white/85" : "text-ink/80"}>{p}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </ScrollReveal>
-        );
-      })}
-    </div>
+    <ScrollReveal>
+      {/* Desktop: comparison table */}
+      <table className="hidden md:table w-full text-left border-t border-ink/10">
+        <thead>
+          <tr className="border-b border-ink/10">
+            <th className="py-4 pr-6 w-1/5 font-normal text-sm text-ink/50" />
+            {shippingOptions.map((o) => (
+              <th key={o.name} className="py-4 pr-6 font-semibold text-lg">{o.name}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.key} className="border-b border-ink/10 align-top">
+              <td className="py-4 pr-6 text-sm text-ink/50">{r.label}</td>
+              {shippingOptions.map((o) => (
+                <td key={o.name} className="py-4 pr-6 text-ink/80">{o[r.key]}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* Mobile: stacked */}
+      <div className="md:hidden border-t border-ink/10">
+        {shippingOptions.map((o) => (
+          <div key={o.name} className="py-6 border-b border-ink/10">
+            <p className="font-semibold text-lg">{o.name}</p>
+            <dl className="mt-3 space-y-2 text-sm">
+              {rows.map((r) => (
+                <div key={r.key}>
+                  <dt className="text-ink/50">{r.label}</dt>
+                  <dd className="text-ink/80">{o[r.key]}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        ))}
+      </div>
+    </ScrollReveal>
   );
 }
