@@ -105,7 +105,7 @@ function RecentOrderCard() {
             />
           </div>
           <div>
-            <p className="text-xs text-ink/50">Recent order · November 2026</p>
+            <p className="text-xs text-ink/50">From our recent orders</p>
             <p className="mt-1 font-display font-bold text-lg leading-snug">Three Berlin lithographs</p>
             <p className="mt-1 text-sm text-ink/65 leading-relaxed">
               Brandenburger Tor, Gedächtniskirche and Reichstag. We bought them in Germany for a customer in the
@@ -116,7 +116,7 @@ function RecentOrderCard() {
       </div>
       {/* Stickers */}
       <div className="absolute -right-4 -bottom-10 sm:-right-8 rotate-6 rounded-2xl bg-coral text-white px-4 py-3 shadow-lg">
-        <p className="text-[11px] font-semibold uppercase tracking-wide opacity-80">Real order</p>
+        <p className="text-[11px] font-semibold uppercase tracking-wide opacity-80">Recent orders</p>
         <p className="font-display font-extrabold leading-tight">Shipped to the USA</p>
       </div>
       <div className="absolute -left-4 -top-4 sm:-left-8 -rotate-6 rounded-2xl bg-sun text-ink px-3 py-2 shadow-md">
