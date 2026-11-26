@@ -120,7 +120,7 @@ function RecentOrderCard() {
         <p className="font-display font-extrabold leading-tight">Shipped to the USA</p>
       </div>
       <div className="absolute -left-4 -top-4 sm:-left-8 -rotate-6 rounded-2xl bg-sun text-ink px-3 py-2 shadow-md">
-        <p className="font-display font-bold text-sm">Our own photos ✓</p>
+        <p className="font-display font-bold text-sm">Recent order</p>
       </div>
     </div>
   );
