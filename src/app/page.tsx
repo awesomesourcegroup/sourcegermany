@@ -80,30 +80,47 @@ const pillars = [
   { title: "Fashion & beauty", img: "/images/pillar-fashion.jpg", alt: "German menswear suit", href: "/shops#fashion-lifestyle" },
 ];
 
-function ListingCard() {
+function RecentOrderCard() {
   return (
-    <div className="float-card relative w-full max-w-sm mx-auto">
+    <div className="float-card relative w-full max-w-md mx-auto">
       <div className="rounded-3xl bg-white shadow-[0_24px_60px_rgba(23,25,28,0.14)] overflow-hidden border border-ink/5">
-        <div className="relative h-52 bg-paper-deep">
-          <Image src="/images/hero-leica.jpg" alt="Used rangefinder camera in a listing photo" fill sizes="380px" className="object-cover" priority />
-          <span className="absolute bottom-3 left-3 rounded-full bg-white/95 px-3 py-1 text-xs font-semibold">Gebraucht · sehr gut</span>
+        <div className="relative aspect-[1024/351] bg-paper-deep">
+          <Image
+            src="/images/deal-berlin-prints.jpg"
+            alt="Three Berlin lithographs: Brandenburger Tor, Gedächtniskirche and Reichstag"
+            fill
+            sizes="(max-width: 640px) 90vw, 448px"
+            className="object-cover"
+            priority
+          />
         </div>
-        <div className="p-5">
-          <p className="text-xs text-ink/50">80331 München · vor 2 Std.</p>
-          <p className="mt-1 font-display font-bold text-lg leading-snug">Messsucherkamera, Top-Zustand, mit Objektiv</p>
-          <div className="mt-3 flex items-center justify-between">
-            <p className="font-display font-extrabold text-2xl text-brand">1.850 € VB</p>
-            <span className="rounded-full bg-paper px-3 py-1 text-xs font-medium text-ink/70">Nur Abholung</span>
+        <div className="p-5 flex gap-4">
+          <div className="relative w-28 shrink-0 aspect-[4/3] rounded-xl overflow-hidden bg-paper-deep">
+            <Image
+              src="/images/deal-berlin-parcel.jpg"
+              alt="The order packed in a DHL Express box with its customs form"
+              fill
+              sizes="112px"
+              className="object-cover"
+            />
+          </div>
+          <div>
+            <p className="text-xs text-ink/50">Recent order · November 2026</p>
+            <p className="mt-1 font-display font-bold text-lg leading-snug">Three Berlin lithographs</p>
+            <p className="mt-1 text-sm text-ink/65 leading-relaxed">
+              Brandenburger Tor, Gedächtniskirche and Reichstag. We bought them in Germany for a customer in the
+              USA, packed them and sent them with DHL Express.
+            </p>
           </div>
         </div>
       </div>
-      {/* Sticker */}
-      <div className="absolute -right-4 -bottom-6 sm:-right-8 rotate-6 rounded-2xl bg-coral text-white px-4 py-3 shadow-lg">
-        <p className="text-[11px] font-semibold uppercase tracking-wide opacity-80">SourceGermany</p>
-        <p className="font-display font-extrabold leading-tight">We pick it up<br />and ship it to you</p>
+      {/* Stickers */}
+      <div className="absolute -right-4 -bottom-10 sm:-right-8 rotate-6 rounded-2xl bg-coral text-white px-4 py-3 shadow-lg">
+        <p className="text-[11px] font-semibold uppercase tracking-wide opacity-80">Real order</p>
+        <p className="font-display font-extrabold leading-tight">Shipped to the USA</p>
       </div>
       <div className="absolute -left-4 -top-4 sm:-left-8 -rotate-6 rounded-2xl bg-sun text-ink px-3 py-2 shadow-md">
-        <p className="font-display font-bold text-sm">Seller replied in German ✓</p>
+        <p className="font-display font-bold text-sm">Our own photos ✓</p>
       </div>
     </div>
   );
@@ -143,7 +160,7 @@ export default function Home() {
           </div>
 
           <div className="hero-in px-6 sm:px-10" style={{ animationDelay: "0.2s" }}>
-            <ListingCard />
+            <RecentOrderCard />
           </div>
         </div>
       </section>
